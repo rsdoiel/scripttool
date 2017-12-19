@@ -104,14 +104,23 @@ type HeaderAndFooter struct {
 	HeaderFirstPage string `xml:"HeaderFirstPage,attr,omitempty"`
 	HeaderVisible   string `xml:"HeaderVisible,attr,omitempty"`
 	StartingPage    string `xml:"StartingPage,attr,omitempty"`
+	Header          *Header
+	Footer          *Footer
 }
 
 type Header struct {
 	XMLName xml.Name
+	Nodes   []*interface{}
+}
+
+type DynamicLabel struct {
+	XMLName xml.Name
+	Type    string `xml:"Type,attr"`
 }
 
 type Footer struct {
 	XMLName xml.Name
+	Nodes   []*interface{}
 }
 
 type Text struct {
