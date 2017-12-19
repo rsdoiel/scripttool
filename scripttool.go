@@ -1,5 +1,5 @@
 //
-// scripttools is a package focused on converting to/from different
+// scripttool is a package focused on converting to/from different
 // file formats used in working with scripts,screenplays and other
 // creative writing work.
 //
@@ -35,7 +35,7 @@
 //OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-package scripttools
+package scripttool
 
 import (
 	"encoding/xml"

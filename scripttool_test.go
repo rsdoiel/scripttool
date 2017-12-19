@@ -1,5 +1,5 @@
 //
-// scripttools is a package focused on converting to/from different
+// scripttool is a package focused on converting to/from different
 // file formats used in creative writing (e.g. screenplays) and
 // providing a common tool for analysis for supported formats.
 //
@@ -11,7 +11,7 @@
 // All rights reserved.
 //
 //
-package scripttools
+package scripttool
 
 import (
 	"os"
