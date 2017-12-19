@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<FinalDraft DocumentType="Script" Template="No" Version="1">
+  <Content>
+    <Paragraph Type="Action">
+      <Text>FADE IN:</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>A low slung industrial building in an industrial center.
+The last car leaves the lot. Parking lot lights switch off.</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CROSSFADE TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>INT. OFFICE - NIGHT</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>A PROGRAMMER stares at the screen.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>PROGRAMMER</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(drowsy)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>What algorithm is this?</Text>
+    </Paragraph>
+    <Paragraph Type="Transition">
+      <Text>CUT TO:</Text>
+    </Paragraph>
+    <Paragraph Type="Scene Heading">
+      <Text>EXT. COURTYARD - DAY</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>A programmer lounges by a fountain.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>PROGRAMMER</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(drowsy)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>This is what I remember.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>FADE TO BLACK.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>                       THE END</Text>
+    </Paragraph>
+  </Content>
+  <ElementSettings Type="New Act">
+    <FontSpec Style="Underline+AllCaps"/>
+    <ParagraphSpec Alignment="Center"/>
+  </ElementSettings>
+</FinalDraft>

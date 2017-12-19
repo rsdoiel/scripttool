@@ -25,29 +25,22 @@ var (
 )
 
 func TestConversion(t *testing.T) {
-	for fname, buf := range expectedDocs {
-		fmt.Printf("%s -> %s\n", fname, buf)
+	fname := "testdata/testplay-01.fountain"
+	src, err := ioutil.ReadFile(fname)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s", err)
+		os.Exit(1)
+	}
+	fdx := new(FinalDraft)
+	if err := xml.Unmarshal(src, &fdx); err != nil {
+		t.Errorf("%s", err)
+		t.FailNow()
+	} else {
+		fmt.Fprintf("DEBUG fdx: %+v\n", fdx)
 	}
 }
 
 func TestMain(m *testing.M) {
-	expectedDocs = make(map[string][]byte)
-	fname := "testdata/testplay-01.fountain"
-	buf, err := ioutil.ReadFile(fname)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s", err)
-		os.Exit(1)
-	}
-	expectedDocs[fname] = buf
-
-	fname = "testdata/testplay-01.fdx"
-	buf, err = ioutil.ReadFile(fname)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s", err)
-		os.Exit(1)
-	}
-	expectedDocs[fname] = buf
-
 	// Setup everything, process flags, etc.
 	os.Exit(m.Run())
 }

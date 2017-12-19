@@ -1,10 +1,18 @@
+Title: Testplay-01
+Credit: written by
+Author: R. S. Doiel
+Notes:
 
-.FADE IN
+    This is a test file for scripttool
+
+===
+
+**FADE IN:**
 
 A low slung industrial building in an industrial center. 
-The last car leaves the lot.
+The last car leaves the lot. Parking lot lights switch off.
 
-CUT TO:
+CROSSFADE TO:
 
 INT. OFFICE - NIGHT
 
@@ -12,7 +20,7 @@ A PROGRAMMER stares at the screen.
 
 PROGRAMMER
 (drowsy)
-What was that algorithm?
+What algorithm is this?
 
 CUT TO:
 
@@ -24,4 +32,7 @@ PROGRAMMER
 (drowsy)
 This is what I remember.
 
-> FADE TO BLACK <
+FADE TO BLACK.
+
+> _**THE END**_ <
+

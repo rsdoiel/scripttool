@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<FinalDraft DocumentType="Script" Template="No" Version="1">
+  <Content>
+    <Paragraph Type="Scene Heading">
+      <Text>FADE IN:</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>A PROGRAMMER typing at on old laptop.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>PROGRAMMER</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(excited)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Eureka!</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>FADE TO BLACK.</Text>
+    </Paragraph>
+  </Content>
+  <ElementSettings Type="New Act">
+    <FontSpec Style="Underline+AllCaps"/>
+    <ParagraphSpec Alignment="Center"/>
+  </ElementSettings>
+</FinalDraft>
