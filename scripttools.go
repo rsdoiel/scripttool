@@ -36,3 +36,24 @@
 //OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 package scripttools
+
+import (
+	"encoding/xml"
+	"io"
+)
+
+// Fountain2fdx reads a fountain file and writes a fdx file
+func Fountain2fdx(fountain io.Reader, fdx io.Writer) error {
+}
+
+// Fdx2fountain reads an fdx file and writes a fountain file
+func Fdx2fountain(fdx io.Reader, fountain io.Writer) error {
+}
+
+// Trelby2fountain reads a trelby file and writes a fountain file
+func Trelby2fountain(trelby io.Reader, fountain io.Writer) error {
+}
+
+// Trelby2fdx reads a trelby file and writes an fdx file
+func Trelby2fdx(trelby io.Reader, fdx io.Writer) error {
+}
