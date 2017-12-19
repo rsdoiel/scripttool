@@ -14,29 +14,39 @@
 package scripttool
 
 import (
+	"fmt"
+	"io/ioutil"
 	"os"
 	"testing"
 )
 
 var (
-	fountainDocs map[string][]byte
-	fdxDocs      map[string][]byte
-	pdfDocs      map[string][]byte
+	expectedDocs map[string][]byte
 )
 
-func TestFountain2FDX(t *testing.T) {
-}
-
-func TestFDX2Fountain(t *testing.T) {
+func TestConversion(t *testing.T) {
+	for fname, buf := range expectedDocs {
+		fmt.Printf("%s -> %s\n", fname, buf)
+	}
 }
 
 func TestMain(m *testing.M) {
-	//NOTE: fountain.io website has fountian, fdx and pdf examples
-	// I can also create some of my own from using Trelby as a reference
-	// and generating some test cases that way.
+	expectedDocs = make(map[string][]byte)
+	fname := "testdata/testplay-01.fountain"
+	buf, err := ioutil.ReadFile(fname)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s", err)
+		os.Exit(1)
+	}
+	expectedDocs[fname] = buf
 
-	//FIXME: get the filenames in testdata
-	//FIXME: read the files to fountainTest, fdxTest, pdfTest
+	fname = "testdata/testplay-01.fdx"
+	buf, err = ioutil.ReadFile(fname)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s", err)
+		os.Exit(1)
+	}
+	expectedDocs[fname] = buf
 
 	// Setup everything, process flags, etc.
 	os.Exit(m.Run())
