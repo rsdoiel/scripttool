@@ -14,5 +14,12 @@
 .glide/
 
 # Project ignores
+bin/
+dist/
 testout/
-testdata/Big\ Fish.*
+testdata/Big%20Fish.fdx
+testdata/Big%20Fish.fountain
+testdata/Brick%20&%20Steel.fdx
+testdata/Brick%20&%20Steel.fountain
+testdata/The%20Last%20Birthday%20Card.fdx
+testdata/The%20Last%20Birthday%20Card.fountain

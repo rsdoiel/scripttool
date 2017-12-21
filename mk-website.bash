@@ -25,6 +25,7 @@ if [[ "${1}" != "" ]]; then
 	TITLE="${1}"
 fi
 mkpage "nav=nav.md" "content=markdown:$(cat LICENSE)" page.tmpl >license.html
+git add license.html
 findfile -s ".md" . | while read P; do
 	DNAME=$(dirname "$P")
 	FNAME=$(basename "$P")
