@@ -1,7 +1,7 @@
 //
 // scripttool is a package focused on converting to/from different
 // file formats used in working with scripts,screenplays and other
-// creative writing work.
+// creative writing.
 //
 // @author R. S. Doiel, <rsdoiel@gmail.com>
 //
@@ -35,7 +35,6 @@ package scripttool
 
 import (
 	"encoding/xml"
-	"fmt"
 )
 
 const (
@@ -43,21 +42,20 @@ const (
 )
 
 type FinalDraft struct {
-	XMLName      xml.Name   `json:"-"`
-	DocumentType string     `xml:"DocumentType,attr" json:"type"`
-	Template     string     `xml:"Template,attr" json:"template"`
-	Version      string     `xml:"Version,attr" json:"version"`
-	Content      *Content   `xml:"Content,omitempty"`
-	TitlePage    *TitlePage `xml:"TitlePage,omitempty"`
-	Revisions    *Revisions `xml:"Revisions,omitempty"`
+	XMLName         xml.Name          `json:"-"`
+	DocumentType    string            `xml:",attr" json:"type"`
+	Template        string            `xml:",attr" json:"template"`
+	Version         string            `xml:",attr" json:"version"`
+	Content         Content           `xml:",omitempty"`
+	TitlePage       TitlePage         `xml:",omitempty"`
+	Revisions       Revisions         `xml:",omitempty"`
+	ElementSettings []ElementSettings `xml:",omitempty"`
 
 	/*
-		HanderAndFooter       *HeaderAndFooter       `xml:"HeaderAndFooter"`
 		SpellCheckIgnoreLists *SpellCheckIgnoreLists `xml:"SpellCheckIgnoreLists"`
 		PageLayout            *PageLayout
 		WindowState           *WindowState
 		TextState             *TextState
-		ElementSettings       []*ElementSettings
 		ScriptNoteDefinitions *ScriptNoteDefinitions
 		SmartType             *SmartType
 		MoresAndContinues     *MoresAndContinies
@@ -71,79 +69,131 @@ type FinalDraft struct {
 }
 
 type Content struct {
-	XMLName xml.Name
-	Nodes   []*interface{} `xml:"Paragraph"`
+	XMLName   xml.Name    `json:"-"`
+	Paragraph []Paragraph `xml:",omitempty"`
 }
 
 type Paragraph struct {
-	XMLName       xml.Name
-	Type          string `xml:"Type,attr,omitempty"`
-	Number        string `xml:"Number,attr,omitempty"`
-	Alignment     string `xml:"Alignment,attr,omitempty"`
-	FirstIndent   string `xml:"FirstIndent,attr,omitempty"`
-	Leading       string `xml:"Leading,attr,omitempty"`
-	LeftIndent    string `xml:"LeftIndent,attr,omitempty"`
-	RightIndent   string `xml:"RightIndent,attr,omitempty"`
-	SpaceBefore   string `xml:"SpaceBefore,attr,omitempty"`
-	Spacing       string `xml:"Spacing,attr,omitempty"`
-	StartsNewPage string `xml:"StartsNewPage,attr,omitempty"`
-	Nodes         []*interface{}
+	XMLName         xml.Name
+	Type            string            `xml:",attr,omitempty"`
+	Number          string            `xml:",attr,omitempty"`
+	Alignment       string            `xml:",attr,omitempty"`
+	FirstIndent     string            `xml:",attr,omitempty"`
+	Leading         string            `xml:",attr,omitempty"`
+	LeftIndent      string            `xml:",attr,omitempty"`
+	RightIndent     string            `xml:",attr,omitempty"`
+	SpaceBefore     string            `xml:",attr,omitempty"`
+	Spacing         string            `xml:",attr,omitempty"`
+	StartsNewPage   string            `xml:",attr,omitempty"`
+	SceneProperties []SceneProperties `xml:",omitempty"`
+	DynamicLabel    []DynamicLabel    `xml:",omitempty"`
+	Text            []Text            `xml:",omitempty"`
 }
 
 type SceneProperties struct {
 	XMLName xml.Name
-	Length  string `xml:"Length,attr,omitempty"`
-	Page    string `xml:"Page,attr,omitempty"`
-	Title   string `xml:"Title,attr,omitempty"`
+	Length  string `xml:",attr,omitempty"`
+	Page    string `xml:",attr,omitempty"`
+	Title   string `xml:",attr,omitempty"`
 }
 
 type HeaderAndFooter struct {
 	XMLName         xml.Name
-	FooterFirstPage string `xml:"FooterFirstPage,attr,omitempty"`
-	FooterVisible   string `xml:"FooterVisible,attr,omitempty"`
-	HeaderFirstPage string `xml:"HeaderFirstPage,attr,omitempty"`
-	HeaderVisible   string `xml:"HeaderVisible,attr,omitempty"`
-	StartingPage    string `xml:"StartingPage,attr,omitempty"`
-	Header          *Header
-	Footer          *Footer
+	FooterFirstPage string `xml:",attr,omitempty"`
+	FooterVisible   string `xml:",attr,omitempty"`
+	HeaderFirstPage string `xml:",attr,omitempty"`
+	HeaderVisible   string `xml:",attr,omitempty"`
+	StartingPage    string `xml:",attr,omitempty"`
+	Header          Header `xml:",omitempty"`
+	Footer          Footer `xml:",omitempty"`
 }
 
 type Header struct {
-	XMLName xml.Name
-	Nodes   []*interface{}
+	XMLName   xml.Name
+	Paragraph []Paragraph `xml:",omitempty"`
 }
 
 type DynamicLabel struct {
 	XMLName xml.Name
-	Type    string `xml:"Type,attr"`
+	Type    string `xml:",attr,omitempty"`
 }
 
 type Footer struct {
-	XMLName xml.Name
-	Nodes   []*interface{}
+	XMLName   xml.Name    `json:"-"`
+	Paragraph []Paragraph `xml:",omitempty"`
 }
 
 type Text struct {
 	XMLName        xml.Name `json:"-"`
-	AdornmentStyle string   `xml:"AdornmentStyle,attr,omitempty"`
-	Background     string   `xml:"Background,attr,omitempty"`
-	Color          string   `xml:"Color,attr,omitempty"`
-	Font           string   `xml:"Font,attr,omitempty"`
-	RevisionID     string   `xml:"RevisionID,attr,omitempty"`
-	Size           string   `xml:"Size,attr,omitempty"`
-	Style          string   `xml:"Style,attr,omitempty"`
+	AdornmentStyle string   `xml:",attr,omitempty"`
+	Background     string   `xml:",attr,omitempty"`
+	Color          string   `xml:",attr,omitempty"`
+	Font           string   `xml:",attr,omitempty"`
+	RevisionID     string   `xml:",attr,omitempty"`
+	Size           string   `xml:",attr,omitempty"`
+	Style          string   `xml:",attr,omitempty"`
 	InnerText      string   `xml:",chardata"`
 }
 
-// String prints the raw translation of the XML to struct
-func (doc *DocumentRoot) String() string {
-	return fmt.Sprintf("%+v", doc)
+type TitlePage struct {
+	XMLName         xml.Name        `json:"-"`
+	HeaderAndFooter HeaderAndFooter `xml:",omitempty"`
 }
 
-// Marshal takes a DocumentRoot struct and returns a XML version
-func Marshal(data *DocumentRoot) ([]byte, error) {
+type Revisions struct {
+	XMLName        xml.Name   `json:"-"`
+	ActiveSet      string     `xml:",attr,omitempty"`
+	Location       string     `xml:",attr,omitempty"`
+	RevisionMode   string     `xml:",attr,omitempty"`
+	RevisionsShown string     `xml:",attr,omitempty"`
+	ShowAllMarks   string     `xml:",attr,omitempty"`
+	ShowAllSets    string     `xml:",attr,omitempty"`
+	Revision       []Revision `xml:",omitempty"`
 }
 
-// Unmarshal takes a FDX byte array and turns it into a DcoumentRoot struct
-func Unmarshal(src []byte, data *DocumentRoot) error {
+type Revision struct {
+	Color        string `xml:",attr,omitempty"`
+	FullRevision string `xml:",attr,omitempty"`
+	ID           string `xml:",attr,omitempty"`
+	Mark         string `xml:",attr,omitempty"`
+	Name         string `xml:",attr,omitempty"`
+	Style        string `xml:",attr,omitempty"`
+}
+
+type ElementSettings struct {
+	XMLName       xml.Name      `json:"-"`
+	Type          string        `xml:",attr"`
+	FontSpec      FontSpec      `xml:",omitempty"`
+	ParagraphSpec ParagraphSpec `xml:",omitempty"`
+	Behavior      Behavior      `xml:",omitempty"`
+}
+
+type FontSpec struct {
+	XMLName        xml.Name `json:"-"`
+	AdornmentStyle string   `xml:",attr,omitempty"`
+	Background     string   `xml:",attr,omitempty"`
+	Color          string   `xml:",attr,omitempty"`
+	Font           string   `xml:",attr,omitempty"`
+	RevisionID     string   `xml:",attr,omitempty"`
+	Size           string   `xml:",attr,omitempty"`
+	Style          string   `xml:",attr,omitempty"`
+}
+
+type ParagraphSpec struct {
+	XMLName       xml.Name `json:"-"`
+	Alignment     string   `xml:",attr,omitemty"`
+	FirstIndent   string   `xml:",attr,omitempty"`
+	Leading       string   `xml:",attr,omitempty"`
+	LeftIndent    string   `xml:",attr,omitempty"`
+	RightIndent   string   `xml:",attr,omitempty"`
+	SpaceBefore   string   `xml:",attr,omitempty"`
+	Spacing       string   `xml:",attr,omitempty"`
+	StartsNewPage string   `xml:",attr,omitempty"`
+}
+
+type Behavior struct {
+	XMLName    xml.Name `json:"-"`
+	PaginateAs string   `xml:",attr,omitempty"`
+	ReturnKey  string   `xml:",attr,omitempty"`
+	Shortcut   string   `xml:",attr,omitempty"`
 }
