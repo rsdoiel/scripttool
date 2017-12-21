@@ -40,25 +40,28 @@ import (
 	"os"
 	"path"
 	"testing"
+
+	// My Packages
+	"github.com/rsdoiel/fdx"
 )
 
 var (
 	expectedDocs map[string][]byte
 )
 
-func fdxFile(t *testing.T, fname string) {
+func screenplayFile(t *testing.T, fname string) {
 	src, err := ioutil.ReadFile(fname)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "skipping %s, %s", fname, err)
 		return
 	}
-	fdx := new(FinalDraft)
-	if err := xml.Unmarshal(src, &fdx); err != nil {
+	screenplay := new(fdx.FinalDraft)
+	if err := xml.Unmarshal(src, &screenplay); err != nil {
 		t.Errorf("%s", err)
 		t.FailNow()
 	} else {
 		os.RemoveAll(path.Join("testout", path.Base(fname)))
-		if src2, err := xml.MarshalIndent(fdx, " ", "    "); err != nil {
+		if src2, err := xml.MarshalIndent(screenplay, " ", "    "); err != nil {
 			t.Errorf("%s", err)
 		} else {
 			if err := ioutil.WriteFile(path.Join("testout", path.Base(fname)), src2, 0666); err != nil {
@@ -69,9 +72,9 @@ func fdxFile(t *testing.T, fname string) {
 }
 
 func TestConversion(t *testing.T) {
-	fdxFile(t, "testdata/testplay-01a.fdx")
-	fdxFile(t, "testdata/testplay-01b.fdx")
-	fdxFile(t, "testdata/Big Fish.fdx")
+	screenplayFile(t, "testdata/testplay-01a.fdx")
+	screenplayFile(t, "testdata/testplay-01b.fdx")
+	screenplayFile(t, "testdata/Big Fish.fdx")
 }
 
 func TestMain(m *testing.M) {
