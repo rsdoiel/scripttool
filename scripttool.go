@@ -33,8 +33,43 @@
 //
 package scripttool
 
-import ()
+import (
+	"encoding/xml"
+	"io"
+	"io/ioutil"
+
+	// My packages
+	"github.com/rsdoiel/fdx"
+)
 
 const (
 	Version = `v0.0.0-dev`
 )
+
+func getTitlePageContent(titlePage fdx.TitlePage) map[string]string {
+	m := map[string]string{}
+
+	return m
+}
+
+// Fdx2fountain converts the an input buffer from .fdx to
+// a .fountain formatted output buffer.
+func Fdx2fountain(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+
+	screenplay := new(fdx.FinalDraft)
+	err = xml.Unmarshal(src, &screenplay)
+	if err != nil {
+		return err
+	}
+
+	// See if we have a title page and write it out.
+	if screenplay.TitlePage != nil {
+
+	}
+
+	return nil
+}
