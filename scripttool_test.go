@@ -57,7 +57,7 @@ func fdxFile(t *testing.T, fname string) {
 		t.Errorf("%s", err)
 		t.FailNow()
 	} else {
-		//fmt.Fprintf(os.Stdout, "DEBUG fdx: %+v\n", fdx)
+		os.RemoveAll(path.Join("testout", path.Base(fname)))
 		if src2, err := xml.MarshalIndent(fdx, " ", "    "); err != nil {
 			t.Errorf("%s", err)
 		} else {
