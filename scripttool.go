@@ -35,8 +35,10 @@ package scripttool
 
 import (
 	"encoding/xml"
+	"fmt"
 	"io"
 	"io/ioutil"
+	"strings"
 
 	// My packages
 	"github.com/rsdoiel/fdx"
@@ -46,15 +48,9 @@ const (
 	Version = `v0.0.0-dev`
 )
 
-func getTitlePageContent(titlePage fdx.TitlePage) map[string]string {
-	m := map[string]string{}
-
-	return m
-}
-
-// Fdx2fountain converts the an input buffer from .fdx to
+// Fdx2Fountain converts the an input buffer from .fdx to
 // a .fountain formatted output buffer.
-func Fdx2fountain(in io.Reader, out io.Writer) error {
+func Fdx2Fountain(in io.Reader, out io.Writer) error {
 	src, err := ioutil.ReadAll(in)
 	if err != nil {
 		return err
@@ -65,11 +61,62 @@ func Fdx2fountain(in io.Reader, out io.Writer) error {
 	if err != nil {
 		return err
 	}
-
-	// See if we have a title page and write it out.
+	// FIXME: See if we have a title page
 	if screenplay.TitlePage != nil {
-
+		fmt.Println("DEBUG we have a title page!")
+		m := screenplay.TitlePageAsMap()
+		if val, ok := m["Title"]; ok == true {
+			fmt.Fprintf(out, "Title:\n")
+			for _, line := range strings.Split(val, "\n") {
+				fmt.Fprintln(out, "  %s\n", line)
+			}
+		}
+		if val, ok := m["Credit"]; ok == true {
+			fmt.Fprintf(out, "Credit: ")
+			for _, line := range strings.Split(val, "\n") {
+				fmt.Fprintln(out, "  %s\n", line)
+			}
+		}
+		if val, ok := m["Author"]; ok == true {
+			fmt.Fprintf(out, "Author: ")
+			for _, line := range strings.Split(val, "\n") {
+				fmt.Fprintln(out, "  %s\n", line)
+			}
+		}
+		if val, ok := m["Source"]; ok == true {
+			fmt.Fprintf(out, "Source: ")
+			for _, line := range strings.Split(val, "\n") {
+				fmt.Fprintln(out, "  %s\n", line)
+			}
+		}
+		if val, ok := m["Draft date"]; ok == true {
+			fmt.Fprintf(out, "Draft date: ")
+			for _, line := range strings.Split(val, "\n") {
+				fmt.Fprintln(out, "  %s\n", line)
+			}
+		}
+		if val, ok := m["Contact"]; ok == true {
+			fmt.Fprintf(out, "Contact:\n")
+			for _, line := range strings.Split(val, "\n") {
+				fmt.Fprintln(out, "  %s\n", line)
+			}
+		}
+		if len(m) > 0 {
+			// Add the implicit page marker as two blank lines.
+			fmt.Fprintln(out, "\n\n")
+		}
 	}
-
+	if screenplay.Content != nil {
+		fmt.Println("DEBUG we have screenplay content!")
+	}
 	return nil
+}
+
+func Fountain2Fdx(in io.Reader, out io.Writer) error {
+	return fmt.Errorf("Fountain2Fdx() not implemented")
+}
+
+func Characters(in io.Reader, out io.Writer) error {
+	fmt.Println("DEBUG in Characters, returning error!")
+	return fmt.Errorf("Characters() not implemented!")
 }

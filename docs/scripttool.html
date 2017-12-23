@@ -11,7 +11,7 @@
 <section>
 <h1>USAGE</h1>
 
-<pre><code>scripttool [OPTIONS] ACTION [ACTION PARAMTERS]
+<pre><code>scripttool [OPTIONS] [ACTION] [ACTION PARAMETERS...]
 </code></pre>
 
 <h2>SYNOPSIS</h2>
@@ -21,11 +21,23 @@
 
 <h2>OPTIONS</h2>
 
+<p>Options are shared between all actions and must precede the action on the command line.</p>
+
 <pre><code>    -examples                 display examples
     -generate-markdown-docs   generate Markdown documentation
     -h, -help                 display help
+    -i, -input                set input filename
     -l, -license              display license
+    -o, -output               set output filename
+    -quiet                    suppress error messages
     -v, -version              display version
+</code></pre>
+
+<h2>ACTIONS</h2>
+
+<pre><code>    characters     list the characters in screenplay
+    fdx2fountain   converts fdx to fountain
+    fountain2fdx   converts fountain to fdx
 </code></pre>
 
 <h2>EXAMPLES</h2>
@@ -34,6 +46,8 @@
 
 <pre><code> scripttool fdx2fountain screenplay.fdx screenplay.fountain
 </code></pre>
+
+<p>Related: <a href="characters.html">characters</a>, <a href="fdx2fountain.html">fdx2fountain</a>, <a href="fountain2fdx.html">fountain2fdx</a></p>
 
 <p>scripttool v0.0.0-dev</p>
 

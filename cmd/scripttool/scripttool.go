@@ -30,6 +30,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
 
 	// Caltech Library packages
@@ -47,9 +48,23 @@ scripttool a command line program for working with screenplay file formats
 `
 
 	examples = `
-Convert a *screenplay.fdx* to *screenplay.fountain*
+Converting *screenplay.fdx* to *screenplay.fountain* (2 examples) 
 
-     scripttool fdx2fountain screenplay.fdx screenplay.fountain
+    scripttool fdx2fountain screenplay.fdx screenplay.fountain
+	scripttool -i screenplay.fdx -o screenplay.fountain fdx2fountain
+
+Converting *screenplay.fountain* to *screenplay.fdx* (2 examples)
+
+    scripttool fountain2fdx screenplay.fountain screenplay.fdx
+	scripttool -i screenplay.fountain -o screenplay.fdx fountain2fdx
+
+Listing characters in *screenplay.fountain* or in *screenplay.fdx*.
+(2 examples each)
+
+	scripttool characters screenplay.fountain
+	scripttool -i screenplay.fountain characters
+	scripttool characters screenplay.fdx
+	scripttool -i screenplay.fdx characters
 `
 
 	license = `
@@ -88,12 +103,39 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	showVersion          bool
 	showExamples         bool
 	generateMarkdownDocs bool
+	inputFName           string
+	outputFName          string
+	quiet                bool
 )
+
+func onError(eout io.Writer, err error) int {
+	if err != nil {
+		if quiet == false {
+			fmt.Fprintf(eout, "%s\n", err)
+		}
+		return 1
+	}
+	return 0
+}
+
+func doFdx2Fountain(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
+	return onError(eout, scripttool.Fdx2Fountain(in, out))
+}
+
+func doFountain2fdx(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
+	return onError(eout, scripttool.Fountain2Fdx(in, out))
+}
+
+func doCharacters(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
+	err := scripttool.Characters(in, out)
+	fmt.Fprintf(os.Stdout, "DEBUG Error value is %+v\n", err)
+	return onError(eout, err)
+}
 
 func main() {
 	app := cli.NewCli(scripttool.Version)
 	appName := app.AppName()
-	app.AddParams("ACTION", "[ACTION PARAMTERS]")
+	app.AddParams("ACTION", "[ACTION PARAMETERS]")
 	app.AddHelp("description", []byte(description))
 	app.AddHelp("examples", []byte(examples))
 	app.AddHelp("license", []byte(fmt.Sprintf(license, appName, scripttool.Version)))
@@ -102,6 +144,13 @@ func main() {
 	app.BoolVar(&showLicense, "l,license", false, "display license")
 	app.BoolVar(&showExamples, "examples", false, "display examples")
 	app.BoolVar(&generateMarkdownDocs, "generate-markdown-docs", false, "generate Markdown documentation")
+	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
+	app.StringVar(&inputFName, "i,input", "", "set input filename")
+	app.StringVar(&outputFName, "o,output", "", "set output filename")
+
+	app.AddAction("fdx2fountain", doFdx2Fountain, "converts fdx to fountain")
+	app.AddAction("fountain2fdx", doFountain2fdx, "converts fountain to fdx")
+	app.AddAction("characters", doCharacters, "list the characters in screenplay")
 
 	// Parse environment and command line
 	if err := app.Parse(); err != nil {
@@ -131,5 +180,49 @@ func main() {
 		os.Exit(0)
 	}
 
+	// Map verb phrases to standard options
+	var verb string
+
+	switch app.Verb(args) {
+	case "fdx2fountain":
+		if inputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			inputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+		if outputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			outputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+	case "fount2fdx":
+		if inputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			inputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+		if outputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			outputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+	case "characters":
+		if inputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			inputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+	}
+
+	// Setup IO
+	var err error
+
+	app.Eout = os.Stderr
+	app.In, err = cli.Open(inputFName, os.Stdin)
+	cli.ExitOnError(app.Eout, err, quiet)
+	app.Out, err = cli.Create(outputFName, os.Stdout)
+	cli.ExitOnError(app.Eout, err, quiet)
+
+	// Run our program
 	os.Exit(app.Run(args))
 }

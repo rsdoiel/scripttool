@@ -5,11 +5,23 @@
 
 ## Next
 
-+ write fountain2fdx
-+ write fdx2fountain
++ [ ] fountain2fdx (Fountain to Final Draft XML)
++ [ ] fountain2osf (Fountain to Open Screenplay Format 2.x)
++ [ ] fdx2fountain (build on fdx2txt in [fdx](https://github.com/rsdoiel/fdx), handle TitlePage better)
++ [ ] fdx2osf (Final Draft XML to Open Screenplay Format 2.x XML)
++ [ ] osf2fdx (Open Screenplay Format 2.x XML to Final Draft XML)
++ [ ] osf2fountain (Open Screenplay Format 2.x XML to Fountain)
 
 ## Someday, Maybe
 
-+ write fdx2trelby
-+ write trelby2fdx
-+ write trelby2fountain
++ [ ] fdx2trelby
++ [ ] trelby2fdx
++ [ ] trelby2fountain
++ [ ] trelby2osf
+
+## Reference Links
+
++ [Fountain](https://fountain.io)
++ [Open Screenplay Format 2.0](https://sourceforge.net/projects/openscrfmt/)
++ [Open Screenplay Format 2.1](https://github.com/severdia/Open-Screenplay-Format)
+
