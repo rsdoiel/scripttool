@@ -49,10 +49,14 @@ var (
 	expectedDocs map[string][]byte
 )
 
-func screenplayFile(t *testing.T, fname string) {
-	src, err := ioutil.ReadFile(fname)
+func screenplayFile(t *testing.T, dir, fname string) {
+	src, err := ioutil.ReadFile(path.Join(dir, fname))
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "skipping %s, %s", fname, err)
+		if fname == "Big%20Fish.fdx" {
+			fmt.Fprintf(os.Stderr, "Skipping %s\n", fname)
+		} else {
+			fmt.Fprintf(os.Stderr, "Skipping %s, %s\n", fname, err)
+		}
 		return
 	}
 	screenplay := new(fdx.FinalDraft)
@@ -72,9 +76,9 @@ func screenplayFile(t *testing.T, fname string) {
 }
 
 func TestConversion(t *testing.T) {
-	screenplayFile(t, "testdata/testplay-01a.fdx")
-	screenplayFile(t, "testdata/testplay-01b.fdx")
-	screenplayFile(t, "testdata/Big Fish.fdx")
+	screenplayFile(t, "testdata", "testplay-01a.fdx")
+	screenplayFile(t, "testdata", "testplay-01b.fdx")
+	screenplayFile(t, "testdata", "Big%20Fish.fdx")
 }
 
 func TestMain(m *testing.M) {
