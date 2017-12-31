@@ -40,33 +40,95 @@ import (
 
 	// My packages
 	"github.com/rsdoiel/fdx"
+	"github.com/rsdoiel/fountain"
+	"github.com/rsdoiel/osf"
 )
 
 const (
-	Version = `v0.0.0-dev`
+	Version = `v0.0.1-dev`
 )
 
-// Fdx2Fountain converts the an input buffer from .fdx to
-// a .fountain formatted output buffer.
-func Fdx2Fountain(in io.Reader, out io.Writer) error {
+// FdxToFountain converts the an input buffer from .fdx to a .fountain format.
+func FdxToFountain(in io.Reader, out io.Writer) error {
 	src, err := ioutil.ReadAll(in)
 	if err != nil {
 		return err
 	}
 
-	screenplay, err := fdx.Parse(src)
+	document, err := fdx.Parse(src)
 	if err != nil {
 		return err
 	}
-	fmt.Fprintf(out, "%s", screenplay.String())
+	fmt.Fprintf(out, "%s", document.String())
 	return nil
 }
 
-func Fountain2Fdx(in io.Reader, out io.Writer) error {
-	return fmt.Errorf("Fountain2Fdx() not implemented")
+// OSFToFountain converts the input buffer from .osf or .fadein to .fountain format.
+func OSFToFountain(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := osf.Parse(src)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(out, "%s", document.String())
+	return nil
 }
 
-func Characters(in io.Reader, out io.Writer) error {
-	fmt.Println("DEBUG in Characters, returning error!")
-	return fmt.Errorf("Characters() not implemented!")
+// Fountain2Fountain reads a input buffer as .fountain and pretty prints output as .fountain
+func FountainToFountain(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := fountain.Parse(src)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(out, "%s", document.String())
+	return nil
+}
+
+// Fountain2Fdx converts an input buffer in .fountain format to output buffer in .fdx
+func FountainToFdx(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := fountain.Parse(src)
+	if err != nil {
+		return err
+	}
+	newDoc, err := fountainToFdx(document)
+	if err != nil {
+	}
+	fmt.Fprintf(out, "%s", newDoc.String())
+	return nil
+}
+
+// FountainToOSF converts an input buffer in .fountain format to output buffer in .osf
+func FountainToOSF(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := fountain.Parse(src)
+	if err != nil {
+		return err
+	}
+	newDoc, err := fountainToOSF(document)
+	if err != nil {
+	}
+	fmt.Fprintf(out, "%s", newDoc.String())
+	return nil
+}
+
+// CharacterList lists character in a screenplay
+func CharacterList(in io.Reader, out io.Writer) error {
+	// What format do we have?
+	// Convert to Fountain
+	// collect character names
+	return fmt.Errorf("CharacterList(in, out) error, not implemented")
 }

@@ -118,18 +118,24 @@ func onError(eout io.Writer, err error) int {
 	return 0
 }
 
-func doFdx2Fountain(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
-	return onError(eout, scripttool.Fdx2Fountain(in, out))
+func doFdxToFountain(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
+	return onError(eout, scripttool.FdxToFountain(in, out))
 }
 
-func doFountain2fdx(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
-	return onError(eout, scripttool.Fountain2Fdx(in, out))
+func doFountainToFdx(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
+	return onError(eout, scripttool.FountainToFdx(in, out))
+}
+
+func doOSFToFountain(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
+	return onError(eout, scripttool.OSFToFountain(in, out))
+}
+
+func doFountainToOSF(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
+	return onError(eout, scripttool.FountainToOSF(in, out))
 }
 
 func doCharacters(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
-	err := scripttool.Characters(in, out)
-	fmt.Fprintf(os.Stdout, "DEBUG Error value is %+v\n", err)
-	return onError(eout, err)
+	return onError(eout, scripttool.CharacterList(in, out))
 }
 
 func main() {
@@ -148,9 +154,11 @@ func main() {
 	app.StringVar(&inputFName, "i,input", "", "set input filename")
 	app.StringVar(&outputFName, "o,output", "", "set output filename")
 
-	app.AddAction("fdx2fountain", doFdx2Fountain, "converts fdx to fountain")
-	app.AddAction("fountain2fdx", doFountain2fdx, "converts fountain to fdx")
-	app.AddAction("characters", doCharacters, "list the characters in screenplay")
+	app.AddAction("fdx2fountain", doFdxToFountain, "convert .fdx to .fountain")
+	app.AddAction("osf2fountain", doOSFToFountain, "convert .osf/.fadein to .fountain")
+	app.AddAction("fountain2fdx", doFountainToFdx, "convert .fountain to .fdx")
+	app.AddAction("fountain2osf", doFountainToOSF, "convert .fountain to .osf")
+	app.AddAction("characters", doCharacters, "list characters in a screenplay")
 
 	// Parse environment and command line
 	if err := app.Parse(); err != nil {
@@ -195,7 +203,29 @@ func main() {
 			outputFName, args = cli.ShiftArg(args)
 			args = cli.UnshiftArg(verb, args)
 		}
-	case "fount2fdx":
+	case "fountain2fdx":
+		if inputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			inputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+		if outputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			outputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+	case "osf2fountain":
+		if inputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			inputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+		if outputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			outputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+	case "fountain2osf":
 		if inputFName == "" && len(args) > 1 {
 			verb, args = cli.ShiftArg(args)
 			inputFName, args = cli.ShiftArg(args)
