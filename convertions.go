@@ -34,7 +34,6 @@
 package scripttool
 
 import (
-	"fmt"
 
 	// My packages
 	"github.com/rsdoiel/fdx"
@@ -47,15 +46,16 @@ import (
 //
 
 // fountainToOSF takes a Fountain struct and returns a osf.OpenScreenplay struct
-func fountainToOSF(document *fountain.Fountain) (*osf.OpenScreenplay, error) {
+func fountainToOSF(document *fountain.Fountain) *osf.OpenScreenplay {
 	screenplay := new(osf.OpenScreenplay)
-	//FIXME: implement the translation from Fountain struct to OSF struct
-	return screenplay, fmt.Errorf("FountainToOSF() not implemented")
+	screenplay.Version = "2.0"
+	screenplay.FromFountain(document)
+	return screenplay
 }
 
 // fountainToFdx takes a Fountain struct and returns a fdx.FinalDraft struct
-func fountainToFdx(document *fountain.Fountain) (*fdx.FinalDraft, error) {
+func fountainToFdx(document *fountain.Fountain) *fdx.FinalDraft {
 	screenplay := new(fdx.FinalDraft)
-	//FIXME: implement the translation from Fountain struct to FinalDraft struct
-	return screenplay, fmt.Errorf("FountainToFdx() not implemented")
+	screenplay.FromFountain(document)
+	return screenplay
 }

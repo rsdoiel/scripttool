@@ -101,10 +101,12 @@ func FountainToFdx(in io.Reader, out io.Writer) error {
 	if err != nil {
 		return err
 	}
-	newDoc, err := fountainToFdx(document)
+	newDoc := fountainToFdx(document)
+	src, err = newDoc.ToXML()
 	if err != nil {
+		return err
 	}
-	fmt.Fprintf(out, "%s", newDoc.String())
+	fmt.Fprintf(out, "%s", src)
 	return nil
 }
 
@@ -118,10 +120,12 @@ func FountainToOSF(in io.Reader, out io.Writer) error {
 	if err != nil {
 		return err
 	}
-	newDoc, err := fountainToOSF(document)
+	newDoc := fountainToOSF(document)
+	src, err = newDoc.ToXML()
 	if err != nil {
+		return err
 	}
-	fmt.Fprintf(out, "%s", newDoc.String())
+	fmt.Fprintf(out, "%s", src)
 	return nil
 }
 

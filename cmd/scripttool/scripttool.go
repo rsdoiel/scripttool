@@ -106,6 +106,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	inputFName           string
 	outputFName          string
 	quiet                bool
+	newLine              bool
 )
 
 func onError(eout io.Writer, err error) int {
@@ -153,6 +154,7 @@ func main() {
 	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
 	app.StringVar(&inputFName, "i,input", "", "set input filename")
 	app.StringVar(&outputFName, "o,output", "", "set output filename")
+	app.BoolVar(&newLine, "nl,newline", true, "add a trailing newline to output")
 
 	app.AddAction("fdx2fountain", doFdxToFountain, "convert .fdx to .fountain")
 	app.AddAction("osf2fountain", doOSFToFountain, "convert .osf/.fadein to .fountain")
@@ -254,5 +256,11 @@ func main() {
 	cli.ExitOnError(app.Eout, err, quiet)
 
 	// Run our program
-	os.Exit(app.Run(args))
+	exitCode := app.Run(args)
+
+	// Add a trailing newLine if set
+	if newLine {
+		fmt.Fprintln(app.Out, "")
+	}
+	os.Exit(exitCode)
 }
