@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<document type="Open Screenplay Format document" version="12">
+<info contact="" copyright="Copyright (c)" drafts="First Draft" pagecount="1" title="Untitled Screenplay" title_format="&lt;u&gt;" written_by="Written by"/>
+<settings cont_text="(cont'd)" continued_text="CONTINUED" dialogue_continues="true" margin_bottom="220" margin_left="317" margin_right="317" margin_top="317" more_text="(MORE)" normal_linesperinch="6.0" omitted_text="OMITTED" page_height="2794" page_numbering="true" page_width="2159" pagenumber_first="true" pagenumber_format="#." pagenumber_start="1" pages_locked="false" revision="0" scene_numbering="false" scenes_locked="false" show_revisions="true"/>
+<styles><style builtin="1" builtin_index="0" font="Courier Screenplay" label="Normal Text" name="Normal Text" size="12"/><style basestylename="Normal Text" builtin="1" builtin_index="1" effects="65537" font="Courier Screenplay" keepwithnext="1" label="Scene Heading" name="Scene Heading" size="12" spacebefore="2" style_enter="Action"/><style basestylename="Normal Text" builtin="1" builtin_index="2" effects="131072" font="Courier Screenplay" label="Action" name="Action" size="12" spacebefore="1" style_tab="Character"/><style basestylename="Normal Text" builtin="1" builtin_index="3" effects="262145" font="Courier Screenplay" keepwithnext="1" label="Character" leftindent="685" name="Character" size="12" spacebefore="1" style_enter="Dialogue" style_tab="Action"/><style basestylename="Normal Text" builtin="1" builtin_index="4" effects="524288" font="Courier Screenplay" keepwithnext="1" label="Parenthetical" leftindent="558" name="Parenthetical" rightindent="508" size="12" style_enter="Dialogue" style_tab="Dialogue"/><style basestylename="Normal Text" builtin="1" builtin_index="5" effects="1048576" font="Courier Screenplay" label="Dialogue" leftindent="381" name="Dialogue" rightindent="254" size="12" style_enter="Action" style_tab="Parenthetical"/><style align="right" basestylename="Normal Text" builtin="1" builtin_index="6" effects="2097153" font="Courier Screenplay" label="Transition" name="Transition" size="12" spacebefore="1" style_enter="Scene Heading"/><style basestylename="Normal Text" builtin="1" builtin_index="7" effects="4194305" font="Courier Screenplay" keepwithnext="1" label="Shot" name="Shot" size="12" spacebefore="1" style_enter="Action"/></styles>
+<paragraphs>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>&lt;b&gt;&lt;br&gt;&lt;/b&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>&lt;b&gt;&lt;br&gt;&lt;/b&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>&lt;b&gt;&lt;br&gt;&lt;/b&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>&lt;b&gt;&lt;br&gt;&lt;/b&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>&lt;b&gt;&lt;br&gt;&lt;/b&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>&lt;b&gt;Troubled Sleep&lt;/b&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>&lt;b&gt;&lt;br&gt;&lt;/b&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>&lt;b&gt;&lt;br&gt;&lt;/b&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>&lt;b&gt;&lt;br&gt;&lt;/b&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>Written By</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>&lt;br&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>Jane Doe</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>2018-01-01</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>&lt;br&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text"/>
+<text>&lt;br&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text"/>
+<text>&lt;br&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text"/>
+<text>&lt;br&gt;</text>
+</para>
+<para>
+<style basestylename="Normal Text"/>
+<text>ACME Examples Production</text>
+</para>
+<para>
+<style basestylename="Normal Text"/>
+<text>1234 5th Avenue</text>
+</para>
+<para>
+<style basestylename="Normal Text"/>
+<text>Anytown, Planet Earth, 91350</text>
+</para>
+<para>
+<style basestylename="Scene Heading"/>
+<text>Ext. APARTMENT - DAY</text>
+</para>
+<para>
+<style basestylename="Action"/>
+<text>AUTHOR wakes standing on the stoop in pajamas head against door.</text>
+</para>
+<para>
+<style basestylename="Character"/>
+<text>Author</text>
+</para>
+<para>
+<style basestylename="Parenthetical"/>
+<text>concern, to self</text>
+</para>
+<para>
+<style basestylename="Dialogue"/>
+<text>Snap, sleep walking again.</text>
+</para>
+<para>
+<style basestylename="Transition"/>
+<text>Cut to:</text>
+</para>
+<para>
+<style basestylename="Scene Heading"/>
+<text>Ext. Park - day</text>
+</para>
+<para>
+<style basestylename="Action"/>
+<text>Author is jogging, checking her fitness watch. Small DOG approaches and speaks to her in a human voice.</text>
+</para>
+<para>
+<style basestylename="Character"/>
+<text>Dog</text>
+</para>
+<para>
+<style basestylename="Dialogue"/>
+<text>It's not the watch or the jog. You haven't woken up yet.</text>
+</para>
+<para>
+<style basestylename="Transition"/>
+<text>Fade to black.</text>
+</para>
+<para>
+<style basestylename="Normal Text" align="center"/>
+<text>THE END.</text>
+</para>
+<para>
+<style basestylename="Scene Heading"/>
+<text>
+</text>
+</para>
+</paragraphs>
+<spelling language="en_US"><user_dictionary/></spelling>
+<lists>
+<characters>
+<character name="Author"/>
+<character name="Dog"/>
+</characters>
+<locations>
+<location name="APPARTMENT"/>
+<location name="Park"/>
+</locations>
+<scene_intros>
+<scene_intro name="INT."/>
+<scene_intro name="EXT."/>
+<scene_intro name="INT./EXT."/>
+</scene_intros>
+<scene_times>
+<scene_time name="DAY"/>
+<scene_time name="NIGHT"/>
+<scene_time name="MORNING"/>
+<scene_time name="AFTERNOON"/>
+<scene_time name="EVENING"/>
+<scene_time name="LATER"/>
+<scene_time name="MOMENTS LATER"/>
+<scene_time name="CONTINUOUS"/>
+<scene_time name="THE NEXT DAY"/>
+</scene_times>
+<extensions>
+<extension name="(V.O.)"/>
+<extension name="(O.S.)"/>
+<extension name="(O.C.)"/>
+<extension name="(SUBTITLE)"/>
+</extensions>
+<transitions>
+<transition name="CUT TO:"/>
+<transition name="FADE IN:"/>
+<transition name="FADE OUT"/>
+<transition name="FADE TO:"/>
+<transition name="DISSOLVE TO:"/>
+<transition name="BACK TO:"/>
+<transition name="MATCH CUT TO:"/>
+<transition name="JUMP CUT TO:"/>
+<transition name="FADE TO BLACK"/>
+</transitions>
+<revision_colors>
+<revision_color name="White"/>
+<revision_color name="Blue"/>
+<revision_color name="Pink"/>
+<revision_color name="Yellow"/>
+<revision_color name="Green"/>
+<revision_color name="Goldenrod"/>
+<revision_color name="Buff"/>
+<revision_color name="Salmon"/>
+<revision_color name="Cherry"/>
+<revision_color name="Tan"/>
+</revision_colors>
+</lists>
+</document>
