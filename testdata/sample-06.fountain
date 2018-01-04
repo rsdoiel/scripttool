@@ -1,15 +1,11 @@
-Title:
->_**SAMPLE 06**_<
-Credit:
->Written by<
-Author:
->Jane Doe<
+Title: SAMPLE 06
+Author: Jane Doe
 Draft date: 2018-01-01
-
+Copyright: Copyright (c) 2018
 Contact:
-ACME Examples Production
-1234 5th Avenue
-Anytown, Planet Earth, 012345-1234
+	ACME Examples Production
+	1234 5th Avenue
+	Anytown, Planet Earth, 012345-1234
 
 
 INT. STUDIO APARTMENT - NIGHT
@@ -27,7 +23,7 @@ EXT. PARK - DAY
 Author is jogging. DOG runs up to her and speaks in a human voice.
 
 DOG
-Bark! Bark! Roof! Your not blocked. You're trying to write the story from the wrong chacacter's viewpoint.
+Bark! Bark! Roof! Your not blocked. You're trying to write the story from the wrong character's viewpoint.
 
 AUTHOR
 (disbelief)
@@ -35,7 +31,6 @@ But you spoke?
 
 DOG
 That goes without saying, better run along before you loose your cardio moment.
-
 ===
 
 INT. STUDIO APARTMENT - NEXT DAY
@@ -46,6 +41,7 @@ AUTHOR
 (refreshed)
 Shall we try?
 
-FADE TO BLACK.
+> FADE TO BLACK.
 
->THE END.<
+!>THE END.<
+

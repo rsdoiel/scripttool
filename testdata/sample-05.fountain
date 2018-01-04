@@ -1,15 +1,11 @@
-Title:
-
-_**Troubled Sleep**_
-
-Credit: Written By
+Title: Troubled Sleep
 Author: Jane Doe
 Draft date: 2018-01-01
-
+Copyright: Copyright (c) 2018
 Contact:
-ACME Examples Production
-1234 5th Avenue
-Anytown, Planet Earth, 12345-7890
+	ACME Examples Production
+	1234 5th Avenue
+	Anytown, Planet Earth, 12345-7890
 
 
 EXT. APARTMENT - DAY
@@ -29,6 +25,7 @@ Author is jogging, checking her fitness watch. Small DOG approaches and speaks t
 DOG
 It's not the watch or the jog. You haven't woken up yet.
 
-FADE TO BLACK.
+> FADE TO BLACK.
 
->THE END.<
+!>THE END.<
+
