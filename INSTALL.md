@@ -58,7 +58,7 @@ zip file.
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
-    stnparse -version
+    scripttool -version
 ```
 
 ### Windows
@@ -77,7 +77,7 @@ downloading the zip file.
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
-    stnparse -version
+    scripttool -version
 ```
 
 
@@ -97,7 +97,7 @@ downloading the zip file.
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
-    stnparse -version
+    scripttool -version
 ```
 
 
@@ -119,7 +119,7 @@ downloading the zip file.
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
-    stnparse -version
+    scripttool -version
 ```
 
 
