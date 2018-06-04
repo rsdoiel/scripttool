@@ -31,6 +31,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
 
 	// Caltech Library packages
@@ -157,10 +158,13 @@ func main() {
 	app.BoolVar(&newLine, "nl,newline", true, "add a trailing newline to output")
 
 	app.AddAction("fdx2fountain", doFdxToFountain, "convert .fdx to .fountain")
-	app.AddAction("osf2fountain", doOSFToFountain, "convert .osf/.fadein to .fountain")
+	app.AddAction("osf2fountain", doOSFToFountain, "convert .osf to .fountain")
 	app.AddAction("fountain2fdx", doFountainToFdx, "convert .fountain to .fdx")
 	app.AddAction("fountain2osf", doFountainToOSF, "convert .fountain to .osf")
 	app.AddAction("characters", doCharacters, "list characters in a screenplay")
+
+	app.AddVerb("fadein2fountain", "convert .fadein to .fountain")
+	app.AddVerb("fountain2fadein", "convert .fountain to .fadein")
 
 	// Parse environment and command line
 	if err := app.Parse(); err != nil {
@@ -191,7 +195,11 @@ func main() {
 	}
 
 	// Map verb phrases to standard options
-	var verb string
+	var (
+		verb             string
+		fadeInToFountain bool
+		fountainToFadeIn bool
+	)
 
 	switch app.Verb(args) {
 	case "fdx2fountain":
@@ -215,6 +223,36 @@ func main() {
 			verb, args = cli.ShiftArg(args)
 			outputFName, args = cli.ShiftArg(args)
 			args = cli.UnshiftArg(verb, args)
+		}
+	case "fadein2fountain":
+		fadeInToFountain = true
+		if inputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			inputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+		if outputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			outputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+		if inputFName == "" {
+			log.Fatal("Missing FadeIn input filename")
+		}
+	case "fountain2fadein":
+		fountainToFadeIn = true
+		if inputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			inputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+		if outputFName == "" && len(args) > 1 {
+			verb, args = cli.ShiftArg(args)
+			outputFName, args = cli.ShiftArg(args)
+			args = cli.UnshiftArg(verb, args)
+		}
+		if outputFName == "" {
+			log.Fatal("Missing FadeIn output filename")
 		}
 	case "osf2fountain":
 		if inputFName == "" && len(args) > 1 {
@@ -250,6 +288,28 @@ func main() {
 	var err error
 
 	app.Eout = os.Stderr
+
+	if fadeInToFountain {
+		app.Out, err = cli.Create(outputFName, os.Stdout)
+		cli.ExitOnError(app.Eout, err, quiet)
+		err = scripttool.FadeInToFountain(inputFName, app.Out)
+		cli.ExitOnError(app.Eout, err, quiet)
+		if newLine {
+			fmt.Fprintln(app.Out, "")
+		}
+		os.Exit(0)
+	}
+	if fountainToFadeIn {
+		app.In, err = cli.Open(inputFName, os.Stdin)
+		cli.ExitOnError(app.Eout, err, quiet)
+		err = scripttool.FountainToFadeIn(app.In, outputFName)
+		cli.ExitOnError(app.Eout, err, quiet)
+		if newLine {
+			fmt.Fprintln(app.Out, "")
+		}
+		os.Exit(0)
+	}
+
 	app.In, err = cli.Open(inputFName, os.Stdin)
 	cli.ExitOnError(app.Eout, err, quiet)
 	app.Out, err = cli.Create(outputFName, os.Stdout)

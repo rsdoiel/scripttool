@@ -34,6 +34,8 @@
 package scripttool
 
 import (
+	"archive/zip"
+	"bytes"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -63,7 +65,7 @@ func FdxToFountain(in io.Reader, out io.Writer) error {
 	return nil
 }
 
-// OSFToFountain converts the input buffer from .osf or .fadein to .fountain format.
+// OSFToFountain converts the input buffer from .osf to .fountain format.
 func OSFToFountain(in io.Reader, out io.Writer) error {
 	src, err := ioutil.ReadAll(in)
 	if err != nil {
@@ -126,6 +128,66 @@ func FountainToOSF(in io.Reader, out io.Writer) error {
 		return err
 	}
 	fmt.Fprintf(out, "%s", src)
+	return nil
+}
+
+// FadeInToFountain converts the input buffer from .fadein to .fountain format.
+func FadeInToFountain(inputFName string, out io.Writer) error {
+	// NOTE: Need to unzip, extract document.xml then pass the source
+	// of document.xml to osf.Parse()
+	r, err := zip.OpenReader(inputFName)
+	if err != nil {
+		return err
+	}
+	defer r.Close()
+	src := []byte{}
+	for _, f := range r.File {
+		if f.Name == "document.xml" {
+			rc, err := f.Open()
+			if err != nil {
+				return err
+			}
+			src, err = ioutil.ReadAll(rc)
+			if err != nil {
+				return err
+			}
+			rc.Close()
+			break
+		}
+	}
+	document, err := osf.Parse(src)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(out, "%s", document.String())
+	return nil
+}
+
+// FountainToFadeIn converts an input buffer in .fountain format to output buffer in .fadein
+func FountainToFadeIn(in io.Reader, outFName string) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := fountain.Parse(src)
+	if err != nil {
+		return err
+	}
+	newDoc := fountainToOSF(document)
+	src, err = newDoc.ToXML()
+	if err != nil {
+		return err
+	}
+	buf := new(bytes.Buffer)
+	w := zip.NewWriter(buf)
+	f, err := w.Create("document.xml")
+	if err != nil {
+		return err
+	}
+	_, err = f.Write(src)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
