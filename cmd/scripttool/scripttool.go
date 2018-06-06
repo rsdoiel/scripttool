@@ -300,9 +300,14 @@ func main() {
 		os.Exit(0)
 	}
 	if fountainToFadeIn {
+		if inputFName != "" {
+			log.Printf("Reading %s", inputFName)
+		}
 		app.In, err = cli.Open(inputFName, os.Stdin)
 		cli.ExitOnError(app.Eout, err, quiet)
+		log.Printf("Writing %s", outputFName)
 		err = scripttool.FountainToFadeIn(app.In, outputFName)
+		log.Printf("DEBUG Error: %s", err)
 		cli.ExitOnError(app.Eout, err, quiet)
 		os.Exit(0)
 	}

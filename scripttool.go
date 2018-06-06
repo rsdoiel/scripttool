@@ -169,25 +169,32 @@ func FountainToFadeIn(in io.Reader, outFName string) error {
 	if err != nil {
 		return err
 	}
+	log.Printf("DEBUG parsing fountain src")
 	document, err := fountain.Parse(src)
 	if err != nil {
 		return err
 	}
+	log.Printf("DEBUG converting to OSF")
 	newDoc := fountainToOSF(document)
 	src, err = newDoc.ToXML()
 	if err != nil {
 		return err
 	}
+	//FIXME: How do we set the Zipfile's name?
+	log.Printf("DEBUG Creating FadeIn zip")
 	buf := new(bytes.Buffer)
 	w := zip.NewWriter(buf)
+	log.Printf("DEBUG Creating document.xml in zip")
 	f, err := w.Create("document.xml")
 	if err != nil {
 		return err
 	}
+	log.Printf("DEBUG Writing document.xml to zip")
 	_, err = f.Write(src)
 	if err != nil {
 		return err
 	}
+	w.Close()
 	return nil
 }
 
