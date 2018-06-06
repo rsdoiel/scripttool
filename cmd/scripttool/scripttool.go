@@ -304,9 +304,6 @@ func main() {
 		cli.ExitOnError(app.Eout, err, quiet)
 		err = scripttool.FountainToFadeIn(app.In, outputFName)
 		cli.ExitOnError(app.Eout, err, quiet)
-		if newLine {
-			fmt.Fprintln(app.Out, "")
-		}
 		os.Exit(0)
 	}
 
