@@ -14,6 +14,7 @@
 
 ## Someday, Maybe
 
++ [ ] PDF generation from various formats
 + [ ] write and fountain2html, fdx2html, osf2html, fadein2html using [scrippets](https://fountain.io/scrippets) approach
 + [ ] Create a fountain text to speach script reader
     + [ ] Should support configuration for assigning voices to different characters
