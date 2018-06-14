@@ -14,6 +14,9 @@
 
 ## Someday, Maybe
 
++ [ ] write and fountain2html, fdx2html, osf2html, fadein2html using [scrippets](https://fountain.io/scrippets) approach
++ [ ] Create a fountain text to speach script reader
+    + [ ] Should support configuration for assigning voices to different characters
 + [ ] pdf generation from any supported format
 + [ ] fountain2trelby
 + [ ] osf2trelby
@@ -28,4 +31,6 @@
 + [Fountain](https://fountain.io)
 + [Open Screenplay Format 2.0](https://sourceforge.net/projects/openscrfmt/)
 + [Open Screenplay Format 2.1](https://github.com/severdia/Open-Screenplay-Format)
++ [Screenbox HTML and CSS](https://johnaugust.com/2004/screenbox) is some CSS for marking up HTML classes hand presenting a script section in an HTML page
++ [scrippets Wordpress Plugin](https://wordpress.org/plugins/wp-scrippets/), scrippets.org website appears gone.
 
