@@ -206,3 +206,10 @@ func CharacterList(in io.Reader, out io.Writer) error {
 	// collect character names
 	return fmt.Errorf("CharacterList(in, out) error, not implemented")
 }
+
+// Fountain2HTML takes a fountain script and formats it in
+// the fountain scrippets HTML markup that can be used
+// with the scrippets CSS, see https://fountain.io/scrippets
+// and https://johnaugust.com/2004/screenbox.
+// FIXME: Write wrapping function and add appropriate writer
+// method to fountain package.
