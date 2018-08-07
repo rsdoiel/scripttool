@@ -43,29 +43,41 @@ import (
 )
 
 var (
+	synopsis = `_scripttool_ a program for converting between screenplay formats (e.g. .fdx, .fadein, .fountain)`
+
 	description = `
-scripttool a command line program for working with screenplay file formats
-(e.g. fdx, fountain).
+_scripttool_ converts screen play file formats. Supported formats
+include FileDraft's XML format, FadeIn's zipped XML format,
+Fountain formatted plain text as the Open Screenplay Format
+XML documents. The command line program is based on a Go package
+also called scripttool. The Go package and be compiled to a
+shared library and integrated with Python via the ctypes package.
 `
 
 	examples = `
-Converting *screenplay.fdx* to *screenplay.fountain* (2 examples) 
+Converting *screenplay.fdx* to *screenplay.fountain* (2 examples)
 
+` + "```" + `
     scripttool fdx2fountain screenplay.fdx screenplay.fountain
-	scripttool -i screenplay.fdx -o screenplay.fountain fdx2fountain
+    scripttool -i screenplay.fdx -o screenplay.fountain fdx2fountain
+` + "```" + `
 
 Converting *screenplay.fountain* to *screenplay.fdx* (2 examples)
 
+` + "```" + `
     scripttool fountain2fdx screenplay.fountain screenplay.fdx
-	scripttool -i screenplay.fountain -o screenplay.fdx fountain2fdx
+    scripttool -i screenplay.fountain -o screenplay.fdx fountain2fdx
+` + "```" + `
 
 Listing characters in *screenplay.fountain* or in *screenplay.fdx*.
 (2 examples each)
 
-	scripttool characters screenplay.fountain
-	scripttool -i screenplay.fountain characters
-	scripttool characters screenplay.fdx
-	scripttool -i screenplay.fdx characters
+` + "```" + `
+    scripttool characters screenplay.fountain
+    scripttool -i screenplay.fountain characters
+    scripttool characters screenplay.fdx
+    scripttool -i screenplay.fdx characters
+` + "```" + `
 `
 
 	license = `
@@ -104,6 +116,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	showVersion          bool
 	showExamples         bool
 	generateMarkdownDocs bool
+	generateManPage      bool
 	inputFName           string
 	outputFName          string
 	quiet                bool
@@ -144,6 +157,7 @@ func main() {
 	app := cli.NewCli(scripttool.Version)
 	appName := app.AppName()
 	app.AddParams("ACTION", "[ACTION PARAMETERS]")
+	app.AddHelp("synopsis", []byte(synopsis))
 	app.AddHelp("description", []byte(description))
 	app.AddHelp("examples", []byte(examples))
 	app.AddHelp("license", []byte(fmt.Sprintf(license, appName, scripttool.Version)))
@@ -152,6 +166,7 @@ func main() {
 	app.BoolVar(&showLicense, "l,license", false, "display license")
 	app.BoolVar(&showExamples, "examples", false, "display examples")
 	app.BoolVar(&generateMarkdownDocs, "generate-markdown-docs", false, "generate Markdown documentation")
+	app.BoolVar(&generateManPage, "generate-manpage", false, "generate man page")
 	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
 	app.StringVar(&inputFName, "i,input", "", "set input filename")
 	app.StringVar(&outputFName, "o,output", "", "set output filename")
@@ -175,6 +190,10 @@ func main() {
 
 	if generateMarkdownDocs {
 		app.GenerateMarkdownDocs(os.Stdout)
+		os.Exit(0)
+	}
+	if generateManPage {
+		app.GenerateManPage(os.Stdout)
 		os.Exit(0)
 	}
 	if showHelp || showExamples {
