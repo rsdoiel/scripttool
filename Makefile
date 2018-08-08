@@ -20,9 +20,14 @@ build:
 test:
 	go test
 
+man: build
+	mkdir -p man/man1
+	bin/scripttool -generate-manpage | nroff -Tutf8 -man > man/man1/scripttool.1
+
 clean: 
 	if [ -d bin ]; then rm -fR bin; fi
 	if [ -d dist ]; then rm -fR dist; fi
+	if [ -d man ]; then rm -fR man; fi
 
 install:
 	env GOBIN=$(HOME)/bin go install cmd/scripttool/scripttool.go
