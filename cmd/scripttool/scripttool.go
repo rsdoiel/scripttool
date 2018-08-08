@@ -111,16 +111,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 `
 
 	// Standard Options
-	showHelp             bool
-	showLicense          bool
-	showVersion          bool
-	showExamples         bool
-	generateMarkdownDocs bool
-	generateManPage      bool
-	inputFName           string
-	outputFName          string
-	quiet                bool
-	newLine              bool
+	showHelp         bool
+	showLicense      bool
+	showVersion      bool
+	showExamples     bool
+	generateMarkdown bool
+	generateManPage  bool
+	inputFName       string
+	outputFName      string
+	quiet            bool
+	newLine          bool
 )
 
 func onError(eout io.Writer, err error) int {
@@ -165,7 +165,7 @@ func main() {
 	app.BoolVar(&showVersion, "v,version", false, "display version")
 	app.BoolVar(&showLicense, "l,license", false, "display license")
 	app.BoolVar(&showExamples, "examples", false, "display examples")
-	app.BoolVar(&generateMarkdownDocs, "generate-markdown-docs", false, "generate Markdown documentation")
+	app.BoolVar(&generateMarkdown, "generate-markdown", false, "generate Markdown documentation")
 	app.BoolVar(&generateManPage, "generate-manpage", false, "generate man page")
 	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
 	app.StringVar(&inputFName, "i,input", "", "set input filename")
@@ -188,8 +188,8 @@ func main() {
 	}
 	args := app.Args()
 
-	if generateMarkdownDocs {
-		app.GenerateMarkdownDocs(os.Stdout)
+	if generateMarkdown {
+		app.GenerateMarkdown(os.Stdout)
 		os.Exit(0)
 	}
 	if generateManPage {
