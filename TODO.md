@@ -11,6 +11,17 @@
 + [ ] fdx2osf (Final Draft XML to Open Screenplay Format 1.2,2.0 XML)
 + [ ] osf2fdx (Open Screenplay Format 1.2,2.0 XML to Final Draft XML)
 + [ ] osf2fountain (Open Screenplay Format 1.2,2.0 XML to Fountain)
++ [ ] edit (simple line oriented editor with colorization for Fountain/Markdown)
+    + auto-convert to/fountain on open
+    + auto-convert from fountain to origin version on save
+    + timed-autosave
+    + backup original files
++ [ ] headings - report the headings as a outline
++ [ ] scenes  - report the number of scenes, order and estimate time
++ [ ] lines - report line count
++ [ ] words - report word count
++ [ ] character - report character count
++ [ ] outline (OPML) to scenes/chapters
 
 ## Someday, Maybe
 
@@ -18,7 +29,6 @@
 + [ ] write and fountain2html, fdx2html, osf2html, fadein2html using [scrippets](https://fountain.io/scrippets) approach
 + [ ] Create a fountain text to speach script reader
     + [ ] Should support configuration for assigning voices to different characters
-+ [ ] pdf generation from any supported format
 + [ ] fountain2trelby
 + [ ] osf2trelby
 + [ ] fdx2trelby
