@@ -38,7 +38,6 @@ import (
 	"github.com/caltechlibrary/cli"
 
 	// My packages
-	//"github.com/rsdoiel/fdx"
 	"github.com/rsdoiel/scripttool"
 )
 
