@@ -3,6 +3,9 @@
 
 ## Bugs
 
++ [ ] Convert cli.Action to cli.Verb in cmd/scripttool/scripttool.go
+
+
 ## Next
 
 + [ ] fountain2fdx (Fountain to Final Draft XML)
