@@ -25,7 +25,7 @@ Convert from *screenplay.fountain* to *screenplay.osf*
 
 ## Script Reports
 
-List the characters in *screenplay.fdx*
+This is still in the planning stage. List the characters in *screenplay.fdx*
 
 ```shell
     scripttool characters screenplay.fdx
