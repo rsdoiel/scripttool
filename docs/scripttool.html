@@ -11,45 +11,57 @@
 <section>
 <h1>USAGE</h1>
 
-<pre><code>scripttool [OPTIONS] [ACTION] [ACTION PARAMETERS...]
+<pre><code>scripttool [OPTIONS] VERB [VERB PARAMETERS]
 </code></pre>
 
 <h2>SYNOPSIS</h2>
 
-<p>scripttool a command line program for working with screenplay file formats
-(e.g. fdx, fountain).</p>
+<p><em>scripttool</em> a program for converting between screenplay formats (e.g. .fdx, .fadein, .fountain)</p>
+
+<h2>DESCRIPTION</h2>
+
+<p><em>scripttool</em> converts screen play file formats. Supported formats include FileDraft&rsquo;s XML format, FadeIn&rsquo;s zipped XML format, Fountain formatted plain text as the Open Screenplay Format XML documents. The command line program is based on a Go package also called scripttool. The Go package can be compiled to a shared library and integrated with Python via the ctypes package.</p>
 
 <h2>OPTIONS</h2>
 
-<p>Options are shared between all actions and must precede the action on the command line.</p>
+<p>Below are a set of options available.</p>
 
-<pre><code>    -examples                 display examples
-    -generate-markdown-docs   generate Markdown documentation
-    -h, -help                 display help
-    -i, -input                set input filename
-    -l, -license              display license
-    -o, -output               set output filename
-    -quiet                    suppress error messages
-    -v, -version              display version
-</code></pre>
-
-<h2>ACTIONS</h2>
-
-<pre><code>    characters     list the characters in screenplay
-    fdx2fountain   converts fdx to fountain
-    fountain2fdx   converts fountain to fdx
+<pre><code>    -examples            display examples
+    -generate-manpage    generate man page
+    -generate-markdown   generate Markdown documentation
+    -h, -help            display help
+    -i, -input           set input filename
+    -l, -license         display license
+    -nl, -newline        add a trailing newline to output
+    -o, -output          set output filename
+    -quiet               suppress error messages
+    -v, -version         display version
 </code></pre>
 
 <h2>EXAMPLES</h2>
 
-<p>Convert a <em>screenplay.fdx</em> to <em>screenplay.fountain</em></p>
+<p>Converting <em>screenplay.fdx</em> to <em>screenplay.fountain</em> (2 examples)</p>
 
-<pre><code> scripttool fdx2fountain screenplay.fdx screenplay.fountain
+<pre><code>    scripttool fdx2fountain screenplay.fdx screenplay.fountain
+    scripttool -i screenplay.fdx -o screenplay.fountain fdx2fountain
 </code></pre>
 
-<p>Related: <a href="characters.html">characters</a>, <a href="fdx2fountain.html">fdx2fountain</a>, <a href="fountain2fdx.html">fountain2fdx</a></p>
+<p>Converting <em>screenplay.fountain</em> to <em>screenplay.fdx</em> (2 examples)</p>
 
-<p>scripttool v0.0.0-dev</p>
+<pre><code>    scripttool fountain2fdx screenplay.fountain screenplay.fdx
+    scripttool -i screenplay.fountain -o screenplay.fdx fountain2fdx
+</code></pre>
+
+<p>Listing characters in <em>screenplay.fountain</em> or in <em>screenplay.fdx</em>.
+(2 examples each)</p>
+
+<pre><code>    scripttool characters screenplay.fountain
+    scripttool -i screenplay.fountain characters
+    scripttool characters screenplay.fdx
+    scripttool -i screenplay.fdx characters
+</code></pre>
+
+<p>scripttool v0.0.3</p>
 
 </section>
 <nav>
