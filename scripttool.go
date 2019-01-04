@@ -39,7 +39,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 
 	// My packages
 	"github.com/rsdoiel/fdx"
