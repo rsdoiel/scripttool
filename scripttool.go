@@ -47,7 +47,7 @@ import (
 )
 
 const (
-	Version = `v0.0.2`
+	Version = `v0.0.3`
 )
 
 // FdxToFountain converts the an input buffer from .fdx to a .fountain format.

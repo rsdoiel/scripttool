@@ -44,14 +44,7 @@ import (
 var (
 	synopsis = `_scripttool_ a program for converting between screenplay formats (e.g. .fdx, .fadein, .fountain)`
 
-	description = `
-_scripttool_ converts screen play file formats. Supported formats
-include FileDraft's XML format, FadeIn's zipped XML format,
-Fountain formatted plain text as the Open Screenplay Format
-XML documents. The command line program is based on a Go package
-also called scripttool. The Go package and be compiled to a
-shared library and integrated with Python via the ctypes package.
-`
+	description = `_scripttool_ converts screen play file formats. Supported formats include FileDraft's XML format, FadeIn's zipped XML format, Fountain formatted plain text as the Open Screenplay Format XML documents. The command line program is based on a Go package also called scripttool. The Go package can be compiled to a shared library and integrated with Python via the ctypes package.  `
 
 	examples = `
 Converting *screenplay.fdx* to *screenplay.fountain* (2 examples)
