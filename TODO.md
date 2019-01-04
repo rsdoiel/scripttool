@@ -3,17 +3,18 @@
 
 ## Bugs
 
-+ [ ] Convert cli.Action to cli.Verb in cmd/scripttool/scripttool.go
++ [x] Convert cli.Action to cli.Verb in cmd/scripttool/scripttool.go
 
 
 ## Next
 
-+ [ ] fountain2fdx (Fountain to Final Draft XML)
-+ [ ] fountain2osf (Fountain to Open Screenplay Format 1.2,2.0)
-+ [ ] fdx2fountain (build on fdx2txt in [fdx](https://github.com/rsdoiel/fdx), handle TitlePage better)
-+ [ ] fdx2osf (Final Draft XML to Open Screenplay Format 1.2,2.0 XML)
-+ [ ] osf2fdx (Open Screenplay Format 1.2,2.0 XML to Final Draft XML)
-+ [ ] osf2fountain (Open Screenplay Format 1.2,2.0 XML to Fountain)
++ [x] fountain2fdx (Fountain to Final Draft XML)
++ [x] fountain2osf (Fountain to Open Screenplay Format 1.2,2.0)
++ [x] fdx2fountain (build on fdx2txt in [fdx](https://github.com/rsdoiel/fdx), handle TitlePage better)
++ [x] fdx2osf (Final Draft XML to Open Screenplay Format 1.2,2.0 XML)
++ [x] osf2fdx (Open Screenplay Format 1.2,2.0 XML to Final Draft XML)
++ [x] osf2fountain (Open Screenplay Format 1.2,2.0 XML to Fountain) 
++ [x] fountain2fadein, fadein2fountain
 + [ ] edit (simple line oriented editor with colorization for Fountain/Markdown)
     + auto-convert to/fountain on open
     + auto-convert from fountain to origin version on save
