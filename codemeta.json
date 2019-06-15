@@ -12,13 +12,11 @@
             "@type": "Person",
             "givenName": "Robert",
             "familyName": "Doiel",
-            "affiliation": "Caltech Library",
             "email": "rsdoiel@gmail.com",
             "@id": "https://orcid.org/0000-0003-0900-6903"
         }
     ],
     "developmentStatus": "active",
-    "downloadUrl": "https://github.com/rsdoiel/scripttool/archive/v0.0.4.zip",
     "keywords": [
         "Github",
         "text markup",
