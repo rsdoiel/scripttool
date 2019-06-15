@@ -7,7 +7,7 @@
 //
 // BSD 2-Clause License
 //
-// Copyright (c) 2017, R. S. Doiel
+// Copyright (c) 2019, R. S. Doiel
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,7 @@ import (
 )
 
 const (
-	Version = "v0.0.3"
+	Version = `v0.0.4`
 )
 
 // FdxToFountain converts the an input buffer from .fdx to a .fountain format.
