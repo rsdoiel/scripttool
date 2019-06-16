@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 # Project values
-PROJECT_GO = "scripttool.go"
 CODEMETA_JSON = "codemeta.json"
 
 #
@@ -11,8 +10,12 @@ import sys
 import os
 import json
 
+
 def inc_patch_no(v = "0.0.0"):
     """inc_patch_no takes a symvar and increments the right most value in the dot touple"""
+    suffix = ''
+    if "-" in v:
+        (v, suffix) = v.split("-")
     parts = v.split(".")
     if len(parts) == 3:
         #major_no = parts[0]
@@ -20,9 +23,10 @@ def inc_patch_no(v = "0.0.0"):
         patch_no = int(parts[2])
         patch_no += 1
         parts[2] = str(patch_no)
-        return ".".join(parts)
-    else:
-        return v
+        v = ".".join(parts)
+    if suffix != '':
+        return f'{v}-{suffix}'
+    return v
 
 def update_codemeta_json(codemeta_json, current_version, next_version):
     with open(codemeta_json, mode = "r", encoding = "utf-8") as f:
@@ -74,9 +78,12 @@ def main(args):
     current_version = ""
     next_version = ""
     meta = {}
+    project_go = ""
     with open(CODEMETA_JSON,"r") as f:
         src = f.read()
         meta = json.loads(src)
+        if "name" in meta and meta["name"] != "":
+            project_go = meta["name"] + ".go"
 
     current_version = meta["version"]
 
@@ -93,8 +100,10 @@ def main(args):
         next_version = inc_patch_no(current_version)
 
     if ("--yes" in args) or ("-yes" in args) or ("-y" in args):
+        print("current version:", current_version)
+        print("new version:", next_version)
         update_codemeta_json(CODEMETA_JSON, current_version, next_version)
-        update_project_go(PROJECT_GO, current_version, next_version)
+        update_project_go(project_go, current_version, next_version)
     else:
         print("current version:", current_version)
         print("proposed version:", next_version)
