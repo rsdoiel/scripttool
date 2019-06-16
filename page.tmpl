@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{- .title -}}</title>
+    {{- with .front_matter -}}<title>{{- .title -}}</title>{{- end }}
     <link href="/css/site.css" rel="stylesheet" />
 </head>
 <body>
+{{- with .front_matter -}}
 <header>
-{{ .title }}
+{{- .title -}}
 </header>
+{{- end }}
 <section>
 {{ .content }}
 </section>
