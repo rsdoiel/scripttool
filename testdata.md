@@ -1,3 +1,6 @@
+{
+    "scripttool": "A program for converting screen play formats"
+}
 
 # About the test data
 
