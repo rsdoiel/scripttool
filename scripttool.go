@@ -206,9 +206,54 @@ func CharacterList(in io.Reader, out io.Writer) error {
 	return fmt.Errorf("CharacterList(in, out) error, not implemented")
 }
 
-// Fountain2HTML takes a fountain script and formats it in
+// FountainToHTML takes a fountain script and formats it in
 // the fountain scrippets HTML markup that can be used
 // with the scrippets CSS, see https://fountain.io/scrippets
 // and https://johnaugust.com/2004/screenbox.
-// FIXME: Write wrapping function and add appropriate writer
+// FIXME: Write wrapping functioHTMLon and add appropriate writer
 // method to fountain package.
+func FountainToHTML(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	src, err = fountain.Run(src)
+	if err != nil {
+		return err
+	}
+	_, err = out.Write(src)
+	return err
+}
+
+// FountainFmt pretty prints a fountain document, optionally
+// passing on sections, synopsis and notes.
+func FountainFmt(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	screenplay, err := fountain.Parse(src)
+	if err != nil {
+		return err
+	}
+	_, err = out.Write([]byte(screenplay.String()))
+	return err
+}
+
+// FountainToJSON convert .fountain file to JSON
+func FountainToJSON(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	screenplay, err := fountain.Parse(src)
+	if err != nil {
+		return err
+	}
+	src, err = screenplay.ToJSON()
+	if err != nil {
+		return err
+	}
+	_, err = out.Write(src)
+	return err
+}

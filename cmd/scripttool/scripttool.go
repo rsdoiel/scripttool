@@ -38,6 +38,7 @@ import (
 	"github.com/caltechlibrary/cli"
 
 	// My packages
+	"github.com/rsdoiel/fountain"
 	"github.com/rsdoiel/scripttool"
 )
 
@@ -59,6 +60,40 @@ Converting *screenplay.fountain* to *screenplay.fdx* (2 examples)
 ` + "```" + `
     scripttool fountain2fdx screenplay.fountain screenplay.fdx
     scripttool -i screenplay.fountain -o screenplay.fdx fountain2fdx
+` + "```" + `
+
+Converting *screenplay.fountain* to *screenplay.html* to produce
+an HTML fragment suitable for including in a webpage. (2 examples)
+
+` + "```" + `
+    scripttool fountain2html screenplay.fountain screenplay.html
+    scripttool -i screenplay.fountain -o screenplay.html fountain2html
+` + "```" + `
+
+Converting *screenplay.fountain* to *screenplay.html* to produce
+a full HTML page with inline CSS (2 examples)
+
+` + "```" + `
+    scripttool fountain2html -page -inline-css screenplay.fountain \
+	    screenplay.html
+    scripttool -i screenplay.fountain -o screenplay.html \
+	    fountain2html -page -inline-css
+` + "```" + `
+
+Converting *screenplay.fountain* to *screenplay.json* 
+
+` + "```" + `
+    scripttool fountain2json screenplay.fountain screenplay.html
+    scripttool -i screenplay.fountain -o screenplay.html fountain2json
+` + "```" + `
+
+Pretty print *screenplay.fountain* to *draft-01.foutain*, then 
+pretty print to *draft-02.fountain include notes, sections and synopsis. 
+
+` + "```" + `
+    scripttool fountainfmt screenplay.fountain draft-01.fountain
+	scripttool fountainfmt -notes -sections -synopsis \
+	           screenplay.fountain draft-02.fountain
 ` + "```" + `
 
 Listing characters in *screenplay.fountain* or in *screenplay.fdx*.
@@ -113,6 +148,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	outputFName      string
 	quiet            bool
 	newLine          bool
+
+	// App options
+	width         int
+	sectionHeight string
+	sectionWidth  string
+	showSections  bool
+	showSynopsis  bool
+	showNotes     bool
+	asHTMLPage    bool
+	inlineCSS     bool
+	linkCSS       bool
+	includeCSS    string
+	prettyPrint   bool
 )
 
 func onError(eout io.Writer, err error) int {
@@ -178,6 +226,71 @@ func doFountainToFadeIn(in io.Reader, out io.Writer, eout io.Writer, args []stri
 	return onError(eout, scripttool.FountainToFadeIn(in, outputFName))
 }
 
+func doFountainToHTML(in io.Reader, out io.Writer, eout io.Writer, args []string, flagSet *flag.FlagSet) int {
+	var err error
+	flagSet.Parse(args)
+	args = flagSet.Args()
+	if inputFName == "" && len(args) > 0 {
+		inputFName = args[0]
+		in, err = cli.Open(inputFName, os.Stdin)
+		cli.ExitOnError(os.Stderr, err, quiet)
+	}
+	if outputFName == "" && len(args) > 1 {
+		outputFName = args[1]
+		out, err = cli.Create(outputFName, os.Stdout)
+		cli.ExitOnError(os.Stderr, err, quiet)
+	}
+	// Override defaults
+	fountain.AsHTMLPage = asHTMLPage
+	fountain.InlineCSS = inlineCSS
+	fountain.LinkCSS = linkCSS
+	if includeCSS != "" {
+		fountain.CSS = includeCSS
+	}
+	return onError(eout, scripttool.FountainToHTML(in, out))
+}
+
+func doFountainToJSON(in io.Reader, out io.Writer, eout io.Writer, args []string, flagSet *flag.FlagSet) int {
+	var err error
+	flagSet.Parse(args)
+	args = flagSet.Args()
+	if inputFName == "" && len(args) > 0 {
+		inputFName = args[0]
+		in, err = cli.Open(inputFName, os.Stdin)
+		cli.ExitOnError(os.Stderr, err, quiet)
+	}
+	if outputFName == "" && len(args) > 1 {
+		outputFName = args[1]
+		out, err = cli.Create(outputFName, os.Stdout)
+		cli.ExitOnError(os.Stderr, err, quiet)
+	}
+	// Override defaults
+	fountain.PrettyPrint = prettyPrint
+	return onError(eout, scripttool.FountainToJSON(in, out))
+}
+
+func doFountainFmt(in io.Reader, out io.Writer, eout io.Writer, args []string, flagSet *flag.FlagSet) int {
+	var err error
+	flagSet.Parse(args)
+	args = flagSet.Args()
+	if inputFName == "" && len(args) > 0 {
+		inputFName = args[0]
+		in, err = cli.Open(inputFName, os.Stdin)
+		cli.ExitOnError(os.Stderr, err, quiet)
+	}
+	if outputFName == "" && len(args) > 1 {
+		outputFName = args[1]
+		out, err = cli.Create(outputFName, os.Stdout)
+		cli.ExitOnError(os.Stderr, err, quiet)
+	}
+	// Override defaults
+	fountain.MaxWidth = width
+	fountain.ShowNotes = showNotes
+	fountain.ShowSection = showSections
+	fountain.ShowSynopsis = showSynopsis
+	return onError(eout, scripttool.FountainFmt(in, out))
+}
+
 func main() {
 	app := cli.NewCli(scripttool.Version)
 	appName := app.AppName()
@@ -221,6 +334,24 @@ func main() {
 
 	vFountainToFadeIn := app.NewVerb("fountain2fadein", "convert .fountain to .fadein", doFountainToFadeIn)
 	vFountainToFadeIn.SetParams("INPUT_FILENAME", "OUTPUT_FILENAME")
+
+	vFountainFmt := app.NewVerb("fountainfmt", "pretty print a fountain file", doFountainFmt)
+	vFountainFmt.SetParams("[INPUT_FILENAME]", "[OUTPUT_FILENAME]")
+	vFountainFmt.IntVar(&width, "width", fountain.MaxWidth, "set script width in number characters")
+	vFountainFmt.BoolVar(&showSections, "section", false, "include section headings in output")
+	vFountainFmt.BoolVar(&showSynopsis, "synopsis", false, "include synopsis in output")
+	vFountainFmt.BoolVar(&showNotes, "notes", false, "include notes in output")
+
+	vFountainToHTML := app.NewVerb("fountain2html", "convert .fountain to .HTML", doFountainToHTML)
+	vFountainToHTML.SetParams("[INPUT_FILENAME]", "[OUTPUT_FILENAME]")
+	vFountainToHTML.BoolVar(&asHTMLPage, "page", false, "output full HTML page")
+	vFountainToHTML.BoolVar(&inlineCSS, "inline-css", false, "include inline CSS")
+	vFountainToHTML.BoolVar(&linkCSS, "link-css", false, "include CSS link")
+	vFountainToHTML.StringVar(&includeCSS, "css", "", "include custom CSS")
+
+	vFountainToJSON := app.NewVerb("fountain2json", "convert fountain to JSON", doFountainToJSON)
+	vFountainToJSON.SetParams("[INPUT_FILENAME]", "[OUTPUT_FILENAME]")
+	vFountainToJSON.BoolVar(&prettyPrint, "p,pretty", false, "pretty print JSON")
 
 	// Parse environment and command line
 	if err := app.Parse(); err != nil {
