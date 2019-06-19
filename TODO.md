@@ -11,6 +11,8 @@
 
 ## Next
 
++ [ ] fountain2html
++ [ ] fountain2json
 + [x] fountain2fdx (Fountain to Final Draft XML)
 + [x] fountain2osf (Fountain to Open Screenplay Format 1.2,2.0)
 + [x] fdx2fountain (build on fdx2txt in [fdx](https://github.com/rsdoiel/fdx), handle TitlePage better)
@@ -29,9 +31,13 @@
 + [ ] words - report word count
 + [ ] character - report character count
 + [ ] outline (OPML) to scenes/chapters
++ [ ] notes, sections and synopsis
++ [ ] eprints like metadata for the script
+
 
 ## Someday, Maybe
 
++ [ ] GUI for managing a screenplay project (like Scrivener but GTK based so as can run under Linux, BSD)
 + [ ] PDF generation from various formats
 + [ ] write and fountain2html, fdx2html, osf2html, fadein2html using [scrippets](https://fountain.io/scrippets) approach
 + [ ] Create a fountain text to speach script reader
