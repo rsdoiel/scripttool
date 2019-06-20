@@ -32,6 +32,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"log"
 	"os"
 
 	// Caltech Library packages
@@ -246,6 +247,7 @@ func doFountainToHTML(in io.Reader, out io.Writer, eout io.Writer, args []string
 	fountain.LinkCSS = linkCSS
 	if includeCSS != "" {
 		fountain.CSS = includeCSS
+		fmt.Fprintf(os.Stderr, "DEBUG include CSS is now %q\n", fountain.CSS)
 	}
 	return onError(eout, scripttool.FountainToHTML(in, out))
 }
@@ -389,6 +391,7 @@ func main() {
 	var err error
 
 	app.Eout = os.Stderr
+	log.SetOutput(app.Eout)
 
 	app.In, err = cli.Open(inputFName, os.Stdin)
 	cli.ExitOnError(app.Eout, err, quiet)
