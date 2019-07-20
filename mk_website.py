@@ -26,11 +26,11 @@ def mkpage(output_filename, templates = [], data = []):
     with Popen(cmd, stdout = PIPE, stderr = PIPE) as proc:
         err = proc.stderr.read().strip().decode('utf-8')
         if err != '':
-            print(f"{' '.join(cmd[0:3])} error: {err}")
+            print("{} error: {}".format(' '.join(cmd[0:3]), err))
             return err
         out = proc.stdout.read().strip().decode('utf-8')
         if out != "":
-            print(f"{out}");
+            print("{}".format(out))
     return ""
 
 #
@@ -48,17 +48,19 @@ def frontmatter(input_filename):
     with Popen(cmd, stdout = PIPE, stderr = PIPE) as proc:
         err = proc.stderr.read().strip().decode('utf-8')
         if err != '':
-            print(f"{' '.join(cmd[0:3])} error: {err}")
+            print("{} error: {}".format(' '.join(cmd[0:3]), err))
         out = proc.stdout.read().strip().decode('utf-8')
+        if not isinstance(out, str):
+            out = out.encode('utf-8')
         if (out.startswith("{") and out.endswith("}")) or (out.startswith("[") and out.endswith("]")):
             try:
-                result = json.loads(out.encode('utf-8'))
+                result = json.loads(out) #.encode('utf-8'))
             except Exception as e:
-                print(f"Warning {input_filename} has invalid metadata")
+                print("Warning {} has invalid metadata {}".format(input_filename, e))
                 sys.exit(1)
             return result
         elif out != "":
-            print(f"WARNING: Front matter isn't JSON for {input_filename}, {out}")
+            print("WARNING: Front matter isn't JSON for {}, {}".format( input_filename, out))
     return {}
 
 #
@@ -72,7 +74,7 @@ def mkpage_version_no(cli_name):
     p = Popen(cmd, stdout = PIPE, stderr = PIPE)
     (version, err) = p.communicate()
     if err.decode('utf-8') != '':
-        print(f"ERROR: {cli_name} -version, {err.decode('utf-8')}")
+        print("ERROR: {} -version, {}",format(cli_name, err.decode('utf-8')))
         sys.exit(1)
     return version.decode('utf-8')
 
@@ -97,26 +99,26 @@ def main(args):
                 in_name = os.path.join(path, filename)
                 out_name = os.path.join(path, basename + ".html")
             if in_name != "" and out_name != "":
-                print(f"Ingesting {in_name}")
+                print("Ingesting {}".format(in_name))
                 metadata = json.dumps(frontmatter(in_name))
                 #NOTE: Processing metadata should happen here.
                 page_data = []
                 if len(metadata):
-                    page_data.append(f"front_matter=json:{metadata}")
+                    page_data.append("front_matter=json:{}".format(metadata))
                 if os.path.exists(nav_name):
-                    page_data.append(f"nav={nav_name}")
+                    page_data.append("nav={}".format(nav_name))
                 if in_name.endswith("LICENSE"):
                     with open(in_name) as f:
                         src = f.read()
-                        page_data.append(f"content=markdown:{src}")
+                        page_data.append("content=markdown:{}".format(src))
                 else:
-                    page_data.append(f"content={in_name}")
+                    page_data.append("content={}".format(in_name))
                 err = mkpage(out_name, [ "page.tmpl" ], page_data)
                 if err != "":
-                    print(f"Failed {in_name} -> {out_name}, {err}");
+                    print("Failed {} -> {}, {}".format(in_name, out_name, err))
                     sys.exit(1)
                 else:
-                    print(f"Wrote {out_name}")
+                    print("Wrote {}".format(out_name))
     
     # Write out message showing version of mkpage, frontmatter
     # and dataset used.
@@ -127,7 +129,7 @@ def main(args):
             print(" and", end = " ")
         elif i > 0:
             print(",", end = " ")
-        print(f"{version}", end = "")
+        print("{}".format(version), end = "")
     print("")
     sys.exit(0)
 

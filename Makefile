@@ -43,7 +43,7 @@ uninstall:
 	if [ -f $(HOME)/man/man1/scripttool.1 ]; then rm $(HOME)/man/man1/scripttool.1; fi
 
 website: build
-	./mk-website.py
+	./mk_website.py
 
 status:
 	git status
@@ -92,6 +92,6 @@ distribute_docs:
 release: distribute_docs dist/linux-amd64 dist/windows-amd64 dist/macosx-amd64 dist/raspbian-arm7 dist/linux-arm64
 
 publish:
-	./mk-website.py
+	./mk_website.py
 	./publish.bash
 
