@@ -16,13 +16,11 @@ endif
 
 build:
 	go build -o bin/scripttool$(EXT) cmd/scripttool/scripttool.go
-	mkdir -p man/man1
 
 test:
 	go test
 
 man: build
-	mkdir -p man/man1
 	bin/scripttool$(EXT) -generate-manpage > man/man1/scripttool.man
 	cat man/man1/scripttool.man | nroff -Tutf8 -man > man/man1/scripttool.1
 
@@ -33,9 +31,6 @@ clean:
 
 install:
 	env GOBIN=$(HOME)/bin go install cmd/scripttool/scripttool.go
-	mkdir -p $(HOME)/man/man1
-	$(HOME)/bin/scripttool$(EXT) -generate-manpage > $(HOME)/man/man1/scripttool.man
-	cat $(HOME)/man/man1/scripttool.man | nroff -Tutf8 -man > $(HOME)/man/man1/scripttool.1
 
 uninstall:
 	if [ -f $(HOME)/bin/scripttool$(EXT) ]; then rm $(HOME)/bin/scripttool$(EXT); fi
