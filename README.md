@@ -3,11 +3,13 @@
 }
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
-# scripttool
+scripttool
+==========
 
 A tool for working with screenplay file formats (e.g. fdx, fountain)
 
-## Converting formats
+Converting formats
+------------------
 
 Convert from *screenplay.fdx* to *screenplay.fountain*
 
@@ -28,7 +30,8 @@ Convert from *screenplay.fountain* to *screenplay.osf*
 ```
 
 
-## Script Reports
+Script Reports
+--------------
 
 This is still in the planning stage. List the characters in *screenplay.fdx*
 

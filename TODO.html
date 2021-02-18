@@ -1,93 +1,184 @@
 <!DOCTYPE html>
 <html>
-<head><title><no value></title>
+<head>
+    <title>…</title>
     <link href="/css/site.css" rel="stylesheet" />
 </head>
-<body><header><no value></header>
+<body>
+<header>
+…
+</header>
 <section>
-<h1>Action Items</h1>
-
-<h2>Bugs</h2>
-
+<h1 id="action-items">
+Action Items
+</h1>
+<h2 id="bugs">
+Bugs
+</h2>
+<h2 id="next">
+Next
+</h2>
+<ul class="task-list">
+<li>
+<input type="checkbox" disabled="" /> fountain2html
+</li>
+<li>
+<input type="checkbox" disabled="" /> fountain2json
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> fountain2fdx (Fountain to Final Draft XML)
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> fountain2osf (Fountain to Open Screenplay Format 1.2,2.0)
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> fdx2fountain (build on fdx2txt in <a href="https://github.com/rsdoiel/fdx">fdx</a>, handle TitlePage better)
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> fdx2osf (Final Draft XML to Open Screenplay Format 1.2,2.0 XML)
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> osf2fdx (Open Screenplay Format 1.2,2.0 XML to Final Draft XML)
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> osf2fountain (Open Screenplay Format 1.2,2.0 XML to Fountain)
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> fountain2fadein, fadein2fountain
+</li>
+<li>
+<input type="checkbox" disabled="" /> edit (simple line oriented editor with colorization for Fountain/Markdown)
 <ul>
-<li>[x] Convert cli.Action to cli.Verb in cmd/scripttool/scripttool.go</li>
+<li>
+auto-convert to/fountain on open
+</li>
+<li>
+auto-convert from fountain to origin version on save
+</li>
+<li>
+timed-autosave
+</li>
+<li>
+backup original files
+</li>
 </ul>
-
-<h2>Next</h2>
-
-<ul>
-<li>[ ] fountain2html</li>
-<li>[ ] fountain2json</li>
-<li>[x] fountain2fdx (Fountain to Final Draft XML)</li>
-<li>[x] fountain2osf (Fountain to Open Screenplay Format 1.2,2.0)</li>
-<li>[x] fdx2fountain (build on fdx2txt in <a href="https://github.com/rsdoiel/fdx">fdx</a>, handle TitlePage better)</li>
-<li>[x] fdx2osf (Final Draft XML to Open Screenplay Format 1.2,2.0 XML)</li>
-<li>[x] osf2fdx (Open Screenplay Format 1.2,2.0 XML to Final Draft XML)</li>
-<li>[x] osf2fountain (Open Screenplay Format 1.2,2.0 XML to Fountain)</li>
-<li>[x] fountain2fadein, fadein2fountain</li>
-<li>[ ] edit (simple line oriented editor with colorization for Fountain/Markdown)
-
-<ul>
-<li>auto-convert to/fountain on open</li>
-<li>auto-convert from fountain to origin version on save</li>
-<li>timed-autosave</li>
-<li>backup original files</li>
-</ul></li>
-<li>[ ] headings - report the headings as a outline</li>
-<li>[ ] scenes  - report the number of scenes, order and estimate time</li>
-<li>[ ] lines - report line count</li>
-<li>[ ] words - report word count</li>
-<li>[ ] character - report character count</li>
-<li>[ ] outline (OPML) to scenes/chapters</li>
-<li>[ ] notes, sections and synopsis</li>
-<li>[ ] eprints like metadata for the script</li>
+</li>
+<li>
+<input type="checkbox" disabled="" /> headings - report the headings as a outline
+</li>
+<li>
+<input type="checkbox" disabled="" /> scenes - report the number of scenes, order and estimate time
+</li>
+<li>
+<input type="checkbox" disabled="" /> lines - report line count
+</li>
+<li>
+<input type="checkbox" disabled="" /> words - report word count
+</li>
+<li>
+<input type="checkbox" disabled="" /> character - report character count
+</li>
+<li>
+<input type="checkbox" disabled="" /> outline (OPML) to scenes/chapters
+</li>
+<li>
+<input type="checkbox" disabled="" /> notes, sections and synopsis
+</li>
+<li>
+<input type="checkbox" disabled="" /> eprints like metadata for the script
+</li>
 </ul>
-
-<h2>Someday, Maybe</h2>
-
-<ul>
-<li>[ ] GUI for managing a screenplay project (like Scrivener but GTK based so as can run under Linux, BSD)</li>
-<li>[ ] PDF generation from various formats</li>
-<li>[ ] write and fountain2html, fdx2html, osf2html, fadein2html using <a href="https://fountain.io/scrippets">scrippets</a> approach</li>
-<li>[ ] Create a fountain text to speach script reader
-
-<ul>
-<li>[ ] Should support configuration for assigning voices to different characters</li>
-</ul></li>
-<li>[ ] fountain2trelby</li>
-<li>[ ] osf2trelby</li>
-<li>[ ] fdx2trelby</li>
-<li>[ ] trelby2fdx</li>
-<li>[ ] trelby2fountain</li>
-<li>[ ] trelby2osf</li>
+<h2 id="someday-maybe">
+Someday, Maybe
+</h2>
+<ul class="task-list">
+<li>
+<input type="checkbox" disabled="" /> GUI for managing a screenplay project (like Scrivener but GTK based so as can run under Linux, BSD)
+</li>
+<li>
+<input type="checkbox" disabled="" /> PDF generation from various formats
+</li>
+<li>
+<input type="checkbox" disabled="" /> write and fountain2html, fdx2html, osf2html, fadein2html using <a href="https://fountain.io/scrippets">scrippets</a> approach
+</li>
+<li>
+<input type="checkbox" disabled="" /> Create a fountain text to speach script reader
+<ul class="task-list">
+<li>
+<input type="checkbox" disabled="" /> Should support configuration for assigning voices to different characters
+</li>
 </ul>
-
-<h2>Reference Links</h2>
-
-<ul>
-<li><a href="https://github.com/jung-kurt/gofpdf">gofpdf</a> - Kurt Jung&rsquo;s Go implementation of fpdf</li>
-<li><a href="https://fountain.io">Fountain</a></li>
-<li><a href="https://sourceforge.net/projects/openscrfmt/">Open Screenplay Format 2.0</a></li>
-<li><a href="https://github.com/severdia/Open-Screenplay-Format">Open Screenplay Format 2.1</a></li>
-<li><a href="https://johnaugust.com/2004/screenbox">Screenbox HTML and CSS</a> is some CSS for marking up HTML classes hand presenting a script section in an HTML page</li>
-<li><a href="https://wordpress.org/plugins/wp-scrippets/">scrippets Wordpress Plugin</a>, scrippets.org website appears gone.</li>
+</li>
+<li>
+<input type="checkbox" disabled="" /> fountain2trelby
+</li>
+<li>
+<input type="checkbox" disabled="" /> osf2trelby
+</li>
+<li>
+<input type="checkbox" disabled="" /> fdx2trelby
+</li>
+<li>
+<input type="checkbox" disabled="" /> trelby2fdx
+</li>
+<li>
+<input type="checkbox" disabled="" /> trelby2fountain
+</li>
+<li>
+<input type="checkbox" disabled="" /> trelby2osf
+</li>
 </ul>
-
+<h2 id="reference-links">
+Reference Links
+</h2>
+<ul>
+<li>
+<a href="https://github.com/jung-kurt/gofpdf">gofpdf</a> - Kurt Jung’s Go implementation of fpdf
+</li>
+<li>
+<a href="https://fountain.io">Fountain</a>
+</li>
+<li>
+<a href="https://sourceforge.net/projects/openscrfmt/">Open Screenplay Format 2.0</a>
+</li>
+<li>
+<a href="https://github.com/severdia/Open-Screenplay-Format">Open Screenplay Format 2.1</a>
+</li>
+<li>
+<a href="https://johnaugust.com/2004/screenbox">Screenbox HTML and CSS</a> is some CSS for marking up HTML classes hand presenting a script section in an HTML page
+</li>
+<li>
+<a href="https://wordpress.org/plugins/wp-scrippets/">scrippets Wordpress Plugin</a>, scrippets.org website appears gone.
+</li>
+</ul>
 </section>
 <nav>
 <ul>
-<li><a href="/">Home</a></li>
-<li><a href="./">README</a></li>
-<li><a href="license.html">LICENSE</a></li>
-<li><a href="install.html">INSTALL</a></li>
-<li><a href="docs/scripttool.html">Documentation</a></li>
-<li><a href="TODO.html">TODO</a></li>
-<li><a href="https://github.com/rsdoiel/scripttool">Github</a></li>
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="./">README</a>
+</li>
+<li>
+<a href="license.html">LICENSE</a>
+</li>
+<li>
+<a href="install.html">INSTALL</a>
+</li>
+<li>
+<a href="docs/scripttool.html">Documentation</a>
+</li>
+<li>
+<a href="TODO.html">TODO</a>
+</li>
+<li>
+<a href="https://github.com/rsdoiel/scripttool">Github</a>
+</li>
 </ul>
-
 </nav>
 <footer>
-copyright (c) 2017 all rights reserved.
+copyright (c) 2021 all rights reserved.
 Released under the BSD 2-Clause license
 See: http://opensource.org/licenses/BSD-2-Clause
 </footer>

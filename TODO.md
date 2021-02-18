@@ -2,14 +2,16 @@
     "scripttool": "A program for converting screen play formats"
 }
 
-# Action Items
+Action Items
+============
 
-## Bugs
+Bugs
+----
 
-+ [x] Convert cli.Action to cli.Verb in cmd/scripttool/scripttool.go
 
 
-## Next
+Next
+----
 
 + [ ] fountain2html
 + [ ] fountain2json
@@ -35,7 +37,8 @@
 + [ ] eprints like metadata for the script
 
 
-## Someday, Maybe
+Someday, Maybe
+--------------
 
 + [ ] GUI for managing a screenplay project (like Scrivener but GTK based so as can run under Linux, BSD)
 + [ ] PDF generation from various formats
@@ -49,7 +52,8 @@
 + [ ] trelby2fountain
 + [ ] trelby2osf
 
-## Reference Links
+Reference Links
+---------------
 
 + [gofpdf](https://github.com/jung-kurt/gofpdf) - Kurt Jung's Go implementation of fpdf
 + [Fountain](https://fountain.io)

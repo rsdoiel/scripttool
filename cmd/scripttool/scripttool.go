@@ -2,7 +2,7 @@
 //
 // BSD 2-Clause License
 //
-// Copyright (c) 2019, R. S. Doiel
+// Copyright (c) 2021, R. S. Doiel
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -113,7 +113,7 @@ Listing characters in *screenplay.fountain* or in *screenplay.fdx*.
 
 BSD 2-Clause License
 
-Copyright (c) 2019, R. S. Doiel
+Copyright (c) 2021, R. S. Doiel
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

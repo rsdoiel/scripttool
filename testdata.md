@@ -2,7 +2,8 @@
     "title": "scripttool, a program for converting screen play formats"
 }
 
-# About the test data
+About the test data
+===================
 
 The [fountain](https://fountain.io) website has some good files 
 for reviewing formatting difference between fountain, fdx and 
@@ -17,7 +18,8 @@ fountain website and download them and place them in the _testdata_
 directory.  When you run `go test` they will be found and included 
 in the basic test process.
 
-## Optional test FDX files
+Optional test FDX files
+-----------------------
 
 + [Big Fish](https://fountain.io/_downloads/Big%20Fish.fountain)
     + [fdx](https://fountain.io/_downloads/Big%20Fish.fdx)

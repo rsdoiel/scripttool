@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {{- with .front_matter -}}<title>{{- .title -}}</title>{{- end }}
+    ${if(front_matter)}<title>${title}</title>${endif}
     <link href="/css/site.css" rel="stylesheet" />
 </head>
 <body>
-{{- with .front_matter -}}
+${if(front_matter)}
 <header>
-{{- .title -}}
+${title}
 </header>
-{{- end }}
+${endif}
 <section>
-{{ .content }}
+${content}
 </section>
 <nav>
-{{ .nav }}
+${nav}
 </nav>
 <footer>
-copyright (c) 2017 all rights reserved.
+copyright (c) 2021 all rights reserved.
 Released under the BSD 2-Clause license
 See: http://opensource.org/licenses/BSD-2-Clause
 </footer>

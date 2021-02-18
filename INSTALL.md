@@ -2,15 +2,17 @@
     "title": "scripttool, a program for converting screen play formats"
 }
 
-# Installation
+Installation
+============
 
 *scripttool* is a command line program run from a shell like Bash. You can find compiled version in the [releases](https://github.com/rsdoiel/scripttool/releases/latest) 
 
-## Compiled version
+Compiled version
+----------------
 
 This is generalized instructions for a release. 
 
-Compiled versions are available for Mac OS X (amd64 processor, macosx-amd64), 
+Compiled versions are available for Mac OS X (amd64 processor, macos-amd64), 
 Linux (amd64 process, linux-amd64), Windows (amd64 processor, windows-amd64), 
 Rapsberry Pi (arm7 processor, raspbian-arm7) and Pine64 (arm64 processor, linux-arm64)
 
@@ -26,7 +28,8 @@ For all the released version go to the project page on Github and click latest r
 | Platform    | Zip Filename                           |
 |-------------|----------------------------------------|
 | Windows     | scripttool-VERSION_NUMBER-windows-amd64.zip |
-| Mac OS X    | scripttool-VERSION_NUMBER-macosx-amd64.zip  |
+| Mac OS X    | scripttool-VERSION_NUMBER-macos-amd64.zip  |
+| Mac OS X    | scripttool-VERSION_NUMBER-macos-arm64.zip  |
 | Linux/Intel | scripttool-VERSION_NUMBER-linux-amd64.zip   |
 | Raspbery Pi | scripttool-VERSION_NUMBER-raspbian-arm7.zip |
 | Pine64      | scripttool-VERSION_NUMBER-linux-arm64.zip   |
@@ -40,7 +43,7 @@ For all the released version go to the project page on Github and click latest r
 + Copy the contents of the folder named "bin" to a folder that is in your path 
     + (e.g. "$HOME/bin" is common).
 + Adjust your PATH if needed
-    + (e.g. `export PATH="$HOME/bin:$PATH"`)
+    + (e.g. export PATH="$HOME/bin:$PATH")
 + Test
 
 
@@ -57,7 +60,7 @@ zip file.
 
 ```shell
     cd Downloads/
-    unzip scripttool-*-macosx-amd64.zip
+    unzip scripttool-*-macos-amd64.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -126,7 +129,8 @@ downloading the zip file.
 ```
 
 
-## Compiling from source
+Compiling from source
+---------------------
 
 _scripttool_ is "go gettable".  Use the "go get" command to download the dependant packages
 as well as _scripttool_'s source code.
