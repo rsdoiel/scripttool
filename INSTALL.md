@@ -12,7 +12,7 @@ Compiled version
 
 This is generalized instructions for a release. 
 
-Compiled versions are available for Mac OS X (amd64 processor, macos-amd64), 
+Compiled versions are available for Mac OS X (amd64 and M1 processor, macos-amd64, macos-arm64), 
 Linux (amd64 process, linux-amd64), Windows (amd64 processor, windows-amd64), 
 Rapsberry Pi (arm7 processor, raspbian-arm7) and Pine64 (arm64 processor, linux-arm64)
 
@@ -35,7 +35,8 @@ For all the released version go to the project page on Github and click latest r
 | Pine64      | scripttool-VERSION_NUMBER-linux-arm64.zip   |
 
 
-## The basic recipe
+The basic recipe
+----------------
 
 + Find the Zip file listed matching the architecture you're running and download it
     + (e.g. if you're on a Windows 10 laptop/Surface with a amd64 style CPU you'd choose the Zip file with "windows-amd64" in the name).
