@@ -14,7 +14,7 @@ confinement: devmode # use 'strict' once you have the right plugs and slots
 
 apps:
   scripttool:
-    commands: bin/scripttool
+    command: bin/scripttool
     plugs:
       - home
 
