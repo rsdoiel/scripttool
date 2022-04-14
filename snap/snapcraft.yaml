@@ -13,9 +13,10 @@ grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
 
 apps:
-  commands: bin/scripttool
-  plugs:
-    - hoome
+  scripttool:
+    commands: bin/scripttool
+    plugs:
+      - hoome
 
 parts:
   scripttools:
