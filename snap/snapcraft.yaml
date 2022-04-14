@@ -1,13 +1,13 @@
-name: scripttools # you probably want to 'snapcraft register <name>'
+name: scripttool # you probably want to 'snapcraft register <name>'
 base: core20 # the base snap is the execution environment for this snap
 version: '0.0.5' # just for humans, typically '1.2+git' or '1.3.2'
-summary: A tool for working with screenplay file format like .fdx and fountain
+summary: scripttool, a program for converting screen play formats
 description: |
   scripttools can be used to convert common "plain text" style
   screenplay markups such as Fountain, OSF (Open Screenplay Format),
   FadeIn and FinalDraft's fdx XML format.
 
-  See https://github.com/rsdoiel/scripttools
+  See https://github.com/rsdoiel/scripttool
 
 grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
@@ -16,7 +16,7 @@ apps:
   scripttool:
     commands: bin/scripttool
     plugs:
-      - hoome
+      - home
 
 parts:
   scripttools:
@@ -26,4 +26,4 @@ parts:
     build-environment:
         - "CGO_ENABLED" : "0"
     source-type: git
-    source: https://github.com/rsdoiel/scripttools
+    source: https://github.com/rsdoiel/scripttool
