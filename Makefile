@@ -9,6 +9,10 @@ BRANCH = $(shell git branch | grep '* ' | cut -d\  -f 2)
 
 OS = $(shell uname)
 
+#PREFIX = /usr/local
+PREFIX = $(HOME)
+
+
 EXT = 
 ifeq ($(OS), Windows)
 	EXT = .exe
@@ -30,12 +34,12 @@ clean:
 	if [ -d man ]; then rm -fR man; fi
 
 install:
-	env GOBIN=$(HOME)/bin go install cmd/scripttool/scripttool.go
+	env GOBIN=$(PREFIX)/bin go install cmd/scripttool/scripttool.go
 
 uninstall:
-	if [ -f $(HOME)/bin/scripttool$(EXT) ]; then rm $(HOME)/bin/scripttool$(EXT); fi
-	if [ -f $(HOME)/man/man1/scripttool.man ]; then rm $(HOME)/man/man1/scripttool.man; fi
-	if [ -f $(HOME)/man/man1/scripttool.1 ]; then rm $(HOME)/man/man1/scripttool.1; fi
+	if [ -f $(PREFIX)/bin/scripttool$(EXT) ]; then rm $(PREFIX)/bin/scripttool$(EXT); fi
+	if [ -f $(PREFIX)/man/man1/scripttool.man ]; then rm $(PREFIX)/man/man1/scripttool.man; fi
+	if [ -f $(PREFIX)/man/man1/scripttool.1 ]; then rm $(PREFIX)/man/man1/scripttool.1; fi
 
 website: build
 	./mk_website.py
