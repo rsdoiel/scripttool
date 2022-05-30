@@ -17,6 +17,8 @@ apps:
     command: bin/scripttool
     plugs:
       - home
+      - removable-media
+      - desktop
 
 parts:
   scripttool:
@@ -24,6 +26,6 @@ parts:
     plugin: go
     go-channel: stable
     build-environment:
-        - "CGO_ENABLED" : "0"
+        - "CGO_ENABLED" : "1"
     source-type: git
     source: https://github.com/rsdoiel/scripttool
