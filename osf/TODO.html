@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OSF, A Go package support Open Screenplay Format</title>
+    <link href="/css/site.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+OSF, A Go package support Open Screenplay Format
+</header>
+<section>
+<h1 id="action-items">
+Action Items
+</h1>
+<h2 id="bugs">
+Bugs
+</h2>
+<h2 id="next">
+Next
+</h2>
+<ul class="task-list">
+<li>
+<input type="checkbox" disabled="" /> implement a txt2osf demonstration
+</li>
+<li>
+<input type="checkbox" disabled="" /> review Text element, make sure I am mapping embedded newlines and formatting correctly
+</li>
+<li>
+<input type="checkbox" disabled="" /> validate ToXML() after FromFountain() can be read by FadeIn
+</li>
+</ul>
+<h2 id="someday-maybe">
+Someday, Maybe
+</h2>
+<ul class="task-list">
+<li>
+<input type="checkbox" disabled="" /> write and osf2html using <a href="https://fountain.io/scrippets">scrippets</a> approach
+</li>
+<li>
+<input type="checkbox" disabled="" /> add support for Ron Severdia’s Open Screenplay Format 2.1 spec
+<ul>
+<li>
+rename divergent structs’ xml defs with 20 and 21 suffix
+</li>
+<li>
+make sure they are all 20/21 structs are treaded as tag “,omitempty”
+</li>
+<li>
+duplicate String methods as needed
+</li>
+<li>
+Parse, ParseFile should work without sniffing using a single struct tree for 1.2, 2.0 or 2.1
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="completed">
+Completed
+</h2>
+<ul class="task-list">
+<li>
+<input type="checkbox" disabled="" checked="" /> String (Fountain style plain text) needs to be formatted correctly…
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> Write osf.go, osf_test.go based on <a href="https://sourceforge.net/projects/openscrfmt/">Open Screenplay Format 2.0</a> and in the mode of <a href="https://github.com/rsdoiel/fdx">fdx</a> package
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> Write osf2txt
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> Write fadein2osf
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> Write fadein2txt
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> self closing tags should be self closing
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> Support parsing .fadein files (i.e. unzip the Fade In file, then parse document.xml)
+</li>
+<li>
+<input type="checkbox" disabled="" checked="" /> Add ParseFile() to osf.go, if file extension is “.fadein” then it should handle the unzipping and and parsing of document.xml as OSF
+</li>
+</ul>
+<h3 id="reference-links">
+Reference links
+</h3>
+<ul>
+<li>
+<a href="https://fountain.io">Fountain</a>
+</li>
+<li>
+<a href="https://sourceforge.net/projects/openscrfmt/">Open Screenplay Format 2.0</a> (the one targetted by osf.go)
+</li>
+<li>
+<a href="https://github.com/severdia/Open-Screenplay-Format">Open Screenplay Format 2.1</a>
+</li>
+<li>
+<a href="https://www.fadeinpro.com">Fade In</a>
+</li>
+<li>
+<a href="http://www.kenttessman.com/2012/02/open-screenplay-format/">Open Screenplay Format by Kent Tessman</a>
+</li>
+<li>
+<a href="https://github.com/azcoppen/screenplay-parser">screenplay-parser</a> - a PHP repo with a really nice README.md discussing format and convertion issues and challenges
+</li>
+</ul>
+</section>
+<nav>
+<ul>
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="./">README</a>
+</li>
+<li>
+<a href="license.html">LICENSE</a>
+</li>
+<li>
+<a href="docs/">Documentation</a>
+</li>
+<li>
+<a href="testdata.html">Test data</a>
+</li>
+<li>
+<a href="https://github.com/rsdoiel/osf">Github</a>
+</li>
+</ul>
+</nav>
+<footer>
+copyright (c) 2021 all rights reserved.
+Released under the BSD 2-Clause license
+See: http://opensource.org/licenses/BSD-2-Clause
+</footer>
+</body>
+</html>

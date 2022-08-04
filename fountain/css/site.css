@@ -1,0 +1,195 @@
+@import 'https://fonts.googleapis.com/css?family=Concert+One|Dosis';
+
+body {
+    font-family: 'Dosis', sans-serif;
+    font-size: calc(1em+1vw);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: auto;
+    color: black;
+    background-color: white;
+}
+
+a, a:link, a:visited {
+    color:  forestgreen;
+    text-decoration: none;
+}
+
+a:active, a:focus, a:hover {
+    color: maroon;
+    text-decoration: underline;
+}
+
+
+
+ul {
+    padding: 0;
+    margin-left: 1.24em;
+    /* list-style-type: disc;*/
+}
+
+nav {
+    position:fixed;
+    top:0;
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    padding: 0.20em;
+    /* caltech orange, white and black
+    color: white;
+    background-color: #FF6E1E; 
+    */
+    /* white on deep red */
+    color: white;
+    background-color: #5f0202;
+}
+
+nav a, nav a:link, nav a:visited {
+    font-weight: lighter;
+    color: white; 
+    text-decoration: none;
+}
+
+nav a:active, nav a:focus, nav a:hover {
+    font-weight: lighter;
+    color: orange;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+
+nav ul {
+    display: block;
+    width: 100%;
+    height: auto;
+    list-style: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    text-align: left;
+    padding-top: 0em;
+    padding-left: 0.82em;
+    padding-right: 0.24em;
+    padding-bottom: 0em;
+    margin: 0;
+}
+
+section, article {
+    display: block;
+    width: 90%;
+    height: auto;
+    padding: 1.24em;
+    margin-top: 1.24em;
+    margin-bottom: 0.24em;
+}
+
+
+img.rss-valid {
+    display: inline;
+    width: auto;
+    height: 0.82em;
+}
+
+h1 {
+    font-family: 'Concert One', cursive;
+    font-size: 200%;
+}
+
+h2 {
+    font-family: 'Concert One', cursive;
+    font-weight: lighter;
+    font-size: 170%;
+}
+
+h3 {
+    font-family: 'Concert One', cursive;
+    font-weight: lighter;
+    font-size: 120%;
+    text-transform: uppercase;
+}
+
+h4 {
+    font-family: 'Concert One', cursive;
+    font-weight: lighter;
+    font-size: 100%;
+    text-transform: lowercase;
+}
+
+header {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+header h1 {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding-top: 2em;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    margin: 0;
+    text-align: center;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    font-size: 0.82em;
+    font-weight: lighter;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: auto;
+    color: white;
+    background-color: black;
+}
+
+/* NOTE: Ingnore a P tag inserted by Markdown when rendering headers */
+footer p {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    font-family: 'Dosis', sans-serif;
+    font-size: 0.82em;
+    font-weight: lighter;
+    margin-top: 0.32em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+footer img {
+    display: block;
+    float: left;
+    vertical-align: top;
+    border: 1px solid black;
+    border-top-left-radius: 1.2em;
+    border-top-right-radius: 1.2em;
+    box-shadow: inset 0.12em 0.12em black;
+    width: 3.2em;
+    height: auto;
+    margin: 0.24em;
+}
+
+footer a, footer a:link, footer a:visited {
+    font-weight: lighter;
+    /* caltech orange */
+    color: #FF6E1E; 
+}
+
+footer a:active, footer a:focus, footer a:hover {
+    font-weight: lighter;
+    color: lightgreen;
+}
+

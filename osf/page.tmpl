@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    ${if(front_matter)}<title>${title}</title>${endif}
+    <link href="/css/site.css" rel="stylesheet" />
+</head>
+<body>
+${if(front_matter)}
+<header>
+${title}
+</header>
+${endif}
+<section>
+${content}
+</section>
+<nav>
+${nav}
+</nav>
+<footer>
+copyright (c) 2021 all rights reserved.
+Released under the BSD 2-Clause license
+See: http://opensource.org/licenses/BSD-2-Clause
+</footer>
+</body>
+</html>

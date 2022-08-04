@@ -6,7 +6,7 @@
 scripttool
 ==========
 
-A tool for working with screenplay file formats (e.g. fdx, fountain)
+A tool for working with screenplay file formats (e.g. fdx, fountain, osf)
 
 Converting formats
 ------------------
