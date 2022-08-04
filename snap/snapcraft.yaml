@@ -10,13 +10,15 @@ description: |
   See https://github.com/rsdoiel/scripttool
 
 grade: devel # must be 'stable' to release into candidate/stable channels
-confinement: devmode # use 'strict' once you have the right plugs and slots
+confinement: strict # use 'strict' once you have the right plugs and slots
 
 apps:
   scripttool:
     command: bin/scripttool
     plugs:
       - home
+      - desktop
+      - removable-media
 
 parts:
   scripttool:
@@ -24,6 +26,6 @@ parts:
     plugin: go
     go-channel: stable
     build-environment:
-        - "CGO_ENABLED" : "0"
+        - "CGO_ENABLED" : "1"
     source-type: git
     source: https://github.com/rsdoiel/scripttool
