@@ -39,9 +39,9 @@ import (
 	"io/ioutil"
 
 	// My packages
-	"github.com/rsdoiel/scripttools/fdx"
-	"github.com/rsdoiel/scripttools/fountain"
-	"github.com/rsdoiel/scripttools/osf"
+	"github.com/rsdoiel/scripttool/fdx"
+	"github.com/rsdoiel/scripttool/fountain"
+	"github.com/rsdoiel/scripttool/osf"
 )
 
 // FdxToFountain converts the an input buffer from .fdx to a .fountain format.
