@@ -44,10 +44,6 @@ import (
 	"github.com/rsdoiel/scripttools/osf"
 )
 
-const (
-	Version = `v0.0.5`
-)
-
 // FdxToFountain converts the an input buffer from .fdx to a .fountain format.
 func FdxToFountain(in io.Reader, out io.Writer) error {
 	src, err := ioutil.ReadAll(in)
