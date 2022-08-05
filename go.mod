@@ -1,10 +1,3 @@
-module github.com/rsdoiel/scripttools
+module github.com/rsdoiel/scripttool
 
 go 1.19
-
-require (
-	github.com/rsdoiel/fdx v0.0.3 // indirect
-	github.com/rsdoiel/fountain v0.0.3 // indirect
-	github.com/rsdoiel/osf v0.0.3 // indirect
-	github.com/rsdoiel/scripttool v0.0.5 // indirect
-)

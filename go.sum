@@ -1,9 +1,0 @@
-github.com/caltechlibrary/cli v0.0.16/go.mod h1:BVT+6d/QqcN4UApWR3ufjkkKj2O6+48B4G6iUpP8m38=
-github.com/rsdoiel/fdx v0.0.3 h1:ECL0I0fFpc3lT4bH7ykcOcqXa8OWVCjS5ilQWQDNvfg=
-github.com/rsdoiel/fdx v0.0.3/go.mod h1:gNf5gJy2crKa+HkzhlMkAQlLSHvEFF7ykN8vK4rRTAU=
-github.com/rsdoiel/fountain v0.0.3 h1:FvpOfS5z1C7mTkuvEm5AvBDh0+CpgiiD1OhcsHmZ1Qk=
-github.com/rsdoiel/fountain v0.0.3/go.mod h1:gSQk57Zm16sVyy42VzHYBWeeHqsuFny3n7ewuJssq+w=
-github.com/rsdoiel/osf v0.0.3 h1:C8ncelp6Yp0lV3vgpUCdjXpiSjKC8OKw77E629h5QMQ=
-github.com/rsdoiel/osf v0.0.3/go.mod h1:fNocdz/XAdaiVJFFL4iGzRF+TVVj00KqElPvSs51nhM=
-github.com/rsdoiel/scripttool v0.0.5 h1:xlgeiV5Hk8W1AJ0cUkfchl+fmH+nmTlVwR9TQZ7cH/4=
-github.com/rsdoiel/scripttool v0.0.5/go.mod h1:IRg8CoGJj78awrlL/hDb5BAct/5hi1fYNWCxgA/gCNQ=
