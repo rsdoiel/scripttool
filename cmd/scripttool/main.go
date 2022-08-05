@@ -42,13 +42,14 @@ import (
 
 var (
 	// Standard Options
-	showHelp    bool
-	showLicense bool
-	showVersion bool
-	inputFName  string
-	outputFName string
-	quiet       bool
-	newLine     bool
+	showHelp     bool
+	showLicense  bool
+	showVersion  bool
+	inputFName   string
+	outputFName  string
+	quiet        bool
+	newLine      bool
+	showVerbHelp bool
 
 	// App options
 	showNotes     bool
@@ -64,9 +65,14 @@ var (
 	prettyPrint   bool
 )
 
-func displayText(s string, appName string, verb string, version string) string {
+func fmtText(s string, appName string, verb string, version string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(s, "{app_name}", appName), "{verb}", verb), "{version}", version)
 }
+
+func fmtHelp(appName string, verb string) string {
+	return fmt.Sprintf("%s %s is not documented", appName, verb)
+}
+
 func exitOnError(eout io.Writer, err error, exitCode int) {
 	if err != nil {
 		fmt.Fprintf(eout, "%s\n", err)
@@ -213,21 +219,19 @@ func doFountainFmt(in *os.File, out *os.File, eout *os.File, args []string) int 
 func main() {
 	appName := path.Base(os.Args[0])
 	if len(os.Args) == 1 {
-		displayText(helpText, appName, "", scripttool.Version)
+		fmt.Fprintln(os.Stderr, fmtText(helpText, appName, "", scripttool.Version))
 		os.Exit(1)
 	}
-
-	phrase := os.Args[1:]
 	flag.BoolVar(&showHelp, "help", false, "display help")
 	flag.BoolVar(&showVersion, "version", false, "display version")
 	flag.BoolVar(&showLicense, "license", false, "display license")
 	flag.Parse()
 	if showHelp {
-		displayText(helpText, appName, "", scripttool.Version)
+		fmt.Println(fmtText(helpText, appName, "", scripttool.Version))
 		os.Exit(0)
 	}
 	if showLicense {
-		displayText(licenseText, appName, "", scripttool.Version)
+		fmt.Println(fmtText(licenseText, appName, "", scripttool.Version))
 		os.Exit(0)
 	}
 	if showVersion {
@@ -243,6 +247,8 @@ func main() {
 	verb := strings.ToLower(strings.TrimSpace(os.Args[1]))
 	// Standard flags
 	flagSet := flag.NewFlagSet(fmt.Sprintf("%s.%s", appName, verb), flag.ExitOnError)
+	flagSet.BoolVar(&showVerbHelp, "h", false, "display verb help")
+	flagSet.BoolVar(&showVerbHelp, "help", false, "display verb help")
 	flagSet.StringVar(&inputFName, "i", "", "set input filename")
 	flagSet.StringVar(&outputFName, "o", "", "set output filename")
 	flagSet.BoolVar(&showNotes, "notes", false, "include notes in output")
@@ -256,8 +262,15 @@ func main() {
 	flagSet.BoolVar(&linkCSS, "link-css", false, "include CSS link")
 	flagSet.StringVar(&includeCSS, "css", "", "include custom CSS")
 	flagSet.BoolVar(&prettyPrint, "pretty", false, "prety print output")
-	flagSet.Parse(phrase)
+	flagSet.Parse(os.Args[1:])
 	args := flagSet.Args()
+
+	if showVerbHelp {
+
+		fmt.Fprintf(os.Stderr, "DEBUG should display verb help now\n")
+		//fmt.Println(fmtHelp(appName, verb))
+		os.Exit(0)
+	}
 
 	switch verb {
 	case "fdx2fountain":
@@ -281,9 +294,9 @@ func main() {
 	case "fountain2json":
 		exitCode = doFountainToJSON(in, out, eout, args)
 	case "help":
-		displayText(helpText, appName, verb, scripttool.Version)
+		fmt.Println(fmtText(helpText, appName, verb, scripttool.Version))
 	default:
-		fmt.Fprintf(os.Stderr, "Do not understand %q\n", strings.Join(os.Args, " "))
+		fmt.Fprintf(os.Stderr, "Do not understand %q in %q\n", verb, strings.Join(os.Args, " "))
 		os.Exit(1)
 	}
 	os.Exit(exitCode)
