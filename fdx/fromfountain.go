@@ -33,7 +33,7 @@ import (
 	"strings"
 
 	// My Packages
-	"github.com/rsdoiel/scriptool/fountain"
+	"github.com/rsdoiel/scripttool/fountain"
 )
 
 func StringToTextArray(s string) []*Text {

@@ -31,7 +31,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"path"
 	"strings"
@@ -77,35 +76,33 @@ func exitOnError(eout io.Writer, err error, exitCode int) {
 
 func onError(eout io.Writer, err error) int {
 	if err != nil {
-		if quiet == false {
-			fmt.Fprintf(eout, "%s\n", err)
-		}
+		fmt.Fprintf(eout, "%s\n", err)
 		return 1
 	}
 	return 0
 }
 
-func doFdxToFountain(in io.Reader, out io.Writer, eout io.Writer, args []string, flagSet *flag.FlagSet) int {
+func doFdxToFountain(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
 	return onError(eout, scripttool.FdxToFountain(in, out))
 }
 
-func doFountainToFdx(in io.Reader, out io.Writer, eout io.Writer, args []string, flagSet *flag.FlagSet) int {
+func doFountainToFdx(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
 	return onError(eout, scripttool.FountainToFdx(in, out))
 }
 
-func doOSFToFountain(in io.Reader, out io.Writer, eout io.Writer, args []string, flagSet *flag.FlagSet) int {
+func doOSFToFountain(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
 	return onError(eout, scripttool.OSFToFountain(in, out))
 }
 
-func doFountainToOSF(in io.Reader, out io.Writer, eout io.Writer, args []string, flagSet *flag.FlagSet) int {
+func doFountainToOSF(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
 	return onError(eout, scripttool.FountainToOSF(in, out))
 }
 
-func doCharacters(in io.Reader, out io.Writer, eout io.Writer, args []string, flagSet *flag.FlagSet) int {
+func doCharacters(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
 	return onError(eout, scripttool.CharacterList(in, out))
 }
 
-func doFadeInToFountain(in io.Reader, out io.Writer, eout io.Writer, args []string, flagSet *flag.FlagSet) int {
+func doFadeInToFountain(in io.Reader, out io.Writer, eout io.Writer, args []string) int {
 	if inputFName == "" && len(args) > 0 {
 		inputFName = args[0]
 	}
@@ -116,7 +113,7 @@ func doFadeInToFountain(in io.Reader, out io.Writer, eout io.Writer, args []stri
 	return onError(eout, scripttool.FadeInToFountain(inputFName, out))
 }
 
-func doFountainToFadeIn(in *os.File, out *os.File, eout *os.File, args []string, flagSet *flag.FlagSet) int {
+func doFountainToFadeIn(in *os.File, out *os.File, eout *os.File, args []string) int {
 	var err error
 
 	if inputFName == "" && len(args) > 0 {
@@ -141,10 +138,8 @@ func doFountainToFadeIn(in *os.File, out *os.File, eout *os.File, args []string,
 	return 0
 }
 
-func doFountainToHTML(in *os.File, out *os.File, eout *os.File, args []string, flagSet *flag.FlagSet) int {
+func doFountainToHTML(in *os.File, out *os.File, eout *os.File, args []string) int {
 	var err error
-	flagSet.Parse(args)
-	args = flagSet.Args()
 	if inputFName == "" && len(args) > 0 {
 		inputFName = args[0]
 		in, err = os.Open(inputFName)
@@ -170,10 +165,8 @@ func doFountainToHTML(in *os.File, out *os.File, eout *os.File, args []string, f
 	return 0
 }
 
-func doFountainToJSON(in *os.File, out *os.File, eout *os.File, args []string, flagSet *flag.FlagSet) int {
+func doFountainToJSON(in *os.File, out *os.File, eout *os.File, args []string) int {
 	var err error
-	flagSet.Parse(args)
-	args = flagSet.Args()
 	if inputFName == "" && len(args) > 0 {
 		inputFName = args[0]
 		in, err = os.Open(inputFName)
@@ -193,10 +186,8 @@ func doFountainToJSON(in *os.File, out *os.File, eout *os.File, args []string, f
 	return 0
 }
 
-func doFountainFmt(in *os.File, out *os.File, eout *os.File, args []string, flagSet *flag.FlagSet) int {
+func doFountainFmt(in *os.File, out *os.File, eout *os.File, args []string) int {
 	var err error
-	flagSet.Parse(args)
-	args = flagSet.Args()
 	if inputFName == "" && len(args) > 0 {
 		inputFName = args[0]
 		in, err = os.Open(inputFName)
@@ -226,6 +217,7 @@ func main() {
 		os.Exit(1)
 	}
 
+	phrase := os.Args[1:]
 	flag.BoolVar(&showHelp, "help", false, "display help")
 	flag.BoolVar(&showVersion, "version", false, "display version")
 	flag.BoolVar(&showLicense, "license", false, "display license")
@@ -250,47 +242,48 @@ func main() {
 
 	verb := strings.ToLower(strings.TrimSpace(os.Args[1]))
 	// Standard flags
-	flagSet := flag.NewFlagSet(fmt.Sprintf("%s:%s", appName, verb), flag.ExitOnError)
+	flagSet := flag.NewFlagSet(fmt.Sprintf("%s.%s", appName, verb), flag.ExitOnError)
 	flagSet.StringVar(&inputFName, "i", "", "set input filename")
 	flagSet.StringVar(&outputFName, "o", "", "set output filename")
 	flagSet.BoolVar(&showNotes, "notes", false, "include notes in output")
 	flagSet.BoolVar(&showSynopsis, "synopsis", false, "include synopsis in output")
 	flagSet.BoolVar(&showSections, "section", false, "include section headings in output")
 	flagSet.IntVar(&width, "width", fountain.MaxWidth, "set width in integers")
-	flagSet.StringVar(&sectionHeight, "height", "", "section height")
-	flagSet.StringVar(&sectionWidth, "width", "", "section width")
+	flagSet.StringVar(&sectionHeight, "section-height", "", "section height")
+	flagSet.StringVar(&sectionWidth, "section-width", "", "section width")
 	flagSet.BoolVar(&asHTMLPage, "page", false, "output full HTML page")
 	flagSet.BoolVar(&inlineCSS, "inline-css", false, "include inline CSS")
 	flagSet.BoolVar(&linkCSS, "link-css", false, "include CSS link")
 	flagSet.StringVar(&includeCSS, "css", "", "include custom CSS")
 	flagSet.BoolVar(&prettyPrint, "pretty", false, "prety print output")
-	flagSet.Parse(os.Args[1:])
+	flagSet.Parse(phrase)
+	args := flagSet.Args()
 
 	switch verb {
 	case "fdx2fountain":
-		exitCode = doFdxToFountain(in, out, eout, os.Args[1:], flagSet)
+		exitCode = doFdxToFountain(in, out, eout, args)
 	case "osf2fountain":
-		exitCode = doOSFToFountain(in, out, eout, os.Args[1:], flagSet)
+		exitCode = doOSFToFountain(in, out, eout, args)
 	case "fountain2fdx":
-		exitCode = doFountainToFdx(in, out, eout, os.Args[1:], flagSet)
+		exitCode = doFountainToFdx(in, out, eout, args)
 	case "fountain2osf":
-		exitCode = doFountainToOSF(in, out, eout, os.Args[1:], flagSet)
+		exitCode = doFountainToOSF(in, out, eout, args)
 	case "characters":
-		exitCode = doCharacters(in, out, eout, os.Args[1:], flagSet)
+		exitCode = doCharacters(in, out, eout, args)
 	case "fadein2fountain":
-		exitCode = doFadeInToFountain(in, out, eout, os.Args[1:], flagSet)
+		exitCode = doFadeInToFountain(in, out, eout, args)
 	case "fountain2fadein":
-		exitCode = doFountainToFadeIn(in, out, eout, os.Args[1:], flagSet)
+		exitCode = doFountainToFadeIn(in, out, eout, args)
 	case "fountainfmt":
-		exitCode = doFountainFmt(in, out, eout, os.Args[1:], flagSet)
+		exitCode = doFountainFmt(in, out, eout, args)
 	case "fountain2html":
-		exitCode = doFountainToHTML(in, out, eout, os.Args[1:], flagSet)
+		exitCode = doFountainToHTML(in, out, eout, args)
 	case "fountain2json":
-		exitCode = doFountainToJSON(in, out, eout, os.Args[1:], flagSet)
+		exitCode = doFountainToJSON(in, out, eout, args)
 	case "help":
 		displayText(helpText, appName, verb, scripttool.Version)
 	default:
-		fmt.Fprintf(os.Stderr, "Donnot under standand %q\n", strings.Join(os.Args, " "))
+		fmt.Fprintf(os.Stderr, "Do not understand %q\n", strings.Join(os.Args, " "))
 		os.Exit(1)
 	}
 	os.Exit(exitCode)
