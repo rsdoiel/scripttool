@@ -263,7 +263,7 @@ func main() {
 	flagSet.BoolVar(&inlineCSS, "inline-css", false, "include inline CSS")
 	flagSet.BoolVar(&linkCSS, "link-css", false, "include CSS link")
 	flagSet.StringVar(&includeCSS, "css", "", "include custom CSS")
-	flagSet.BoolVar(&prettyPrint, "pretty-print", false, "prety print")
+	flagSet.BoolVar(&prettyPrint, "pretty", false, "prety print output")
 	flagSet.Parse(os.Args[1:])
 
 	switch verb {

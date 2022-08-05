@@ -1,0 +1,59 @@
+---
+title: $name$
+---
+
+About this software
+===================
+
+$name$ $version$
+----------------
+
+$if(author)$
+### Authors
+
+$for(author)$
+- $it.givenName$ $it.familyName$
+$endfor$
+$endif$
+
+$if(description)$
+$description$
+$endif$
+
+
+$if(license)$- License: $license$$endif$
+$if(codeRepository)$- GitHub: $codeRepository$$endif$
+$if(issueTracker)$- Issues: $issueTracker$$endif$
+
+
+$if(programmingLanguage)$
+### Programming languages
+
+$for(programmingLanguage)$
+- $programmingLanguage$
+$endfor$
+$endif$
+
+$if(operatingSystem)$
+### Operating Systems
+
+$for(operatingSystem)$
+- $operatingSystem$
+$endfor$
+$endif$
+
+$if(softwareRequirements)$
+### Software Requiremets
+
+$for(softwareRequirements)$
+- $softwareRequirements$
+$endfor$
+$endif$
+
+$if(relatedLink)$
+### Related Links
+
+$for(relatedLink)$
+- [$it$]($it$)
+$endfor$
+$endif$
