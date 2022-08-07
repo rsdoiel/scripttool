@@ -29,11 +29,18 @@
 <p>{ “scripttool”: “A program for converting screen play formats” }</p>
 <h1 id="action-items">Action Items</h1>
 <h2 id="bugs">Bugs</h2>
-<h2 id="next">Next</h2>
 <ul class="task-list">
 <li><input type="checkbox" disabled="" />
+fountain parser is miss-identifying some elements as character when they are things like scene headings. This should up in JSON output and characters report, see testdata/sample-07.fountain for example of bug<ul>
+<li><code>scripttool fountain2json testdata/sample-07.fountain</code></li>
+<li><code>scripttool characters testdata/sample-07.fountain</code></li>
+</ul></li>
+</ul>
+<h2 id="next">Next</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
 fountain2html</li>
-<li><input type="checkbox" disabled="" />
+<li><input type="checkbox" disabled="" checked="" />
 fountain2json</li>
 <li><input type="checkbox" disabled="" checked="" />
 fountain2fdx (Fountain to Final Draft XML)</li>

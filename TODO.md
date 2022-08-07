@@ -8,13 +8,16 @@ Action Items
 Bugs
 ----
 
+- [ ] fountain parser is miss-identifying some elements as character when they are things like scene headings. This should up in JSON output and characters report, see testdata/sample-07.fountain for example of bug
+    - `scripttool fountain2json testdata/sample-07.fountain`
+    - `scripttool characters testdata/sample-07.fountain`
 
 
 Next
 ----
 
-+ [ ] fountain2html
-+ [ ] fountain2json
++ [x] fountain2html
++ [x] fountain2json
 + [x] fountain2fdx (Fountain to Final Draft XML)
 + [x] fountain2osf (Fountain to Open Screenplay Format 1.2,2.0)
 + [x] fdx2fountain (build on fdx2txt in [fdx](https://github.com/rsdoiel/fdx), handle TitlePage better)
