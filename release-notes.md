@@ -5,8 +5,8 @@ title: scripttool releases
 Releases
 ========
 
-v0.0.7, 2022-08-07
-------------------
+v0.0.7, 2022-08-07, project refresh
+-----------------------------------
 
 This release is mostly a code re-organization due to changes in how Go 1.18 supports modules. The packages osf, fountain, and fdx are now part of the scripttool. The modules are largely stable. It's been years since I've changed them.  The scripttool itself has bee restructure. A major change is the command line syntax. I am now using a `scripttool [-help|-version|-license] VERB [OPTIONS] [ADDITIONAL_PARAMETERS]`.  Each  "verb" can have its own set of options and  they come after the "verb" before it expected additional parameters.  
 
