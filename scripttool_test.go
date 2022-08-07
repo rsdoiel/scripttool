@@ -48,6 +48,10 @@ var (
 )
 
 func screenplayFile(t *testing.T, dir, fname string) {
+	dName := "testout"
+	if _, err := os.Stat(dName); os.IsNotExist(err) {
+		os.MkdirAll(dName, 0775)
+	}
 	src, err := ioutil.ReadFile(path.Join(dir, fname))
 	if err != nil {
 		if fname == "Big%20Fish.fdx" {

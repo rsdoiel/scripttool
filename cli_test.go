@@ -2,6 +2,6 @@ package scripttool
 
 import "testing"
 
-func TestHelloWorld(t *testing.T) {
+func TestRunScripttool(t *testing.T) {
 	t.Fatal("not implemented")
 }
