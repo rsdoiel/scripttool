@@ -132,7 +132,7 @@ distribute_docs:
 	cp -vR man dist/
 	cp -v INSTALL.md dist/
 
-release: CITATION.cff clean version.go distribute_docs dist/linux-amd64 dist/windows-amd64 dist/macos-amd64 dist/macos-arm64 dist/raspbian-arm7
+release: man CITATION.cff clean version.go distribute_docs dist/linux-amd64 dist/windows-amd64 dist/macos-amd64 dist/macos-arm64 dist/raspbian-arm7
 
 status:
 	git status
