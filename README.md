@@ -6,36 +6,77 @@
 scripttool
 ==========
 
-A tool for working with screenplay file formats (e.g. fdx, fountain, osf)
+A tool for working with screenplay file formats (e.g. fdx, fountain, osf, FadeIn)
 
-Converting formats
-------------------
+Converting to fountain format
+-----------------------------
 
 Convert from *screenplay.fdx* to *screenplay.fountain*
 
-```shell
+~~~shell
     scripttool fdx2fountain screenplay.fdx screenplay.fountain
-```
+~~~
 
 Convert from *screenplay.fadein* to *screenplay.fountain*
 
-```shell
+~~~shell
     scripttool fadein2fountain screenplay.fadein screenplay.fountain
-```
+~~~
+
+Convert from *screenplay.osf* to *screenplay.fountain*
+
+~~~shell
+    scripttool osf2fountain screenplay.osf screenplay.fountain
+~~~
+
+
+Working with fountain files
+---------------------------
+
+Pretty print fountain files
+
+~~~shell
+    scripttool fountainfmt screenplay.fountain
+~~~
+
+Render a fountain file as JSON
+
+~~~shell
+    scripttool fountain2json screenplay.fountain
+~~~
+
+
+Convert from fountain format
+----------------------------
+
+Convert from *screenplay.fountain* to *screenplay.fdx*
+
+~~~shell
+    scripttool fountain2fdx screenplay.fountain screenplay.fdx
+~~~
+
+Convert from *screenplay.fountain* to *screenplay.fadein*
+
+~~~shell
+    scripttool fountain2fadein screenplay.fountain screenplay.fadein
+~~~
 
 Convert from *screenplay.fountain* to *screenplay.osf*
 
-```shell
-    scripttool fountain2osf screenplay.foutain screenplay.osf
-```
+~~~shell
+    scripttool fountain2osf screenplay.fountain screenplay.osf
+~~~
+
 
 
 Script Reports
 --------------
 
-This is still in the planning stage. List the characters in *screenplay.fdx*
+NOTE: Currently only fountain documents are supported for reporting. Currently the character list report is implemented as a proof of concept.
 
-```shell
-    scripttool characters screenplay.fdx
-```
+List the characters in *screenplay.fountain*
+
+~~~shell
+    scripttool characters screenplay.fountain
+~~~
 

@@ -37,6 +37,8 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"sort"
+	"strings"
 
 	// My packages
 	"github.com/rsdoiel/scripttool/fdx"
@@ -192,12 +194,38 @@ func FountainToFadeIn(in io.Reader, outFName string) error {
 	return nil
 }
 
-// CharacterList lists character in a screenplay
+func inList(l []string, t string) bool {
+	for _, val := range l {
+		if strings.Compare(val, t) == 0 {
+			return true
+		}
+	}
+	return false
+}
+
+// CharacterList lists character in a screenplay (in should
+// be fountain formated text).
 func CharacterList(in io.Reader, out io.Writer) error {
-	// What format do we have?
-	// Convert to Fountain
-	// collect character names
-	return fmt.Errorf("CharacterList(in, out) error, not implemented")
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	// text must be in Fountain format
+	screenplay, err := fountain.Parse(src)
+	if err != nil {
+		return err
+	}
+	characters := []string{}
+	for _, element := range screenplay.Elements {
+		if element.Type == fountain.CharacterType {
+			if !inList(characters, element.Content) {
+				characters = append(characters, element.Content)
+			}
+		}
+	}
+	sort.Strings(characters)
+	fmt.Fprintf(out, "%s", strings.Join(characters, "\n"))
+	return nil
 }
 
 // FountainToHTML takes a fountain script and formats it in
