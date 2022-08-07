@@ -218,8 +218,9 @@ func CharacterList(in io.Reader, out io.Writer, alphaSort bool) error {
 	characters := []string{}
 	for _, element := range screenplay.Elements {
 		if element.Type == fountain.CharacterType {
-			if !inList(characters, element.Content) {
-				characters = append(characters, element.Content)
+			name := strings.TrimSpace(element.Content)
+			if !inList(characters, name) {
+				characters = append(characters, name)
 			}
 		}
 	}
