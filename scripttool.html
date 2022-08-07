@@ -110,19 +110,22 @@
 <dt>-pretty</dt>
 <dd>pretty print output
 </dd>
+<dt>-alpha</dt>
+<dd>sort characters alphabetically instead of appearence order
+</dd>
 </dl>
 <h1 id="examples">EXAMPLES</h1>
 <p>Converting <em>screenplay.fdx</em> to <em>screenplay.fountain</em> (2 examples)</p>
 <pre class="shell"><code>    scripttool fdx2fountain screenplay.fdx screenplay.fountain
-    scripttool -i screenplay.fdx -o screenplay.fountain fdx2fountain</code></pre>
+    scripttool fdx2fountain -i screenplay.fdx -o screenplay.fountain</code></pre>
 <p>Converting <em>screenplay.fountain</em> to <em>screenplay.fdx</em> (2 examples)</p>
 <pre class="shell"><code>    scripttool fountain2fdx screenplay.fountain screenplay.fdx
-    scripttool -i screenplay.fountain -o screenplay.fdx fountain2fdx</code></pre>
-<p>Listing characters in <em>screenplay.fountain</em> or in <em>screenplay.fdx</em>. (2 examples each)</p>
+    scripttool fountain2fdx -i screenplay.fountain -o screenplay.fdx</code></pre>
+<p>Listing characters in <em>screenplay.fountain</em>. First list is order of appearence and the second set is characters sorted alphabetically using the “-alpha” option. (2 examples each)</p>
 <pre class="shell"><code>    scripttool characters screenplay.fountain
-    scripttool -i screenplay.fountain characters
-    scripttool characters screenplay.fdx
-    scripttool -i screenplay.fdx characters</code></pre>
+    scripttool characters -i screenplay.fountain
+    scripttool characters -alpha screenplay.fountain
+    scripttool characters -alpha -i screenplay.fountain</code></pre>
 </section>
 
 <footer>
