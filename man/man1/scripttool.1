@@ -107,6 +107,9 @@ include CSS link (works with -html option)
 .TP
 -pretty
 pretty print output
+.TP
+-alpha
+sort characters alphabetically instead of appearence order
 .SH EXAMPLES
 .PP
 Converting \f[I]screenplay.fdx\f[R] to \f[I]screenplay.fountain\f[R] (2
@@ -115,7 +118,7 @@ examples)
 .nf
 \f[C]
     scripttool fdx2fountain screenplay.fdx screenplay.fountain
-    scripttool -i screenplay.fdx -o screenplay.fountain fdx2fountain
+    scripttool fdx2fountain -i screenplay.fdx -o screenplay.fountain
 \f[R]
 .fi
 .PP
@@ -125,20 +128,21 @@ examples)
 .nf
 \f[C]
     scripttool fountain2fdx screenplay.fountain screenplay.fdx
-    scripttool -i screenplay.fountain -o screenplay.fdx fountain2fdx
+    scripttool fountain2fdx -i screenplay.fountain -o screenplay.fdx
 \f[R]
 .fi
 .PP
-Listing characters in \f[I]screenplay.fountain\f[R] or in
-\f[I]screenplay.fdx\f[R].
+Listing characters in \f[I]screenplay.fountain\f[R].
+First list is order of appearence and the second set is characters
+sorted alphabetically using the \[lq]-alpha\[rq] option.
 (2 examples each)
 .IP
 .nf
 \f[C]
     scripttool characters screenplay.fountain
-    scripttool -i screenplay.fountain characters
-    scripttool characters screenplay.fdx
-    scripttool -i screenplay.fdx characters
+    scripttool characters -i screenplay.fountain
+    scripttool characters -alpha screenplay.fountain
+    scripttool characters -alpha -i screenplay.fountain
 \f[R]
 .fi
 .SH AUTHORS

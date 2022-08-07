@@ -21,10 +21,11 @@ func FmtCliHelp(appName string, verb string) string {
 
 func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) error {
 	var (
-		// Standard Options
+		// Options
 		showHelp    bool
 		inputFName  string
 		outputFName string
+		alphaSort   bool
 
 		err error
 	)
@@ -50,6 +51,7 @@ func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) erro
 	flagSet.BoolVar(&fountain.InlineCSS, "inline-css", false, "include inline CSS")
 	flagSet.BoolVar(&fountain.LinkCSS, "link-css", false, "include CSS link")
 	flagSet.BoolVar(&fountain.PrettyPrint, "pretty", false, "prety print output")
+	flagSet.BoolVar(&alphaSort, "alpha", false, "sort a character list alpha betically versus order of appearence")
 	flagSet.Parse(args[2:])
 	args = flagSet.Args()
 
@@ -92,7 +94,7 @@ func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) erro
 	case "fountain2osf":
 		return FountainToOSF(in, out)
 	case "characters":
-		return CharacterList(in, out)
+		return CharacterList(in, out, alphaSort)
 	case "fadein2fountain":
 		if inputFName != "" {
 			return FadeInToFountain(inputFName, out)

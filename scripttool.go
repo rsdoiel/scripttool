@@ -205,7 +205,7 @@ func inList(l []string, t string) bool {
 
 // CharacterList lists character in a screenplay (in should
 // be fountain formated text).
-func CharacterList(in io.Reader, out io.Writer) error {
+func CharacterList(in io.Reader, out io.Writer, alphaSort bool) error {
 	src, err := ioutil.ReadAll(in)
 	if err != nil {
 		return err
@@ -223,7 +223,9 @@ func CharacterList(in io.Reader, out io.Writer) error {
 			}
 		}
 	}
-	sort.Strings(characters)
+	if alphaSort {
+		sort.Strings(characters)
+	}
 	fmt.Fprintf(out, "%s", strings.Join(characters, "\n"))
 	return nil
 }

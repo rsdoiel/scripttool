@@ -96,9 +96,11 @@ Below are a set of options available.
 -link-css
 : include CSS link (works with -html option)
 
-
 -pretty
 : pretty print output
+
+-alpha
+: sort characters alphabetically instead of appearence order
 
 
 # EXAMPLES
@@ -107,23 +109,22 @@ Converting *screenplay.fdx* to *screenplay.fountain* (2 examples)
 
 ~~~shell
     scripttool fdx2fountain screenplay.fdx screenplay.fountain
-    scripttool -i screenplay.fdx -o screenplay.fountain fdx2fountain
+    scripttool fdx2fountain -i screenplay.fdx -o screenplay.fountain
 ~~~
 
 Converting *screenplay.fountain* to *screenplay.fdx* (2 examples)
 
 ~~~shell
     scripttool fountain2fdx screenplay.fountain screenplay.fdx
-    scripttool -i screenplay.fountain -o screenplay.fdx fountain2fdx
+    scripttool fountain2fdx -i screenplay.fountain -o screenplay.fdx
 ~~~
 
-Listing characters in *screenplay.fountain* or in *screenplay.fdx*.
-(2 examples each)
+Listing characters in *screenplay.fountain*. First list is order of appearence and the second set is characters sorted alphabetically using the "-alpha" option. (2 examples each)
 
 ~~~shell
     scripttool characters screenplay.fountain
-    scripttool -i screenplay.fountain characters
-    scripttool characters screenplay.fdx
-    scripttool -i screenplay.fdx characters
+    scripttool characters -i screenplay.fountain
+    scripttool characters -alpha screenplay.fountain
+    scripttool characters -alpha -i screenplay.fountain
 ~~~
 
