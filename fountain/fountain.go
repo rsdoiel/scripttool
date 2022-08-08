@@ -2,7 +2,7 @@
 //
 // @author R. S. Doiel, <rsdoiel@gmail.com>
 //
-// BSD 2-Clause License
+// # BSD 2-Clause License
 //
 // Copyright (c) 2019, R. S. Doiel
 // All rights reserved.
@@ -10,12 +10,12 @@
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-// * Redistributions of source code must retain the above copyright notice, this
-//   list of conditions and the following disclaimer.
+//   - Redistributions of source code must retain the above copyright notice, this
+//     list of conditions and the following disclaimer.
 //
-// * Redistributions in binary form must reproduce the above copyright notice,
-//   this list of conditions and the following disclaimer in the documentation
-//   and/or other materials provided with the distribution.
+//   - Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -27,7 +27,6 @@
 // CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
 package fountain
 
 import (
@@ -38,13 +37,11 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"regexp"
 	"strings"
 )
 
 const (
-	// Version of this package
-	Version = `v0.0.3`
-
 	//
 	// Types used in ElementSettings and Paragraph elements
 	//
@@ -110,6 +107,7 @@ const (
 )
 
 var (
+	reSceneNo = regexp.MustCompile(`#*#$`)
 	// MaxWidth used to set width for Fountain text output in String()
 	MaxWidth = 64
 	// AsHTMLPage if true generate the HTML header and footer blocks
@@ -135,9 +133,8 @@ var (
 
 // Fountain is the document container. It is the type returned by Parse() and ParseFile()
 //
-//   screenplay, _ := ParseFile("screenplay.fountain")
-//   fmt.Println(screenplay.String())
-//
+//	screenplay, _ := ParseFile("screenplay.fountain")
+//	fmt.Println(screenplay.String())
 type Fountain struct {
 	TitlePage []*Element
 	Elements  []*Element
@@ -206,6 +203,40 @@ func typeName(t int) string {
 // TypeName returns the string describing the type of Fountain Element.
 func (element *Element) TypeName() string {
 	return typeName(element.Type)
+}
+
+// CharacterName takes an element of type Character and trims spaces,
+// removes parenthetical (e.g. `(O.S.)`) and returns a string
+// of the character name(s). NOTE: characters in the form of "JANE AND JOE"
+// will be returned as "JANE AND JOE".
+func CharacterName(element *Element) string {
+	characters := []string{}
+	if element.Type == CharacterType {
+		content := strings.TrimSpace(element.Content)
+		if !(strings.HasPrefix(content, `"`) && strings.HasSuffix(content, `"`)) {
+			contentParts := strings.Split(element.Content, " ")
+			for _, content := range contentParts {
+				content = strings.TrimSpace(content)
+				// If not a parenthetical or concatentation record as
+				// character name.
+				if !((content == "") || (strings.HasPrefix(content, "(") && strings.HasSuffix(content, ")"))) {
+					// skip content
+					if strings.HasSuffix(content, `'s`) {
+						content = strings.TrimSuffix(content, `'s`)
+					}
+					if strings.HasSuffix(content, `'S`) {
+						content = strings.TrimSuffix(content, `'S`)
+					}
+					characters = append(characters, content)
+				}
+			}
+		}
+	}
+	if len(characters) > 1 && strings.Compare(strings.ToUpper(characters[len(characters)-1]), "VOICE") == 0 {
+		// Drop the trailing "VOICE"
+		characters = characters[0 : len(characters)-1]
+	}
+	return strings.Join(characters, " ")
 }
 
 // wordWrap will try to break line at a suitable place if they are equal or
@@ -496,31 +527,65 @@ func isCenterAlignment(line string, prevType int) bool {
 
 // isSceneHeading evaluates a line and return true if it looks like a scene heading or false otherwise
 func isSceneHeading(line string, prevType int) bool {
-	line = strings.ToUpper(line)
+	line = strings.ToUpper(strings.TrimSpace(line))
 	switch {
+	case strings.HasPrefix(line, "!"):
+		// This line must be action
+		return false
+	case reSceneNo.MatchString(line):
+		return true
 	case strings.HasPrefix(line, "."):
 		return true
 	case strings.HasPrefix(line, "EXT"):
+		// We have line starting with EXT or EXT.
 		return true
 	case strings.HasPrefix(line, "INT"):
-		return true
-	case strings.HasPrefix(line, "INT./EXT"):
-		return true
-	case strings.HasPrefix(line, "INT/EXT"):
+		// We have line starting with including INT., INT./EXT, INT/EXT
 		return true
 	case strings.HasPrefix(line, "I/E"):
+		return true
+	case strings.Contains(line, " -"):
+		return true
+	case strings.Compare(line, "FADE IN:") == 0:
+		return true
+	case strings.Compare(line, "THE END.") == 0:
+		return true
+	case strings.Compare(line, "THE END") == 0:
+		return true
+	case strings.Compare(line, "LA FIN.") == 0:
+		return true
+	case strings.Compare(line, "LA FIN") == 0:
 		return true
 	default:
 		return false
 	}
 }
 
+func isEndOfScript(element *Element) bool {
+	if element.Type == SceneHeadingType {
+		line := strings.ToUpper(strings.TrimSpace(element.Content))
+		switch {
+		case strings.Compare(line, "THE END.") == 0:
+			return true
+		case strings.Compare(line, "THE END") == 0:
+			return true
+		case strings.Compare(line, "LA FIN.") == 0:
+			return true
+		case strings.Compare(line, "LA FIN") == 0:
+			return true
+		}
+	}
+	return false
+}
+
 // isAction evaluates a line and returns true if it look like an action paragraph or false otherwise
 func isAction(line string, prevType int) bool {
+	// FIXME: isAction will have a empty element before and after, the
+	// last non-empty element should be a schene heading or dialog
 	if strings.HasPrefix(line, "!") {
 		return true
 	}
-	if len(line) == 0 {
+	if len(strings.TrimSpace(line)) == 0 {
 		return false
 	}
 	if isSceneHeading(line, prevType) == false && isCharacter(line, prevType) == false && isDialogue(line, prevType) == false && isParenthetical(line, prevType) == false {
@@ -530,11 +595,39 @@ func isAction(line string, prevType int) bool {
 }
 
 // isCharacter evaluates a prev, current and next lines and returns true if it looks like a Character or false otherwise
+//
+// FIXME: to really know that this is a character line we need
+// to know the "next" element type, per definition at
+// https://fountain.io/syntax#section-character which states next element
+// cannot be an empty line.
 func isCharacter(line string, prevType int) bool {
 	if strings.HasPrefix(line, "@") {
 		return true
 	}
-	if line == strings.ToUpper(line) && prevType == EmptyType {
+	if line == strings.ToUpper(line) && prevType == EmptyType && (isParenthetical(line, prevType) == false) {
+		// NOTE: Per https://fountain.io/syntax#section-character
+		// The next line should not be empty
+		content := strings.ToUpper(strings.TrimSpace(line))
+		// FIXME: Issue #2 show that I'm picking up non-character
+		// elements as character elements. The upper case test is
+		// not sufficient. The directives like `(O.S.)` should be
+		// trimmed from the name when evaluating name.
+
+		// If quotes are present then they are not a name.
+		if strings.HasPrefix(content, `"`) && strings.HasSuffix(content, `"`) {
+			return false
+		}
+		// Since we don't know if the next element is empty, we try to
+		// infer from current element content.
+		if strings.Contains(content, "--") ||
+			strings.HasPrefix(content, "INT.") ||
+			strings.HasPrefix(content, "EXT.") ||
+			strings.HasSuffix(content, "ANGLE") ||
+			strings.HasSuffix(content, "SHOT") ||
+			strings.HasSuffix(content, "P.O.V.") ||
+			strings.HasSuffix(content, ":") {
+			return false
+		}
 		return true
 	}
 	return false
@@ -543,8 +636,7 @@ func isCharacter(line string, prevType int) bool {
 // isParenthetical evaluates a prevType and current line
 // and returns true if it looks like a Character or false otherwise
 func isParenthetical(line string, prevType int) bool {
-	line = strings.TrimSpace(line)
-	if strings.HasPrefix(line, "(") && strings.HasSuffix(line, ")") {
+	if strings.HasPrefix(line, "(") && strings.Contains(line, ")") {
 		return true
 	}
 	return false
@@ -553,6 +645,9 @@ func isParenthetical(line string, prevType int) bool {
 // isDialogue evaluates a prev, current and next lines and returns true
 // if it looks like a Character or false otherwise
 func isDialogue(line string, prevType int) bool {
+	if strings.TrimSpace(line) == "" {
+		return false
+	}
 	switch prevType {
 	case CharacterType:
 		return true
@@ -722,63 +817,104 @@ func Parse(src []byte) (*Fountain, error) {
 	key, value := "", ""
 	document := new(Fountain)
 	scanner := bufio.NewScanner(bytes.NewReader(src))
+	foundEndOfScript := false
 	for scanner.Scan() {
 		line := scanner.Text()
-		currentType := getLineType(line, prevType)
-		switch currentType {
-		case TitlePageType:
-			if strings.Contains(line, ":") {
-				parts := strings.SplitN(line, ":", 2)
-				key, value = parts[0], parts[1]
-				elem := new(Element)
-				elem.Type = TitlePageType
-				elem.Name = key
-				elem.Content = value
-				document.TitlePage = append(document.TitlePage, elem)
-			} else {
-				i := len(document.TitlePage) - 1
-				if i < 0 {
-					i = 0
+		if !foundEndOfScript {
+			currentType := getLineType(line, prevType)
+			switch currentType {
+			case TitlePageType:
+				if strings.Contains(line, ":") {
+					parts := strings.SplitN(line, ":", 2)
+					key, value = parts[0], parts[1]
 					elem := new(Element)
 					elem.Type = TitlePageType
-					elem.Name = "Unknown"
-					elem.Content = line
+					elem.Name = key
+					elem.Content = value
 					document.TitlePage = append(document.TitlePage, elem)
 				} else {
-					elem := document.TitlePage[i]
-					elem.Content = elem.Content + "\n" + line
-					document.TitlePage[i] = elem
+					i := len(document.TitlePage) - 1
+					if i < 0 {
+						i = 0
+						elem := new(Element)
+						elem.Type = TitlePageType
+						elem.Name = "Unknown"
+						elem.Content = line
+						document.TitlePage = append(document.TitlePage, elem)
+					} else {
+						elem := document.TitlePage[i]
+						elem.Content = elem.Content + "\n" + line
+						document.TitlePage[i] = elem
+					}
 				}
-			}
-		default:
-			// If we haven't changed types we don't need to create a new element.
-			if prevType == currentType {
-				i := len(document.Elements) - 1
-				if i < 0 {
-					i = 0
-					elem := new(Element)
-					elem.Type = currentType
-					elem.Name = typeName(elem.Type)
-					elem.Content = line
-					document.Elements[i] = elem
+			default:
+				// If we haven't changed types we don't need to create
+				// a new element.
+				if prevType == currentType {
+					i := len(document.Elements) - 1
+					if i < 0 {
+						i = 0
+						elem := new(Element)
+						elem.Type = currentType
+						elem.Name = typeName(elem.Type)
+						elem.Content = line
+						document.Elements[i] = elem
+					} else {
+						elem := document.Elements[i]
+						elem.Name = typeName(elem.Type)
+						elem.Content = elem.Content + "\n" + line
+						document.Elements[i] = elem
+					}
 				} else {
-					elem := document.Elements[i]
-					elem.Name = typeName(elem.Type)
-					elem.Content = elem.Content + "\n" + line
-					document.Elements[i] = elem
+					element := new(Element)
+					element.Type = currentType
+					element.Name = typeName(element.Type)
+					element.Content = line
+					document.Elements = append(document.Elements, element)
+					if element.Type == SceneHeadingType {
+						foundEndOfScript = isEndOfScript(element)
+					}
 				}
-			} else {
-				element := new(Element)
-				element.Type = currentType
-				element.Name = typeName(element.Type)
-				element.Content = line
-				document.Elements = append(document.Elements, element)
 			}
+			prevType = currentType
+		} else {
+			element := new(Element)
+			element.Type = GeneralTextType
+			element.Name = typeName(element.Type)
+			element.Content = line
+			document.Elements = append(document.Elements, element)
 		}
-		prevType = currentType
 	}
 	if err := scanner.Err(); err != nil {
 		return document, err
+	}
+	// NOTE: Character name lines required look ahead.
+	// I need to cleanup miss identified Character elements by
+	// applying dialaog is next element rule.
+	lastElement := len(document.Elements) - 1
+	prevElementType := TitlePageType
+	for i, element := range document.Elements {
+		// Have we identified the character type correctly?
+		if element.Type == CharacterType {
+			if prevElementType == EmptyType {
+				if i < lastElement {
+					nextElementType := document.Elements[i+1].Type
+					if !(nextElementType == DialogueType || nextElementType == ParentheticalType) {
+						// What type are we?
+						element.Type = GeneralTextType
+					}
+				}
+				// NOTE: Character must be followed by dialog or
+				// parenthetical but the last element has been identified
+				// as a character element, what should this element be?
+				// We may just have an imcomplete script.
+			}
+		}
+		// If we're at the end of the script then we zero more characters.
+		if element.Type == SceneHeadingType && isEndOfScript(element) {
+			break
+		}
+		prevElementType = element.Type
 	}
 	return document, nil
 }

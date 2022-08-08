@@ -1,9 +1,8 @@
-//
 // fountain is a package encoding/decoding fountain formatted screenplays
 //
 // @author R. S. Doiel, <rsdoiel@gmail.com>
 //
-// BSD 2-Clause License
+// # BSD 2-Clause License
 //
 // Copyright (c) 2019, R. S. Doiel
 // All rights reserved.
@@ -11,12 +10,12 @@
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-// * Redistributions of source code must retain the above copyright notice, this
-//   list of conditions and the following disclaimer.
+//   - Redistributions of source code must retain the above copyright notice, this
+//     list of conditions and the following disclaimer.
 //
-// * Redistributions in binary form must reproduce the above copyright notice,
-//   this list of conditions and the following disclaimer in the documentation
-//   and/or other materials provided with the distribution.
+//   - Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -28,7 +27,6 @@
 // CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
 package fountain
 
 import (
@@ -36,6 +34,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"strings"
 	"testing"
 )
 
@@ -79,7 +78,12 @@ And you fetch the tongs.
 	}
 	for i := 0; i < len(doc.Elements); i++ {
 		if doc.Elements[i].Type != expected[i] {
-			t.Errorf("expected %q, got %q for %q", typeName(expected[i]), typeName(doc.Elements[i].Type), doc.Elements[i].Content)
+			if i > 0 {
+				previousElement := doc.Elements[i-1]
+				t.Errorf("expected %q, got %q for %q, prev %q for %q", typeName(expected[i]), doc.Elements[i].TypeName(), doc.Elements[i].Content, previousElement.TypeName(), previousElement.Content)
+			} else {
+				t.Errorf("expected %q, got %q for %q", typeName(expected[i]), typeName(doc.Elements[i].Type), doc.Elements[i].Content)
+			}
 			t.FailNow()
 		}
 	}
@@ -159,6 +163,52 @@ func TestSamples(t *testing.T) {
 			t.Errorf("(%d) expected elements, got nil for %s", i, fName)
 		}
 		//FIXME: Check to see if the parse sequence is correct
+	}
+}
+
+func isInList(elements []string, target string) bool {
+	for _, element := range elements {
+		if strings.Compare(element, target) == 0 {
+			return true
+		}
+	}
+	return false
+}
+
+func TestIssue2Scripttool(t *testing.T) {
+	scriptFName := path.Join("testdata", "sample-07.fountain")
+	charactersFName := path.Join("testdata", "sample-07-characters.txt")
+	src, err := ioutil.ReadFile(charactersFName)
+	if err != nil {
+		t.Errorf("failed to read characters file %q, %s", charactersFName, err)
+		t.FailNow()
+	}
+	screenplay, err := ParseFile(scriptFName)
+	if err != nil {
+		t.Errorf("failed to parse %q, %s", scriptFName, err)
+		t.FailNow()
+	}
+	expectedNames := strings.Split(fmt.Sprintf("%s", src), "\n")
+	lastElement := len(screenplay.Elements) - 1
+	prevElementType := TitlePageType
+	nextElementType := EmptyType
+	for i, element := range screenplay.Elements {
+		if element.Type == CharacterType {
+			if i > 0 && prevElementType != EmptyType {
+				t.Errorf("expected previous EmptyType, got %s -> %q", screenplay.Elements[i-1].TypeName(), screenplay.Elements[i-1].Content)
+			}
+			if i < lastElement {
+				nextElementType = screenplay.Elements[i+1].Type
+				if !(nextElementType == DialogueType || nextElementType == ParentheticalType) {
+					t.Errorf("expected next type to be dialog or parentethical, got %s -> %q", screenplay.Elements[i+1].TypeName(), screenplay.Elements[i+1].Content)
+				}
+			}
+			characterName := CharacterName(element)
+			if !isInList(expectedNames, characterName) {
+				t.Errorf("expected (%d) a name, got %q in %q type %q", i, characterName, element.Content, element.TypeName())
+			}
+		}
+		prevElementType = element.Type
 	}
 }
 
