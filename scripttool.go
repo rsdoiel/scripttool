@@ -37,6 +37,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"regexp"
 	"sort"
 	"strings"
 
@@ -44,6 +45,11 @@ import (
 	"github.com/rsdoiel/scripttool/fdx"
 	"github.com/rsdoiel/scripttool/fountain"
 	"github.com/rsdoiel/scripttool/osf"
+)
+
+var (
+	reParens = regexp.MustCompile(`\([[:alnum:]|[:space:]|\.|,|\?]+\)`)
+	reConcat = regexp.MustCompile(`&|,| AND `)
 )
 
 // FdxToFountain converts the an input buffer from .fdx to a .fountain format.
@@ -194,9 +200,9 @@ func FountainToFadeIn(in io.Reader, outFName string) error {
 	return nil
 }
 
-func inList(l []string, t string) bool {
-	for _, val := range l {
-		if strings.Compare(val, t) == 0 {
+func inList(list []string, target string) bool {
+	for _, val := range list {
+		if strings.Compare(val, target) == 0 {
 			return true
 		}
 	}
@@ -219,15 +225,47 @@ func CharacterList(in io.Reader, out io.Writer, alphaSort bool) error {
 	for _, element := range screenplay.Elements {
 		if element.Type == fountain.CharacterType {
 			name := strings.TrimSpace(element.Content)
-			if !inList(characters, name) {
-				characters = append(characters, name)
+			if name != "" {
+				// Remove parentheticals
+				if reParens.MatchString(name) {
+					name = strings.TrimSpace(reParens.ReplaceAllString(name, ""))
+				}
+				// handle multiple names
+				if strings.Contains(name, ` `) {
+					parts := []string{}
+					for _, s := range strings.Split(name, ` `) {
+						if strings.HasSuffix(s, "'S") {
+							s = strings.TrimSuffix(s, "'S")
+						}
+						if strings.TrimSpace(s) != "" {
+							parts = append(parts, s)
+						}
+					}
+					name = strings.TrimSpace(strings.Join(parts, " "))
+					// Now handle possible & or "AND" joins
+					if reConcat.MatchString(name) {
+						name = reConcat.ReplaceAllString(name, ",")
+						for _, s := range strings.Split(name, ",") {
+							s = strings.TrimSpace(s)
+							if !inList(characters, s) {
+								characters = append(characters, s)
+							}
+						}
+					}
+				} else {
+					if name != "" {
+						if !inList(characters, name) {
+							characters = append(characters, name)
+						}
+					}
+				}
 			}
 		}
 	}
 	if alphaSort {
 		sort.Strings(characters)
 	}
-	fmt.Fprintf(out, "%s", strings.Join(characters, "\n"))
+	fmt.Fprintf(out, "%s\n", strings.Join(characters, "\n"))
 	return nil
 }
 
