@@ -8,7 +8,7 @@ authors:
 abstract: A library and command line program for working with fdx (Final Draft XML), osf, Fade In and Fountain formatted Screen Play files.
 repository-code: "https://github.com/rsdoiel/scripttool"
 type: software
-version: 0.0.7
+version: 0.0.8
 license-url: "https://rsdoiel.github.io/scripttool/license.html"
 keywords:
   - Github

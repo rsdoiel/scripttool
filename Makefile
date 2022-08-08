@@ -81,7 +81,10 @@ check: .FORCE
 	go vet *.go
 
 test: clean build
-	go test
+	-cd fountain && go test
+	-cd osf && go test
+	-cd fdx && go test
+	-go test
 
 cleanweb:
 	@if [ -f index.html ]; then rm *.html; fi

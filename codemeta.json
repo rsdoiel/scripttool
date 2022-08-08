@@ -6,7 +6,7 @@
     "codeRepository": "https://github.com/rsdoiel/scripttool",
     "issueTracker": "https://github.com/rsdoiel/scripttool/issues",
     "license": "https://rsdoiel.github.io/scripttool/license.html",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "author": [
         {
             "@type": "Person",
