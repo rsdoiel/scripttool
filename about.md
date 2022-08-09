@@ -5,7 +5,7 @@ title: scripttool
 About this software
 ===================
 
-scripttool 0.0.7
+scripttool 0.0.8
 ----------------
 
 ### Authors

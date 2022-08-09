@@ -35,31 +35,68 @@
 <p><em>scripttool</em> converts screen play file formats. Supported formats include FileDraft’s XML format, FadeIn’s zipped XML format, Fountain formatted plain text as the Open Screenplay Format XML documents. The command line program is based on a Go package also called scripttool. The Go package can be compiled to a shared library and integrated with Python via the ctypes package.</p>
 <p>Internally <em>scripttool</em> works with Fountain formatter files for reporting purposes. You can use the <code>fountain2json</code> verb to see the data structure represented as JSON for reports.</p>
 <h1 id="verbs">verbs</h1>
-<p>Like many recent command line tools running under POSIX <em>scripttool</em> uses a <code>CMD VERB MODIFIERS</code> scheme. The follownig verbs are provided. Each “verb” may also have related options.</p>
+<p>Like many recent command line tools running under POSIX <em>scripttool</em> uses a <code>CMD VERB [INPUT_FILENAME] [OUTPUT_FILENAME]</code> scheme. The follownig verbs are provided. Each “verb” may also have related options.</p>
+<h2 id="convert-fadein-files">Convert FadeIn files</h2>
 <dl>
-<dt>fdx2fountain</dt>
-<dd>Convert from Final Draft XML ("*.fdx" files) to Fountain screenplay format)
-</dd>
-<dt>osf2fountain</dt>
-<dd>Convert from Open Screenplay Format 2.0 to Fountain screenplay format
-</dd>
-<dt>fountain2fdx</dt>
-<dd>Convert a Fountain screenplay formatted file to Final Draft XML
-</dd>
-<dt>fountain2osf</dt>
-<dd>Convert a Fountain screenplay formatted file to Open Screenplay Format 2.0
+<dt>fadein2fdx</dt>
+<dd>Converts a FadeIn file to Final Draft XML
 </dd>
 <dt>fadein2fountain</dt>
 <dd>Converts a FadeIn file to fountain screenplay format
 </dd>
+<dt>fadein2json</dt>
+<dd>Convert a FadeIn file to JSON format
+</dd>
+<dt>fadein2osf</dt>
+<dd>Convert a FadeIn file to Open Screenplay Format 2.0
+</dd>
+</dl>
+<h2 id="convert-final-draft-xml">Convert Final Draft XML</h2>
+<dl>
+<dt>fdx2fadein</dt>
+<dd>Convert from Final Draft XML ("*.fdx" files) to FadeIn format
+</dd>
+<dt>fdx2fountain</dt>
+<dd>Convert from Final Draft XML ("*.fdx" files) to Fountain screenplay format)
+</dd>
+<dt>fdx2json</dt>
+<dd>Convert from Final Draft XML ("*.fdx" files) to JSON
+</dd>
+<dt>fdx2osf</dt>
+<dd>Convert from Final Draft XML ("*.fdx" files) to Open Screenplay Format 2.0
+</dd>
+</dl>
+<h2 id="convert-open-screenplay-format-2.0">Convert Open Screenplay Format 2.0</h2>
+<dl>
+<dt>osf2fadein</dt>
+<dd>Convert from Open Screenplay Format 2.0 to FadeIn
+</dd>
+<dt>osf2fdx</dt>
+<dd>Convert from Open Screenplay Format 2.0 to Final Draft XML
+</dd>
+<dt>osf2fountain</dt>
+<dd>Convert from Open Screenplay Format 2.0 to Fountain screenplay format
+</dd>
+<dt>osf2json</dt>
+<dd>Convert from Open Screenplay Format 2.0 to JSON
+</dd>
+</dl>
+<h2 id="convert-fountain-fomat">Convert Fountain fomat</h2>
+<dl>
 <dt>fountain2fadein</dt>
 <dd>Converts a fountain screenplay formatted file to FadeIn formatted file.
 </dd>
-<dt>fountainfmt</dt>
-<dd>Pretty print a fountain screenplay format
+<dt>fountain2fdx</dt>
+<dd>Convert a Fountain screenplay formatted file to Final Draft XML
 </dd>
 <dt>fountain2json</dt>
-<dd>Convert a fountain screenplay to JSON for machine or data processing
+<dd>Convert a Fountain screenplay formatted file to JSON
+</dd>
+<dt>fountain2osf</dt>
+<dd>Convert a Fountain screenplay formatted file to Open Screenplay Format 2.0
+</dd>
+<dt>fountainfmt</dt>
+<dd>Pretty print a fountain screenplay format
 </dd>
 <dt>characters</dt>
 <dd>Provide a character list from a fountain formatted file. Internally the fountain file is parse and resulting JSON structure is analyzed to produce the count of character references in the elements of the file.
@@ -121,11 +158,9 @@
 <p>Converting <em>screenplay.fountain</em> to <em>screenplay.fdx</em> (2 examples)</p>
 <pre class="shell"><code>    scripttool fountain2fdx screenplay.fountain screenplay.fdx
     scripttool fountain2fdx -i screenplay.fountain -o screenplay.fdx</code></pre>
-<p>Listing characters in <em>screenplay.fountain</em>. First list is order of appearence and the second set is characters sorted alphabetically using the “-alpha” option. (2 examples each)</p>
+<p>Listing characters from a <em>screenplay.fountain</em>. First list is order of appearence and the second set is characters sorted alphabetically using the “-alpha” option.</p>
 <pre class="shell"><code>    scripttool characters screenplay.fountain
-    scripttool characters -i screenplay.fountain
-    scripttool characters -alpha screenplay.fountain
-    scripttool characters -alpha -i screenplay.fountain</code></pre>
+    scripttool characters -alpha screenplay.fountain</code></pre>
 </section>
 
 <footer>
