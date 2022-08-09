@@ -1,5 +1,5 @@
 ---
-title: scripttool, a program for converting screen play formats
+title: scripttool installation
 ---
 
 Installation
