@@ -1,6 +1,6 @@
-{
-    "title": "scripttool, a program for converting screen play formats"
-}
+---
+title: scripttool, a program for converting screen play formats
+---
 
 Installation
 ============
