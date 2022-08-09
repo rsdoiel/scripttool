@@ -25,35 +25,70 @@ Internally _scripttool_ works with Fountain formatter files for reporting purpos
 # verbs
 
 Like many recent command line tools running under POSIX _scripttool_ uses
-a ` + "`" + `CMD VERB MODIFIERS` + "`" + ` scheme. The follownig verbs are provided. Each
-"verb" may also have related options.
+a ` + "`" + `CMD VERB [INPUT_FILENAME] [OUTPUT_FILENAME]` + "`" + ` scheme. The follownig verbs are provided. Each "verb" may also have related options.
 
-fdx2fountain
-: Convert from Final Draft XML ("*.fdx" files) to Fountain screenplay format)
+## Convert FadeIn files
 
-osf2fountain
-: Convert from Open Screenplay Format 2.0 to Fountain screenplay format
-
-fountain2fdx
-: Convert a Fountain screenplay formatted file to Final Draft XML
-
-fountain2osf
-: Convert a Fountain screenplay formatted file to Open Screenplay Format 2.0 
+fadein2fdx
+: Converts a FadeIn file to Final Draft XML 
 
 fadein2fountain
 : Converts a FadeIn file to fountain screenplay format
 
+fadein2json
+: Convert a FadeIn file to JSON format
+
+fadein2osf
+: Convert a FadeIn file to Open Screenplay Format 2.0
+
+## Convert Final Draft XML
+
+fdx2fadein
+: Convert from Final Draft XML ("*.fdx" files) to FadeIn format
+
+fdx2fountain
+: Convert from Final Draft XML ("*.fdx" files) to Fountain screenplay format)
+
+fdx2json
+: Convert from Final Draft XML ("*.fdx" files) to JSON
+
+fdx2osf
+: Convert from Final Draft XML ("*.fdx" files) to Open Screenplay Format 2.0
+
+## Convert Open Screenplay Format 2.0
+
+osf2fadein
+: Convert from Open Screenplay Format 2.0 to FadeIn
+
+osf2fdx
+: Convert from Open Screenplay Format 2.0 to Final Draft XML
+
+osf2fountain
+: Convert from Open Screenplay Format 2.0 to Fountain screenplay format
+
+osf2json
+: Convert from Open Screenplay Format 2.0 to JSON
+
+## Convert Fountain fomat
+
 fountain2fadein
 : Converts a fountain screenplay formatted file to FadeIn formatted file.
+
+fountain2fdx
+: Convert a Fountain screenplay formatted file to Final Draft XML
+
+fountain2json
+: Convert a Fountain screenplay formatted file to JSON
+
+fountain2osf
+: Convert a Fountain screenplay formatted file to Open Screenplay Format 2.0 
 
 fountainfmt
 : Pretty print a fountain screenplay format
 
-fountain2json
-: Convert a fountain screenplay to JSON for machine or data processing
-
 characters
 : Provide a character list from a fountain formatted file. Internally the fountain file is parse and resulting JSON structure is analyzed to produce the count of character references in the elements of the file.
+
 
 
 # OPTIONS
@@ -121,15 +156,11 @@ Converting *screenplay.fountain* to *screenplay.fdx* (2 examples)
     scripttool fountain2fdx -i screenplay.fountain -o screenplay.fdx
 ~~~
 
-Listing characters in *screenplay.fountain*. By default the character
-list is order of appearence but using the "-alpha" option will give you
-an alphabetically sorted list.
+Listing characters from a *screenplay.fountain*. First list is order of appearence and the second set is characters sorted alphabetically using the "-alpha" option.
 
 ~~~shell
     scripttool characters screenplay.fountain
-    scripttool characters -i screenplay.fountain
-    scripttool characters -alpha screenplay.fdx
-    scripttool characters -alpha -i screenplay.fdx
+    scripttool characters -alpha screenplay.fountain
 ~~~
 
 `
