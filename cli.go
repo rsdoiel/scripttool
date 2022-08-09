@@ -85,39 +85,89 @@ func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) erro
 	}
 
 	switch verb {
-	case "fdx2fountain":
-		return FdxToFountain(in, out)
-	case "osf2fountain":
-		return OSFToFountain(in, out)
-	case "fountain2fdx":
-		return FountainToFdx(in, out)
-	case "fountain2osf":
-		return FountainToOSF(in, out)
-	case "characters":
-		return CharacterList(in, out, alphaSort)
+	// fadein to something
+	case "fadein2fdx":
+		if inputFName != "" {
+			return FadeInToFDX(inputFName, out)
+		}
+		return fmt.Errorf("A FadeIn filename required for input")
 	case "fadein2fountain":
 		if inputFName != "" {
 			return FadeInToFountain(inputFName, out)
+		}
+		return fmt.Errorf("A FadeIn filename required for input")
+	case "fadein2json":
+		if inputFName != "" {
+			return FadeInToJSON(inputFName, out)
 
 		}
-		return fmt.Errorf("A FadeIn filename must for input")
+		return fmt.Errorf("A FadeIn filename required for input")
+	case "fadein2osf":
+		if inputFName != "" {
+			return FadeInToOSF(inputFName, out)
+
+		}
+		return fmt.Errorf("A FadeIn filename required for input")
+
+	// fdx to something
+	case "fdx2fadein":
+		if outputFName != "" {
+			return FdxToFadeIn(in, outputFName)
+		}
+		return fmt.Errorf("A FadeIn filename required for output")
+	case "fdx2fountain":
+		return FdxToFountain(in, out)
+	case "fdx2json":
+		return FdxToJSON(in, out)
+	case "fdx2osf":
+		return FdxToOSF(in, out)
+
+	// fountain to something
 	case "fountain2fadein":
 		if outputFName != "" {
 			return FountainToFadeIn(in, outputFName)
 		}
-		return fmt.Errorf("A FadeIn filename must for output")
+		return fmt.Errorf("A FadeIn filename required for output")
+	case "fountain2fdx":
+		return FountainToFdx(in, out)
+	case "fountain2json":
+		return FountainToJSON(in, out)
+	case "fountain2osf":
+		return FountainToOSF(in, out)
+
+	// osf to something
+	case "osf2fadein":
+		if outputFName != "" {
+			return OSFToFadeIn(in, outputFName)
+		}
+		return fmt.Errorf("A FadeIn filename required for output")
+	case "osf2fdx":
+		return OSFToFdx(in, out)
+	case "osf2fountain":
+		return OSFToFountain(in, out)
+	case "osf2json":
+		return OSFToJSON(in, out)
+
+	// Utility fountain functions
+	case "fountain2fountain":
+		return FountainToFountain(in, out)
 	case "fountainfmt":
 		return FountainFmt(in, out)
 	case "fountain2html":
 		return FountainToHTML(in, out)
-	case "fountain2json":
-		return FountainToJSON(in, out)
+	case "characters":
+		//FIXME: add detection of file type, convert to fountain then
+		// run report.
+		return CharacterList(in, out, alphaSort)
+
+	// Help system
 	case "help":
 		fmt.Fprintln(out, FmtCliText(HelpText, appName, verb, Version))
 		return nil
+
+	// If we got this far we have an unknown verb
 	default:
 		return fmt.Errorf("do not understand %q in %q", verb, strings.Join(args, " "))
-
 	}
 	return nil
 }

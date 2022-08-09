@@ -1,9 +1,12 @@
-{
-    "title": "scripttool, a program for converting screen play formats"
-}
+---
+title: scripttool, a program for converting screen play formats
+---
 
 About the test data
 ===================
+
+The testing data for scripttool and its sub-packages fountain, fdx and
+osf are held in common in this repository's _testdata_ directory.
 
 The [fountain](https://fountain.io) website has some good files 
 for reviewing formatting difference between fountain, fdx and 

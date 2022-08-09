@@ -34,9 +34,12 @@ package scripttool
 import (
 	"archive/zip"
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
+	"os"
+	"path"
 	"regexp"
 	"sort"
 	"strings"
@@ -52,7 +55,61 @@ var (
 	reConcat = regexp.MustCompile(`&|,| AND `)
 )
 
-// FdxToFountain converts the an input buffer from .fdx to a .fountain format.
+// FdxToFadeIn converts an input buffer from .fdx to FadeIn file
+func FdxToFadeIn(in io.Reader, outputFName string) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := fdx.Parse(src)
+	if err != nil {
+		return err
+	}
+	// Convert fdx file to fountain
+	screenplay, err := fountain.Parse([]byte(document.String()))
+	if err != nil {
+		return err
+	}
+	// Convert fountain to OSF 2.0
+	osfDoc := osf.NewOpenScreenplay20()
+	document.FromFountain(screenplay)
+	src, err = osfDoc.ToXML()
+	if err != nil {
+		return err
+	}
+
+	// Write Zip of OSF 2.0 to produce FadeIn file
+	outExt := path.Ext(outputFName)
+	outOSFName := strings.TrimSuffix(outputFName, outExt) + ".osf"
+	out, err := os.Create(outputFName)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+	w := zip.NewWriter(out)
+	var files = []struct {
+		Name string
+		Body []byte
+	}{
+		{outOSFName, src},
+	}
+	for _, file := range files {
+		f, err := w.Create(file.Name)
+		if err != nil {
+			return err
+		}
+		_, err = f.Write(file.Body)
+		if err != nil {
+			return err
+		}
+	}
+	if err := w.Close(); err != nil {
+		return err
+	}
+	return nil
+}
+
+// FdxToFountain converts an input buffer from .fdx to a .fountain format.
 func FdxToFountain(in io.Reader, out io.Writer) error {
 	src, err := ioutil.ReadAll(in)
 	if err != nil {
@@ -67,6 +124,121 @@ func FdxToFountain(in io.Reader, out io.Writer) error {
 	return nil
 }
 
+// FdxToJSON converts an input buffer from a .fdx file to a .json format
+func FdxToJSON(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := fdx.Parse(src)
+	if err != nil {
+		return err
+	}
+	src, err = json.Marshal(document)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(out, "%s", src)
+	return nil
+}
+
+// FdxToOSF concerts an input buffer from .fdx to Open Screenplay Format 2.0
+func FdxToOSF(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := fdx.Parse(src)
+	if err != nil {
+		return err
+	}
+	// Convert fdx file to fountain
+	screenplay, err := fountain.Parse([]byte(document.String()))
+	if err != nil {
+		return err
+	}
+	// Convert fountain to OSF 2.0
+	osfDoc := osf.NewOpenScreenplay20()
+	document.FromFountain(screenplay)
+	src, err = osfDoc.ToXML()
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(out, "%s", src)
+	return nil
+}
+
+// OSFToFadeIn converts the input buffer from .osf to FadeIn file
+func OSFToFadeIn(in io.Reader, outputFName string) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := osf.Parse(src)
+	if err != nil {
+		return err
+	}
+	src, err = document.ToXML()
+	if err != nil {
+		return err
+	}
+
+	// Write Zip of OSF 2.0 to produce FadeIn file
+	outExt := path.Ext(outputFName)
+	outOSFName := strings.TrimSuffix(outputFName, outExt) + ".osf"
+	out, err := os.Create(outputFName)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+	w := zip.NewWriter(out)
+	var files = []struct {
+		Name string
+		Body []byte
+	}{
+		{outOSFName, src},
+	}
+	for _, file := range files {
+		f, err := w.Create(file.Name)
+		if err != nil {
+			return err
+		}
+		_, err = f.Write(file.Body)
+		if err != nil {
+			return err
+		}
+	}
+	if err := w.Close(); err != nil {
+		return err
+	}
+	return nil
+}
+
+// OSFToFdx converts the input buffer from .osf to .fdx format.
+func OSFToFdx(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := osf.Parse(src)
+	if err != nil {
+		return err
+	}
+	// Now convert to Fountain format
+	screenplay, err := fountain.Parse([]byte(document.String()))
+	if err != nil {
+		return err
+	}
+	fdxDoc := fdx.NewFinalDraft()
+	fdxDoc.FromFountain(screenplay)
+	src, err = fdxDoc.ToXML()
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(out, "%s", src)
+	return nil
+}
+
 // OSFToFountain converts the input buffer from .osf to .fountain format.
 func OSFToFountain(in io.Reader, out io.Writer) error {
 	src, err := ioutil.ReadAll(in)
@@ -78,6 +250,24 @@ func OSFToFountain(in io.Reader, out io.Writer) error {
 		return err
 	}
 	fmt.Fprintf(out, "%s", document.String())
+	return nil
+}
+
+// OSFToJSON converts the input buffer from .osf to .json format.
+func OSFToJSON(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := osf.Parse(src)
+	if err != nil {
+		return err
+	}
+	src, err = json.Marshal(document)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(out, "%s", src)
 	return nil
 }
 
@@ -133,7 +323,51 @@ func FountainToOSF(in io.Reader, out io.Writer) error {
 	return nil
 }
 
-// FadeInToFountain converts the input buffer from .fadein to .fountain format.
+// FadeInToFDX converts an input file to .fdx format
+func FadeInToFDX(inputFName string, out io.Writer) error {
+	// NOTE: Need to unzip, extract document.xml then pass the source
+	// of document.xml to osf.Parse()
+	r, err := zip.OpenReader(inputFName)
+	if err != nil {
+		return err
+	}
+	defer r.Close()
+	src := []byte{}
+	for _, f := range r.File {
+		if f.Name == "document.xml" {
+			rc, err := f.Open()
+			if err != nil {
+				return err
+			}
+			src, err = ioutil.ReadAll(rc)
+			if err != nil {
+				return err
+			}
+			rc.Close()
+			break
+		}
+	}
+	document, err := osf.Parse(src)
+	if err != nil {
+		return err
+	}
+	// Convert OSF to Fountain
+	screenplay, err := fountain.Parse([]byte(document.String()))
+	if err != nil {
+		return err
+	}
+	// Now convert the fountain format to .fdx
+	fdxDoc := fdx.NewFinalDraft()
+	fdxDoc.FromFountain(screenplay)
+	src, err = fdxDoc.ToXML()
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(out, "%s", src)
+	return nil
+}
+
+// FadeInToFountain converts an input file to .fountain format.
 func FadeInToFountain(inputFName string, out io.Writer) error {
 	// NOTE: Need to unzip, extract document.xml then pass the source
 	// of document.xml to osf.Parse()
@@ -162,6 +396,78 @@ func FadeInToFountain(inputFName string, out io.Writer) error {
 		return err
 	}
 	fmt.Fprintf(out, "%s", document.String())
+	return nil
+}
+
+// FadeInToJSON converts an input file to JSON format.
+func FadeInToJSON(inputFName string, out io.Writer) error {
+	// NOTE: Need to unzip, extract document.xml then pass the source
+	// of document.xml to osf.Parse()
+	r, err := zip.OpenReader(inputFName)
+	if err != nil {
+		return err
+	}
+	defer r.Close()
+	src := []byte{}
+	for _, f := range r.File {
+		if f.Name == "document.xml" {
+			rc, err := f.Open()
+			if err != nil {
+				return err
+			}
+			src, err = ioutil.ReadAll(rc)
+			if err != nil {
+				return err
+			}
+			rc.Close()
+			break
+		}
+	}
+	document, err := osf.Parse(src)
+	if err != nil {
+		return err
+	}
+	src, err = json.Marshal(document)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(out, "%s", src)
+	return nil
+}
+
+// FadeInToOSF converts an input file to .fountain format.
+func FadeInToOSF(inputFName string, out io.Writer) error {
+	// NOTE: Need to unzip, extract document.xml then pass the source
+	// of document.xml to osf.Parse()
+	r, err := zip.OpenReader(inputFName)
+	if err != nil {
+		return err
+	}
+	defer r.Close()
+	src := []byte{}
+	for _, f := range r.File {
+		if f.Name == "document.xml" {
+			rc, err := f.Open()
+			if err != nil {
+				return err
+			}
+			src, err = ioutil.ReadAll(rc)
+			if err != nil {
+				return err
+			}
+			rc.Close()
+			break
+		}
+	}
+	document, err := osf.Parse(src)
+	if err != nil {
+		return err
+	}
+	src, err = document.ToXML()
+	if err != nil {
+		return err
+	}
+	fmt.Fprintf(out, "%s", src)
 	return nil
 }
 

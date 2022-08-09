@@ -38,6 +38,10 @@ import (
 	"testing"
 )
 
+var (
+	testdataBase = path.Join("..", "testdata")
+)
+
 func assertOK(t *testing.T, err error, msg string) {
 	if err != nil {
 		t.Errorf("%s, %s", err, msg)
@@ -91,7 +95,7 @@ And you fetch the tongs.
 }
 
 func TestTypes(t *testing.T) {
-	src, err := ioutil.ReadFile(path.Join("testdata", "sample-01.fountain"))
+	src, err := ioutil.ReadFile(path.Join(testdataBase, "sample-01.fountain"))
 	assertOK(t, err, "ReadFile(testdata/sample-01.fountain)")
 
 	doc, err := Parse(src)
@@ -154,7 +158,7 @@ func TestSamples(t *testing.T) {
 	}
 
 	for i, fName := range files {
-		screenplay, err := ParseFile(path.Join("testdata", fName))
+		screenplay, err := ParseFile(path.Join(testdataBase, fName))
 		if err != nil {
 			t.Errorf("(%d) Should be able to read and parse %s, %s", i, fName, err)
 			t.FailNow()
@@ -176,8 +180,8 @@ func isInList(elements []string, target string) bool {
 }
 
 func TestIssue2Scripttool(t *testing.T) {
-	scriptFName := path.Join("testdata", "sample-07.fountain")
-	charactersFName := path.Join("testdata", "sample-07-characters.txt")
+	scriptFName := path.Join(testdataBase, "sample-07.fountain")
+	charactersFName := path.Join(testdataBase, "sample-07-characters.txt")
 	src, err := ioutil.ReadFile(charactersFName)
 	if err != nil {
 		t.Errorf("failed to read characters file %q, %s", charactersFName, err)

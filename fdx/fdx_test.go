@@ -43,6 +43,7 @@ import (
 
 var (
 	expectedDocs map[string][]byte
+	testdataBase = path.Join("..", "testdata")
 )
 
 func testFdxFile(t *testing.T, fname string) {
@@ -59,11 +60,11 @@ func testFdxFile(t *testing.T, fname string) {
 	if err := xml.Unmarshal(src, &fdx); err != nil {
 		t.Errorf("%s", err)
 	} else {
-		os.RemoveAll(path.Join("testout", path.Base(fname)))
+		os.RemoveAll(path.Join(testdataBase, path.Base(fname)))
 		if src2, err := xml.MarshalIndent(fdx, " ", "    "); err != nil {
 			t.Errorf("%s", err)
 		} else {
-			if err := ioutil.WriteFile(path.Join("testout", path.Base(fname)), src2, 0666); err != nil {
+			if err := ioutil.WriteFile(path.Join(testdataBase, path.Base(fname)), src2, 0666); err != nil {
 				t.Errorf("%s", err)
 			}
 		}
@@ -80,7 +81,7 @@ func TestConversion(t *testing.T) {
 		"sample-03.fdx",
 	}
 	for _, fname := range fileList {
-		testFdxFile(t, path.Join("testdata", fname))
+		testFdxFile(t, path.Join(testdataBase, fname))
 	}
 }
 
@@ -91,7 +92,7 @@ func TestTitlePageToString(t *testing.T) {
 		"sample-02.fdx",
 	}
 	for _, fname := range noTitlePages {
-		fullName := path.Join("testdata", fname)
+		fullName := path.Join(testdataBase, fname)
 		src, err := ioutil.ReadFile(fullName)
 		if err != nil {
 			t.Errorf("%s", err)
@@ -118,7 +119,7 @@ func TestTitlePageToString(t *testing.T) {
 		"sample-03.fdx":                    []string{"SAMPLE 03"},
 	}
 	for fname, textTerms := range haveTitlePages {
-		src, err := ioutil.ReadFile(path.Join("testdata", fname))
+		src, err := ioutil.ReadFile(path.Join(testdataBase, fname))
 		if err != nil {
 			if strings.HasPrefix(fname, "sample") == true {
 				t.Errorf("%s", err)
