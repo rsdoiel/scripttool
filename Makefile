@@ -45,7 +45,7 @@ CITATION.cff: .FORCE
 	@if [ -f $(CODEMETA2CFF) ]; then $(CODEMETA2CFF) codemeta.json CITATION.cff; fi
 
 about.md: codemeta.json $(PROGRAMS)
-	pdtk prep -i codemeta.json -- --template codemeta-md.tmpl >about.md
+	pttk prep -i codemeta.json -- --template codemeta-md.tmpl >about.md
 	
 
 $(PROGRAMS): cmd/*/*.go $(PACKAGE)
