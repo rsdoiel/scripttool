@@ -12,7 +12,8 @@ scripttool 0.0.8
 
 - Robert Doiel
 
-A library and command line program for working with fdx (Final Draft XML), osf, Fade In and Fountain formatted Screen Play files.
+A library and command line program for working with fdx (Final Draft
+XML), osf, Fade In and Fountain formatted Screen Play files.
 
 
 - License: https://rsdoiel.github.io/scripttool/license.html
@@ -23,6 +24,5 @@ A library and command line program for working with fdx (Final Draft XML), osf, 
 ### Programming languages
 
 - Go
-
 
 
