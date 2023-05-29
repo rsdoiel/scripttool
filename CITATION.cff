@@ -18,4 +18,12 @@ maintainers:
 repository-code: "https://github.com/rsdoiel/scripttool"
 version: 0.0.8
 license-url: "https://rsdoiel.github.io/scripttool/license.html"
+<<<<<<< HEAD
 keywords: [ "Github", "text markup", "screen play" ]
+=======
+keywords:
+  - Github
+  - text markup
+  - screen play
+date-released: 2022-11-24
+>>>>>>> c5737c65de66bf53b477318dcb9decd433872ecd
