@@ -160,3 +160,4 @@ Listing characters from a *screenplay.fountain*. First list is order of appearen
     scripttool characters -alpha screenplay.fountain
 ~~~
 
+
