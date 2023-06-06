@@ -22,7 +22,7 @@ case "$OS_NAME" in
    Darwin)
    OS_NAME="macOS"
    ;;
-   "GNU/Linux")
+   GNU/Linux)
    OS_NAME="Linux"
    ;;
 esac
