@@ -7,15 +7,23 @@ Installation
 
 *scripttool* is a command line program run from a shell like Bash. You can find compiled version in the [releases](https://github.com/rsdoiel/scripttool/releases/latest) 
 
+## Quick install via curl
+
+This project can be installed via curl and sh for POSIX compatible systems.
+Enter the following in your shell.
+
+~~~
+curl https://rsdoiel.github.io/scripttool/installer.sh | sh
+~~~
+
 Compiled version
 ----------------
 
 This is generalized instructions for a release. 
 
-Compiled versions are available for Mac OS X (amd64 and M1 processor, macos-amd64, macos-arm64), 
-Linux (amd64 process, linux-amd64), Windows (amd64 processor, windows-amd64), 
-Rapsberry Pi (arm7 processor, raspbian-arm7) and Pine64 (arm64 processor, linux-arm64)
-
+Compiled versions are available for Mac OS (Intel and M1/M2 processor, macOS-x86_64, macOS-arm64), 
+Linux (Intel process, linux-x86_64), Windows (Intel processor, Windows-x86_64), 
+Rapsberry Pi OS (arm7 processor, RaspberryPiOS-arm7) and Pine64 (arm64 processor, Linux-aarch64)
 
 VERSION_NUMBER is a [symantic version number](http://semver.org/) (e.g. v0.1.2)
 
@@ -25,14 +33,14 @@ For all the released version go to the project page on Github and click latest r
 >    https://github.com/rsdoiel/scripttool/releases/latest
 
 
-| Platform    | Zip Filename                           |
-|-------------|----------------------------------------|
-| Windows     | scripttool-VERSION_NUMBER-windows-amd64.zip |
-| Mac OS X    | scripttool-VERSION_NUMBER-macos-amd64.zip  |
-| Mac OS X    | scripttool-VERSION_NUMBER-macos-arm64.zip  |
-| Linux/Intel | scripttool-VERSION_NUMBER-linux-amd64.zip   |
-| Raspbery Pi | scripttool-VERSION_NUMBER-raspbian-arm7.zip |
-| Pine64      | scripttool-VERSION_NUMBER-linux-arm64.zip   |
+| Platform       | Zip Filename                                    |
+|----------------|-------------------------------------------------|
+| Windows        | scripttool-VERSION_NUMBER-Windows-x86_64.zip    |
+| Mac OS (Intel) | scripttool-VERSION_NUMBER-macOS-x86_64.zip      |
+| Mac OS (M1,M2) | scripttool-VERSION_NUMBER-macOS-arm64.zip       |
+| Linux/Intel    | scripttool-VERSION_NUMBER-Linux-x86_64.zip      |
+| Raspbery Pi    | scripttool-VERSION_NUMBER-RaspbianPiOS-arm7.zip |
+| Pine64         | scripttool-VERSION_NUMBER-Linux-aarch64.zip     |
 
 
 The basic recipe
@@ -48,7 +56,7 @@ The basic recipe
 + Test
 
 
-### Mac OS X
+### Mac OS
 
 1. Download the zip file
 2. Unzip the zip file
@@ -61,7 +69,7 @@ zip file.
 
 ```shell
     cd Downloads/
-    unzip scripttool-*-macos-amd64.zip
+    unzip scripttool-*-macOS-x86_64.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -80,7 +88,7 @@ downloading the zip file.
 
 ```shell
     cd Downloads/
-    unzip scripttool-*-windows-amd64.zip
+    unzip scripttool-*-Windows-x86_64.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -100,7 +108,7 @@ downloading the zip file.
 
 ```shell
     cd Downloads/
-    unzip scripttool-*-linux-amd64.zip
+    unzip scripttool-*-Linux-x86_64.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -108,9 +116,9 @@ downloading the zip file.
 ```
 
 
-### Raspberry Pi
+### Raspberry Pi OS
 
-Released version is for a Raspberry Pi 2 or later use (i.e. requires ARM 7 support).
+Released version is for a Raspberry Pi 3 or later use (i.e. requires ARM 7 support).
 
 1. Download the zip file
 2. Unzip the zip file
@@ -122,7 +130,7 @@ downloading the zip file.
 
 ```shell
     cd Downloads/
-    unzip scripttool-*-raspbian-arm7.zip
+    unzip scripttool-*-RaspberryPiOS-arm7.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -140,7 +148,7 @@ as well as _scripttool_'s source code.
     go get -u github.com/rsdoiel/scripttool/...
 ```
 
-Or clone the repstory and then compile
+Or clone the repository and then compile
 
 ```shell
     cd
