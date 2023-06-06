@@ -31,12 +31,17 @@
 <p><em>scripttool</em> is a command line program run from a shell like
 Bash. You can find compiled version in the <a
 href="https://github.com/rsdoiel/scripttool/releases/latest">releases</a></p>
+<h2 id="quick-install-via-curl">Quick install via curl</h2>
+<p>This project can be installed via curl and sh for POSIX compatible
+systems. Enter the following in your shell.</p>
+<pre><code>curl https://rsdoiel.github.io/scripttool/installer.sh | sh</code></pre>
 <h2 id="compiled-version">Compiled version</h2>
 <p>This is generalized instructions for a release.</p>
-<p>Compiled versions are available for Mac OS X (amd64 and M1 processor,
-macos-amd64, macos-arm64), Linux (amd64 process, linux-amd64), Windows
-(amd64 processor, windows-amd64), Rapsberry Pi (arm7 processor,
-raspbian-arm7) and Pine64 (arm64 processor, linux-arm64)</p>
+<p>Compiled versions are available for Mac OS (Intel and M1/M2
+processor, macOS-x86_64, macOS-arm64), Linux (Intel process,
+linux-x86_64), Windows (Intel processor, Windows-x86_64), Rapsberry Pi
+OS (arm7 processor, RaspberryPiOS-arm7) and Pine64 (arm64 processor,
+Linux-aarch64)</p>
 <p>VERSION_NUMBER is a <a href="http://semver.org/">symantic version
 number</a> (e.g. v0.1.2)</p>
 <p>For all the released version go to the project page on Github and
@@ -54,27 +59,27 @@ click latest release</p>
 <tbody>
 <tr class="odd">
 <td>Windows</td>
-<td>scripttool-VERSION_NUMBER-windows-amd64.zip</td>
+<td>scripttool-VERSION_NUMBER-Windows-x86_64.zip</td>
 </tr>
 <tr class="even">
-<td>Mac OS X</td>
-<td>scripttool-VERSION_NUMBER-macos-amd64.zip</td>
+<td>Mac OS (Intel)</td>
+<td>scripttool-VERSION_NUMBER-macOS-x86_64.zip</td>
 </tr>
 <tr class="odd">
-<td>Mac OS X</td>
-<td>scripttool-VERSION_NUMBER-macos-arm64.zip</td>
+<td>Mac OS (M1,M2)</td>
+<td>scripttool-VERSION_NUMBER-macOS-arm64.zip</td>
 </tr>
 <tr class="even">
 <td>Linux/Intel</td>
-<td>scripttool-VERSION_NUMBER-linux-amd64.zip</td>
+<td>scripttool-VERSION_NUMBER-Linux-x86_64.zip</td>
 </tr>
 <tr class="odd">
 <td>Raspbery Pi</td>
-<td>scripttool-VERSION_NUMBER-raspbian-arm7.zip</td>
+<td>scripttool-VERSION_NUMBER-RaspbianPiOS-arm7.zip</td>
 </tr>
 <tr class="even">
 <td>Pine64</td>
-<td>scripttool-VERSION_NUMBER-linux-arm64.zip</td>
+<td>scripttool-VERSION_NUMBER-Linux-aarch64.zip</td>
 </tr>
 </tbody>
 </table>
@@ -100,7 +105,7 @@ class="math inline"><em>H</em><em>O</em><em>M</em><em>E</em>/<em>b</em><em>i</em
 </ul></li>
 <li>Test</li>
 </ul>
-<h3 id="mac-os-x">Mac OS X</h3>
+<h3 id="mac-os">Mac OS</h3>
 <ol type="1">
 <li>Download the zip file</li>
 <li>Unzip the zip file</li>
@@ -111,7 +116,7 @@ class="math inline"><em>H</em><em>O</em><em>M</em><em>E</em>/<em>b</em><em>i</em
 <p>Here’s an example of the commands run in the Terminal App after
 downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
-    unzip scripttool-*-macos-amd64.zip
+    unzip scripttool-*-macOS-x86_64.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -126,7 +131,7 @@ downloading the zip file.</p>
 <p>Here’s an example of the commands run in from the Bash shell on
 Windows 10 after downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
-    unzip scripttool-*-windows-amd64.zip
+    unzip scripttool-*-Windows-x86_64.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -141,13 +146,13 @@ Windows 10 after downloading the zip file.</p>
 <p>Here’s an example of the commands run in from the Bash shell after
 downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
-    unzip scripttool-*-linux-amd64.zip
+    unzip scripttool-*-Linux-x86_64.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
     scripttool -version</code></pre>
-<h3 id="raspberry-pi">Raspberry Pi</h3>
-<p>Released version is for a Raspberry Pi 2 or later use (i.e. requires
+<h3 id="raspberry-pi-os">Raspberry Pi OS</h3>
+<p>Released version is for a Raspberry Pi 3 or later use (i.e. requires
 ARM 7 support).</p>
 <ol type="1">
 <li>Download the zip file</li>
@@ -158,7 +163,7 @@ ARM 7 support).</p>
 <p>Here’s an example of the commands run in from the Bash shell after
 downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
-    unzip scripttool-*-raspbian-arm7.zip
+    unzip scripttool-*-RaspberryPiOS-arm7.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -168,7 +173,7 @@ downloading the zip file.</p>
 download the dependant packages as well as <em>scripttool</em>’s source
 code.</p>
 <pre class="shell"><code>    go get -u github.com/rsdoiel/scripttool/...</code></pre>
-<p>Or clone the repstory and then compile</p>
+<p>Or clone the repository and then compile</p>
 <pre class="shell"><code>    cd
     git clone https://github.com/rsdoiel/scripttool src/github.com/rsdoiel/scripttool
     cd src/github.com/rsdoiel/scripttool
