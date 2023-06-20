@@ -28,24 +28,15 @@
 <!--  <h1>INSTALL</h1> -->
 
 <h1 id="installation">Installation</h1>
-<p><em>scripttool</em> is a command line program run from a shell like
-Bash. You can find compiled version in the <a
-href="https://github.com/rsdoiel/scripttool/releases/latest">releases</a></p>
+<p><em>scripttool</em> is a command line program run from a shell like Bash. You can find compiled version in the <a href="https://github.com/rsdoiel/scripttool/releases/latest">releases</a></p>
 <h2 id="quick-install-via-curl">Quick install via curl</h2>
-<p>This project can be installed via curl and sh for POSIX compatible
-systems. Enter the following in your shell.</p>
+<p>This project can be installed via curl and sh for POSIX compatible systems. Enter the following in your shell.</p>
 <pre><code>curl https://rsdoiel.github.io/scripttool/installer.sh | sh</code></pre>
 <h2 id="compiled-version">Compiled version</h2>
 <p>This is generalized instructions for a release.</p>
-<p>Compiled versions are available for Mac OS (Intel and M1/M2
-processor, macOS-x86_64, macOS-arm64), Linux (Intel process,
-linux-x86_64), Windows (Intel processor, Windows-x86_64), Rapsberry Pi
-OS (arm7 processor, RaspberryPiOS-arm7) and Pine64 (arm64 processor,
-Linux-aarch64)</p>
-<p>VERSION_NUMBER is a <a href="http://semver.org/">symantic version
-number</a> (e.g. v0.1.2)</p>
-<p>For all the released version go to the project page on Github and
-click latest release</p>
+<p>Compiled versions are available for Mac OS (Intel and M1/M2 processor, macOS-x86_64, macOS-arm64), Linux (Intel process, linux-x86_64), Windows (Intel processor, Windows-x86_64), Rapsberry Pi OS (arm7 processor, RaspberryPiOS-arm7) and Pine64 (arm64 processor, Linux-aarch64)</p>
+<p>VERSION_NUMBER is a <a href="http://semver.org/">symantic version number</a> (e.g. v0.1.2)</p>
+<p>For all the released version go to the project page on Github and click latest release</p>
 <blockquote>
 <p>https://github.com/rsdoiel/scripttool/releases/latest</p>
 </blockquote>
@@ -85,23 +76,19 @@ click latest release</p>
 </table>
 <h2 id="the-basic-recipe">The basic recipe</h2>
 <ul>
-<li>Find the Zip file listed matching the architecture you’re running
-and download it
+<li>Find the Zip file listed matching the architecture you’re running and download it
 <ul>
-<li>(e.g. if you’re on a Windows 10 laptop/Surface with a amd64 style
-CPU you’d choose the Zip file with “windows-amd64” in the name).</li>
+<li>(e.g. if you’re on a Windows 10 laptop/Surface with a amd64 style CPU you’d choose the Zip file with “windows-amd64” in the name).</li>
 </ul></li>
 <li>Download the zip file and unzip the file.<br />
 </li>
-<li>Copy the contents of the folder named “bin” to a folder that is in
-your path
+<li>Copy the contents of the folder named “bin” to a folder that is in your path
 <ul>
 <li>(e.g. “$HOME/bin” is common).</li>
 </ul></li>
 <li>Adjust your PATH if needed
 <ul>
-<li>(e.g. export PATH=“<span
-class="math inline"><em>H</em><em>O</em><em>M</em><em>E</em>/<em>b</em><em>i</em><em>n</em>:</span>PATH”)</li>
+<li>(e.g. export PATH=“<span class="math inline"><em>H</em><em>O</em><em>M</em><em>E</em>/<em>b</em><em>i</em><em>n</em>:</span>PATH”)</li>
 </ul></li>
 <li>Test</li>
 </ul>
@@ -113,8 +100,7 @@ class="math inline"><em>H</em><em>O</em><em>M</em><em>E</em>/<em>b</em><em>i</em
 <li>Make sure the new location in in our path</li>
 <li>Test</li>
 </ol>
-<p>Here’s an example of the commands run in the Terminal App after
-downloading the zip file.</p>
+<p>Here’s an example of the commands run in the Terminal App after downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
     unzip scripttool-*-macOS-x86_64.zip
     mkdir -p $HOME/bin
@@ -128,8 +114,7 @@ downloading the zip file.</p>
 <li>Copy the executables to $HOME/bin (or a folder in your path)</li>
 <li>Test</li>
 </ol>
-<p>Here’s an example of the commands run in from the Bash shell on
-Windows 10 after downloading the zip file.</p>
+<p>Here’s an example of the commands run in from the Bash shell on Windows 10 after downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
     unzip scripttool-*-Windows-x86_64.zip
     mkdir -p $HOME/bin
@@ -143,8 +128,7 @@ Windows 10 after downloading the zip file.</p>
 <li>Copy the executables to $HOME/bin (or a folder in your path)</li>
 <li>Test</li>
 </ol>
-<p>Here’s an example of the commands run in from the Bash shell after
-downloading the zip file.</p>
+<p>Here’s an example of the commands run in from the Bash shell after downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
     unzip scripttool-*-Linux-x86_64.zip
     mkdir -p $HOME/bin
@@ -152,16 +136,14 @@ downloading the zip file.</p>
     export PATH=$HOME/bin:$PATH
     scripttool -version</code></pre>
 <h3 id="raspberry-pi-os">Raspberry Pi OS</h3>
-<p>Released version is for a Raspberry Pi 3 or later use (i.e. requires
-ARM 7 support).</p>
+<p>Released version is for a Raspberry Pi 3 or later use (i.e. requires ARM 7 support).</p>
 <ol type="1">
 <li>Download the zip file</li>
 <li>Unzip the zip file</li>
 <li>Copy the executables to $HOME/bin (or a folder in your path)</li>
 <li>Test</li>
 </ol>
-<p>Here’s an example of the commands run in from the Bash shell after
-downloading the zip file.</p>
+<p>Here’s an example of the commands run in from the Bash shell after downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
     unzip scripttool-*-RaspberryPiOS-arm7.zip
     mkdir -p $HOME/bin
@@ -169,9 +151,7 @@ downloading the zip file.</p>
     export PATH=$HOME/bin:$PATH
     scripttool -version</code></pre>
 <h2 id="compiling-from-source">Compiling from source</h2>
-<p><em>scripttool</em> is “go gettable”. Use the “go get” command to
-download the dependant packages as well as <em>scripttool</em>’s source
-code.</p>
+<p><em>scripttool</em> is “go gettable”. Use the “go get” command to download the dependant packages as well as <em>scripttool</em>’s source code.</p>
 <pre class="shell"><code>    go get -u github.com/rsdoiel/scripttool/...</code></pre>
 <p>Or clone the repository and then compile</p>
 <pre class="shell"><code>    cd
