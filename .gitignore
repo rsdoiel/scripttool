@@ -17,9 +17,10 @@
 bin/
 dist/
 testout/
-testdata/Big%20Fish.fdx
-testdata/Big%20Fish.fountain
-testdata/Brick%20&%20Steel.fdx
-testdata/Brick%20&%20Steel.fountain
-testdata/The%20Last%20Birthday%20Card.fdx
-testdata/The%20Last%20Birthday%20Card.fountain
+testdata/Big-Fish.fdx
+testdata/Big-Fish.fountain
+testdata/Brick-&-Steel.fdx
+testdata/Brick-&-Steel.fountain
+testdata/The-Last-Birthday-Card.fdx
+testdata/The-Last-Birthday-Card.fountain
+*.bak

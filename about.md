@@ -10,7 +10,7 @@ authors:
     orcid: "https://orcid.org/0000-0003-0900-6903"
 
 repository-code: "https://github.com/rsdoiel/scripttool"
-version: 0.0.8
+version: 0.0.9
 license-url: "https://rsdoiel.github.io/scripttool/license.html"
 keywords: [ "Github", "text markup", "screen play" ]
 
@@ -19,7 +19,7 @@ keywords: [ "Github", "text markup", "screen play" ]
 About this software
 ===================
 
-## scripttool 0.0.8
+## scripttool 0.0.9
 
 ### Authors
 

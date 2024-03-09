@@ -128,8 +128,11 @@ hash: .FORCE
 	git log --pretty=format:'%h' -n 1
 
 check: .FORCE
+	for FNAME in $(shell ls -1 *.md); do aspell -c $$FNAME; done
+	for FNAME in $(shell ls -1 cmd/*/*.go); do aspell -c $$FNAME; go fmt $$FNAME; done
 	for FNAME in $(shell ls -1 *.go); do go fmt $$FNAME; done
 	go vet *.go
+
 
 test: clean build
 	go test

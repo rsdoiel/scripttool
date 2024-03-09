@@ -45,9 +45,9 @@ import (
 	"strings"
 
 	// My packages
-	"github.com/rsdoiel/scripttool/fdx"
-	"github.com/rsdoiel/scripttool/fountain"
-	"github.com/rsdoiel/scripttool/osf"
+	"github.com/rsdoiel/fdx"
+	"github.com/rsdoiel/fountain"
+	"github.com/rsdoiel/osf"
 )
 
 var (

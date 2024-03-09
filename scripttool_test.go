@@ -40,7 +40,7 @@ import (
 	"testing"
 
 	// My Packages
-	"github.com/rsdoiel/scripttool/fdx"
+	"github.com/rsdoiel/fdx"
 )
 
 var (

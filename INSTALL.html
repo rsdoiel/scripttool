@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="language" content="EN">
@@ -17,7 +17,7 @@
 <li><a href="/">Home</a></li>
 <li><a href="./">README</a></li>
 <li><a href="user-manual.html">User Manual</a></li>
-<li><a href="license.html">LICENSE</a></li>
+<li><a href="LICENSE">LICENSE</a></li>
 <li><a href="about.html">About</a></li>
 <li><a href="INSTALL.html">Install</a></li>
 <li><a href="https://github.com/rsdoiel/scripttool">GitHub</a></li>
@@ -34,9 +34,9 @@
 <pre><code>curl https://rsdoiel.github.io/scripttool/installer.sh | sh</code></pre>
 <h2 id="compiled-version">Compiled version</h2>
 <p>This is generalized instructions for a release.</p>
-<p>Compiled versions are available for Mac OS (Intel and M1/M2 processor, macOS-x86_64, macOS-arm64), Linux (Intel process, linux-x86_64), Windows (Intel processor, Windows-x86_64), Rapsberry Pi OS (arm7 processor, RaspberryPiOS-arm7) and Pine64 (arm64 processor, Linux-aarch64)</p>
-<p>VERSION_NUMBER is a <a href="http://semver.org/">symantic version number</a> (e.g. v0.1.2)</p>
-<p>For all the released version go to the project page on Github and click latest release</p>
+<p>Compiled versions are available for Mac OS (Intel and M1/M2 processor, macOS-x86_64, macOS-arm64), Linux (Intel process, Linux-x86_64), Windows (Intel processor, Windows-x86_64), Raspberry Pi OS (arm7 32bit processor, RaspberryPiOS-arm7) and Pine64 (arm64 processor, Linux-aarch64)</p>
+<p>VERSION_NUMBER is a <a href="http://semver.org/">semantic version number</a> (e.g. v0.1.2)</p>
+<p>For all the released version go to the project page on GitHub and click latest release</p>
 <blockquote>
 <p>https://github.com/rsdoiel/scripttool/releases/latest</p>
 </blockquote>
@@ -65,8 +65,8 @@
 <td>scripttool-VERSION_NUMBER-Linux-x86_64.zip</td>
 </tr>
 <tr class="odd">
-<td>Raspbery Pi</td>
-<td>scripttool-VERSION_NUMBER-RaspbianPiOS-arm7.zip</td>
+<td>Raspberry Pi</td>
+<td>scripttool-VERSION_NUMBER-RaspberryPiOS-arm7.zip</td>
 </tr>
 <tr class="even">
 <td>Pine64</td>
@@ -96,7 +96,7 @@
 <ol type="1">
 <li>Download the zip file</li>
 <li>Unzip the zip file</li>
-<li>Copy the executables to $HOME/bin (or a folder in your path)</li>
+<li>Copy the executable to $HOME/bin (or a folder in your path)</li>
 <li>Make sure the new location in in our path</li>
 <li>Test</li>
 </ol>
@@ -111,7 +111,7 @@
 <ol type="1">
 <li>Download the zip file</li>
 <li>Unzip the zip file</li>
-<li>Copy the executables to $HOME/bin (or a folder in your path)</li>
+<li>Copy the executable to $HOME/bin (or a folder in your path)</li>
 <li>Test</li>
 </ol>
 <p>Here’s an example of the commands run in from the Bash shell on Windows 10 after downloading the zip file.</p>
@@ -125,7 +125,7 @@
 <ol type="1">
 <li>Download the zip file</li>
 <li>Unzip the zip file</li>
-<li>Copy the executables to $HOME/bin (or a folder in your path)</li>
+<li>Copy the executable to $HOME/bin (or a folder in your path)</li>
 <li>Test</li>
 </ol>
 <p>Here’s an example of the commands run in from the Bash shell after downloading the zip file.</p>
@@ -140,7 +140,7 @@
 <ol type="1">
 <li>Download the zip file</li>
 <li>Unzip the zip file</li>
-<li>Copy the executables to $HOME/bin (or a folder in your path)</li>
+<li>Copy the executable to $HOME/bin (or a folder in your path)</li>
 <li>Test</li>
 </ol>
 <p>Here’s an example of the commands run in from the Bash shell after downloading the zip file.</p>
@@ -151,7 +151,7 @@
     export PATH=$HOME/bin:$PATH
     scripttool -version</code></pre>
 <h2 id="compiling-from-source">Compiling from source</h2>
-<p><em>scripttool</em> is “go gettable”. Use the “go get” command to download the dependant packages as well as <em>scripttool</em>’s source code.</p>
+<p><em>scripttool</em> is “go gettable”. Use the “go get” command to download the dependent packages as well as <em>scripttool</em>’s source code.</p>
 <pre class="shell"><code>    go get -u github.com/rsdoiel/scripttool/...</code></pre>
 <p>Or clone the repository and then compile</p>
 <pre class="shell"><code>    cd

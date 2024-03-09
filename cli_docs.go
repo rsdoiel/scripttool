@@ -164,5 +164,4 @@ Listing characters from a *screenplay.fountain*. First list is order of appearen
 ~~~
 
 `
-
 )

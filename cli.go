@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	// My packages
-	"github.com/rsdoiel/scripttool/fountain"
+	"github.com/rsdoiel/fountain"
 )
 
 func FmtCliText(s string, appName string, verb string, version string) string {
@@ -169,5 +169,4 @@ func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) erro
 	default:
 		return fmt.Errorf("do not understand %q in %q", verb, strings.Join(args, " "))
 	}
-	return nil
 }
