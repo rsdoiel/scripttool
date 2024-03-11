@@ -155,8 +155,6 @@ func FdxToYAML(in io.Reader, out io.Writer) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("DEBUG document -> %+v\n", document)
-
 	encoder := yaml.NewEncoder(out)
 	encoder.SetIndent(2)
 	err = encoder.Encode(document)
