@@ -48,6 +48,9 @@ import (
 	"github.com/rsdoiel/fdx"
 	"github.com/rsdoiel/fountain"
 	"github.com/rsdoiel/osf"
+
+	// 3rdParty Packages
+	"gopkg.in/yaml.v3"
 )
 
 var (
@@ -139,6 +142,27 @@ func FdxToJSON(in io.Reader, out io.Writer) error {
 		return err
 	}
 	fmt.Fprintf(out, "%s", src)
+	return nil
+}
+
+// FdxToYAML converts an input buffer from a .fdx file to a .yaml format
+func FdxToYAML(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := fdx.Parse(src)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("DEBUG document -> %+v\n", document)
+
+	encoder := yaml.NewEncoder(out)
+	encoder.SetIndent(2)
+	err = encoder.Encode(document)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -268,6 +292,25 @@ func OSFToJSON(in io.Reader, out io.Writer) error {
 		return err
 	}
 	fmt.Fprintf(out, "%s", src)
+	return nil
+}
+
+// OSFToYAML converts the input buffer from .osf to .yaml format.
+func OSFToYAML(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	document, err := osf.Parse(src)
+	if err != nil {
+		return err
+	}
+	encoder := yaml.NewEncoder(out)
+	encoder.SetIndent(2)
+	err = encoder.Encode(document)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -432,6 +475,43 @@ func FadeInToJSON(inputFName string, out io.Writer) error {
 		return err
 	}
 	fmt.Fprintf(out, "%s", src)
+	return nil
+}
+
+// FadeInToYAML converts an input file to YAML format.
+func FadeInToYAML(inputFName string, out io.Writer) error {
+	// NOTE: Need to unzip, extract document.xml then pass the source
+	// of document.xml to osf.Parse()
+	r, err := zip.OpenReader(inputFName)
+	if err != nil {
+		return err
+	}
+	defer r.Close()
+	src := []byte{}
+	for _, f := range r.File {
+		if f.Name == "document.xml" {
+			rc, err := f.Open()
+			if err != nil {
+				return err
+			}
+			src, err = ioutil.ReadAll(rc)
+			if err != nil {
+				return err
+			}
+			rc.Close()
+			break
+		}
+	}
+	document, err := osf.Parse(src)
+	if err != nil {
+		return err
+	}
+	encoder := yaml.NewEncoder(out)
+	encoder.SetIndent(2)
+	err = encoder.Encode(document)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -625,4 +705,19 @@ func FountainToJSON(in io.Reader, out io.Writer) error {
 	}
 	_, err = out.Write(src)
 	return err
+}
+
+// FountainToYAML convert .fountain file to YAML
+func FountainToYAML(in io.Reader, out io.Writer) error {
+	src, err := ioutil.ReadAll(in)
+	if err != nil {
+		return err
+	}
+	screenplay, err := fountain.Parse(src)
+	if err != nil {
+		return err
+	}
+	encoder := yaml.NewEncoder(out)
+	encoder.SetIndent(2)
+	return encoder.Encode(screenplay)
 }

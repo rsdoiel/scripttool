@@ -102,6 +102,10 @@ func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) erro
 
 		}
 		return fmt.Errorf("A FadeIn filename required for input")
+	case "fadein2yaml":
+		if inputFName != "" {
+			return FadeInToYAML(inputFName, out)
+		}
 	case "fadein2osf":
 		if inputFName != "" {
 			return FadeInToOSF(inputFName, out)
@@ -119,6 +123,8 @@ func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) erro
 		return FdxToFountain(in, out)
 	case "fdx2json":
 		return FdxToJSON(in, out)
+	case "fdx2yaml":
+		return FdxToYAML(in, out)
 	case "fdx2osf":
 		return FdxToOSF(in, out)
 
@@ -132,6 +138,8 @@ func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) erro
 		return FountainToFdx(in, out)
 	case "fountain2json":
 		return FountainToJSON(in, out)
+	case "fountain2yaml":
+		return FountainToYAML(in, out)
 	case "fountain2osf":
 		return FountainToOSF(in, out)
 
@@ -147,6 +155,8 @@ func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) erro
 		return OSFToFountain(in, out)
 	case "osf2json":
 		return OSFToJSON(in, out)
+	case "osf2yaml":
+		return OSFToYAML(in, out)
 
 	// Utility fountain functions
 	case "fountain2fountain":
@@ -169,4 +179,5 @@ func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) erro
 	default:
 		return fmt.Errorf("do not understand %q in %q", verb, strings.Join(args, " "))
 	}
+	return nil
 }
