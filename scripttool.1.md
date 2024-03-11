@@ -1,6 +1,6 @@
 % scripttool(1) scripttool user manual
 % R. S. Doiel
-% August 4, 2022
+% Augest 4, 2022
 
 # NAME
 
@@ -66,7 +66,7 @@ osf2fountain
 osf2json
 : Convert from Open Screenplay Format 2.0 to JSON
 
-## Convert Fountain format
+## Convert Fountain fomat
 
 fountain2fadein
 : Converts a fountain screenplay formatted file to FadeIn formatted file.
@@ -134,7 +134,7 @@ Below are a set of options available.
 : pretty print output
 
 -alpha
-: sort characters alphabetically instead of appearance order
+: sort characters alphabetically instead of appearence order
 
 
 # EXAMPLES
@@ -153,7 +153,7 @@ Converting *screenplay.fountain* to *screenplay.fdx* (2 examples)
     scripttool fountain2fdx -i screenplay.fountain -o screenplay.fdx
 ~~~
 
-Listing characters from a *screenplay.fountain*. First list is order of appearance and the second set is characters sorted alphabetically using the "-alpha" option.
+Listing characters from a *screenplay.fountain*. First list is order of appearence and the second set is characters sorted alphabetically using the "-alpha" option.
 
 ~~~shell
     scripttool characters screenplay.fountain

@@ -54,7 +54,7 @@ func screenplayFile(t *testing.T, dir, fname string) {
 	}
 	src, err := ioutil.ReadFile(path.Join(dir, fname))
 	if err != nil {
-		if fname == "Big%20Fish.fdx" {
+		if fname == "Big-Fish.fdx" {
 			fmt.Fprintf(os.Stderr, "Skipping %s\n", fname)
 		} else {
 			fmt.Fprintf(os.Stderr, "Skipping %s, %s\n", fname, err)
@@ -80,7 +80,7 @@ func screenplayFile(t *testing.T, dir, fname string) {
 func TestConversion(t *testing.T) {
 	screenplayFile(t, "testdata", "testplay-01a.fdx")
 	screenplayFile(t, "testdata", "testplay-01b.fdx")
-	screenplayFile(t, "testdata", "Big%20Fish.fdx")
+	screenplayFile(t, "testdata", "Big-Fish.fdx")
 }
 
 func TestMain(m *testing.M) {
