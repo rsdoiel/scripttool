@@ -3,9 +3,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
 title: "scripttool"
-abstract: "A library and command line program for working with fdx
-(Final Draft XML), osf, Fade In and Fountain formatted Screen Play
-files."
+abstract: "A library and command line program for working with fdx (Final Draft XML), osf, Fade In and Fountain formatted Screen Play files."
 authors:
   - family-names: Doiel
     given-names: Robert
@@ -32,8 +30,7 @@ About this software
 
 -  
 
-A library and command line program for working with fdx (Final Draft
-XML), osf, Fade In and Fountain formatted Screen Play files.
+A library and command line program for working with fdx (Final Draft XML), osf, Fade In and Fountain formatted Screen Play files.
 
 - License: <https://rsdoiel.github.io/scripttool/license.html>
 - GitHub: <https://github.com/rsdoiel/scripttool>
