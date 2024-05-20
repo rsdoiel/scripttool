@@ -16,6 +16,6 @@ maintainers:
     orcid: ""
 
 repository-code: "https://github.com/rsdoiel/scripttool"
-version: 0.0.9
-license-url: "https://rsdoiel.github.io/scripttool/license.html"
+version: 0.0.10
+license-url: "https://spdx.org/licenses/AGPL-3.0-or-later"
 keywords: [ "Github", "text markup", "screen play" ]

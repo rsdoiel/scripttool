@@ -5,8 +5,9 @@
     "name": "scripttool",
     "codeRepository": "https://github.com/rsdoiel/scripttool",
     "issueTracker": "https://github.com/rsdoiel/scripttool/issues",
-    "license": "https://rsdoiel.github.io/scripttool/license.html",
-    "version": "0.0.9",
+    "license": "https://spdx.org/licenses/AGPL-3.0-or-later",
+	"releaseNotes": "updated license",
+    "version": "0.0.10",
     "author": [
         {
             "@type": "Person",
