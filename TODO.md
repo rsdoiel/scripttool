@@ -39,7 +39,7 @@ Next
 + [ ] notes, sections and synopsis
 + [ ] eprints like metadata for the script
 + [ ] Story timeline (using stn) for temporal story outlines
-+ [ ] Scene beat report, sumaries per scene happenings (who speaks, description, estimated running time)
++ [ ] Scene beat report, summaries per scene happenings (who speaks, description, estimated running time)
 + [ ] Search/indexing for script and related assets
 
 
@@ -49,7 +49,7 @@ Someday, Maybe
 + [ ] GUI for managing a screenplay project (like Scrivener but GTK based so as can running under Linux)
 + [ ] PDF generation from various formats (possibly via Pandoc)
 + [ ] write and fountain2html, fdx2html, osf2html, fadein2html using [scrippets](https://fountain.io/scrippets) approach
-+ [ ] Create a fountain text to speach script reader
++ [ ] Create a fountain text to speech script reader
     + [ ] Should support configuration for assigning voices to different characters
 + [ ] fountain2trelby
 + [ ] osf2trelby

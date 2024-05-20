@@ -4,7 +4,7 @@
 # Set the package name and version to install
 #
 PACKAGE="scripttool"
-VERSION="0.0.8"
+VERSION="0.0.10"
 GIT_GROUP="rsdoiel"
 RELEASE="https://github.com/$GIT_GROUP/$PACKAGE/releases/tag/v$VERSION"
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="language" content="EN">
@@ -16,8 +16,8 @@
 <ul>
 <li><a href="/">Home</a></li>
 <li><a href="./">README</a></li>
-<li><a href="user-manual.html">User Manual</a></li>
-<li><a href="license.html">LICENSE</a></li>
+<li><a href="user_manual.html">User Manual</a></li>
+<li><a href="LICENSE">LICENSE</a></li>
 <li><a href="about.html">About</a></li>
 <li><a href="INSTALL.html">Install</a></li>
 <li><a href="https://github.com/rsdoiel/scripttool">GitHub</a></li>
@@ -28,10 +28,24 @@
 <!--  <h1>release-notes</h1> -->
 
 <h1 id="releases">Releases</h1>
-<h2 id="v0.0.7-2022-08-07-project-refresh">v0.0.7, 2022-08-07, project refresh</h2>
-<p>This release is mostly a code re-organization due to changes in how Go 1.18 supports modules. The packages osf, fountain, and fdx are now part of the scripttool. The modules are largely stable. It’s been years since I’ve changed them. The scripttool itself has bee restructure. A major change is the command line syntax. I am now using a <code>scripttool [-help|-version|-license] VERB [OPTIONS] [ADDITIONAL_PARAMETERS]</code>. Each “verb” can have its own set of options and they come after the “verb” before it expected additional parameters.</p>
-<p>The build process for source code and website have been significantly updated. I’m using Pandoc and pdtk to build the website. The old Makefile and Python scripts have been replace by a two new Makefile (i.e. Makefile, website.mak).</p>
-<p>In the <code>scripttool</code> command the “characters” verb will list the characters found in a fountain formatted screenplay. By default it is order of appearance but there is now an option <code>-alpha</code> for alphabetical sorts.</p>
+<h2 id="v0.0.7-2022-08-07-project-refresh">v0.0.7, 2022-08-07, project
+refresh</h2>
+<p>This release is mostly a code re-organization due to changes in how
+Go 1.18 supports modules. The packages osf, fountain, and fdx are now
+part of the scripttool. The modules are largely stable. It’s been years
+since I’ve changed them. The scripttool itself has bee restructure. A
+major change is the command line syntax. I am now using a
+<code>scripttool [-help|-version|-license] VERB [OPTIONS] [ADDITIONAL_PARAMETERS]</code>.
+Each “verb” can have its own set of options and they come after the
+“verb” before it expected additional parameters.</p>
+<p>The build process for source code and website have been significantly
+updated. I’m using Pandoc and pdtk to build the website. The old
+Makefile and Python scripts have been replace by a two new Makefile
+(i.e. Makefile, website.mak).</p>
+<p>In the <code>scripttool</code> command the “characters” verb will
+list the characters found in a fountain formatted screenplay. By default
+it is order of appearance but there is now an option <code>-alpha</code>
+for alphabetical sorts.</p>
 </section>
 
 <footer>
