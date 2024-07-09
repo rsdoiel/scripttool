@@ -7,13 +7,19 @@ Installation
 
 *scripttool* is a command line program run from a shell like Bash. You can find compiled version in the [releases](https://github.com/rsdoiel/scripttool/releases/latest) 
 
-## Quick install via curl
+## Quick install via curl or irm
 
 This project can be installed via curl and sh for POSIX compatible systems.
 Enter the following in your shell.
 
 ~~~
 curl https://rsdoiel.github.io/scripttool/installer.sh | sh
+~~~
+
+On Windows use the following Powershell command.
+
+~~~
+irm https://rsdoiel.github.io/scriptool/installer.ps1 | iex
 ~~~
 
 Compiled version
