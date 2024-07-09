@@ -19,7 +19,7 @@ curl https://rsdoiel.github.io/scripttool/installer.sh | sh
 On Windows use the following Powershell command.
 
 ~~~
-irm https://rsdoiel.github.io/scriptool/installer.ps1 | iex
+irm https://rsdoiel.github.io/scripttool/installer.ps1 | iex
 ~~~
 
 Compiled version
