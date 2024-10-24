@@ -224,7 +224,7 @@ distribute_docs:
 	@cp -v INSTALL.md dist/
 	@cp -vR man dist/
 
-release: .FORCE build version.go CITATION.cff man website distribute_docs dist/Linux-x86_64 dist/Linux-aarch64 dist/macOS-x86_64 dist/macOS-arm64 dist/Windows-x86_64 dist/Windows-arm64 dist/RaspberryPiOS-arm7 dist/Linux-armv7l
+release: .FORCE clean build man website distribute_docs dist/Linux-x86_64 dist/Linux-aarch64 dist/macOS-x86_64 dist/macOS-arm64 dist/Windows-x86_64 dist/Windows-arm64 dist/RaspberryPiOS-arm7 dist/Linux-armv7l
 	./release.bash
 
 .FORCE:
