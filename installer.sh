@@ -1,4 +1,5 @@
 #!/bin/sh
+# generated with CMTools 0.0.10 b59480b
 
 #
 # Set the package name and version to install
@@ -113,7 +114,7 @@ if [ "$EXPLAIN_OS_POLICY" = "no" ]; then
 
   You need to take additional steps to complete installation.
 
-  Your operating system security policied needs to "allow"
+  Your operating system security policies needs to "allow"
   running programs from $PACKAGE.
 
   Example: on macOS you can type open the programs in finder.
@@ -122,6 +123,8 @@ if [ "$EXPLAIN_OS_POLICY" = "no" ]; then
 
   Find the program(s) and right click on the program(s)
   installed to enable them to run.
+
+  More information about security policies see INSTALL_NOTES_macOS.md
 
 EOT
 
@@ -156,3 +159,4 @@ fi
 
 rm -fR "$HOME/.$PACKAGE/installer"
 cd "$START" || exit 1
+
