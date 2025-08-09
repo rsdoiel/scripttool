@@ -1,47 +1,24 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  $if(title)$<title>R. S. Doiel, Software Engineer/Analyst - $title$</title>$else$<title>R. S. Doiel, Software Engineer/Analyst</title>$endif$
-
-  <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
-  <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
-  $if(sourcefile)$<link title="markdown source for page" rel="alternative" type="application/markdown" href="$sourcefile$">$endif$
+    <title>scripttools</title>
+    <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
 <nav>
-$if(include-before)$
-$for(include-before)$
-$include-before$
-$endfor$
-$else$
 <ul>
-<li><a href="/">Home</a></li>
-<li><a href="./">README</a></li>
-<li><a href="user_manual.html">User Manual</a></li>
-<li><a href="LICENSE">LICENSE</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="INSTALL.html">Install</a></li>
-<li><a href="https://github.com/rsdoiel/scripttool">GitHub</a></li>
+    <li><a href="/">Home</a></li>
+    <li><a href="index.html">README</a></li>
+    <li><a href="LICENSE">LICENSE</a></li>
+    <li><a href="INSTALL.html">INSTALL</a></li>
+    <li><a href="user_manual.html">User Manual</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel/scripttool">GitHub</a></li>
 </ul>
-$endif$
 </nav>
-
 <section>
-<!--  $for(title)$<h1>$title$</h1>$endfor$ -->
-
-$body$
+${body}
 </section>
-
-<footer>
-$for(include-after)$
-$include-after$
-$endfor$
-</footer>
-
 </body>
 </html>
-
