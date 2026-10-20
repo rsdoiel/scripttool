@@ -80,3 +80,19 @@ List the characters in *screenplay.fountain*
     scripttool characters screenplay.fountain
 ~~~
 
+
+Install
+-------
+
+Get a release from [GitHub](https://github.com/rsdoiel/scripttool/releases), or see [INSTALL.md](INSTALL.md), which also covers installing from source.
+
+Build and test
+--------------
+
+You need Go 1.26.4 or later. Pandoc and GNU Make are only needed for the man page and the website, and `cmt` (CMTools) only to regenerate `version.go`, `about.md` and `CITATION.cff` from `codemeta.json`.
+
+~~~shell
+make          # build scripttool into bin/ and the man page into man/
+make test     # go test ./...
+make check    # gofmt -l and go vet; rewrites nothing
+~~~

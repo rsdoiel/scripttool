@@ -1,5 +1,5 @@
 
-# generated with CMTools 0.0.10 b59480b
+# generated with CMTools 0.0.0 f50285c
 
 #
 # Simple Makefile for Golang based Projects built under POSIX.
@@ -20,15 +20,17 @@ MAN_PAGES_3 = $(shell ls -1 *.3.md | sed -E 's/.3.md/.3/g')
 
 MAN_PAGES_7 = $(shell ls -1 *.7.md | sed -E 's/.7.md/.7/g')
 
-HTML_PAGES = $(shell find . -type f | grep -E '.html$')
+HTML_PAGES = $(shell find . -type f -not -path './bin/*' -not -path './.git/*' | grep -E '\.html$$')
 
 DOCS = $(shell ls -1 *.?.md)
 
-PACKAGE = $(shell ls -1 *.go)
+# version.go is left out: it has a rule (cmt, under generate), and listing it
+# here would make every build run cmt through that rule.
+PACKAGE = $(filter-out version.go,$(shell ls -1 *.go))
 
 VERSION = $(shell grep '"version":' codemeta.json | cut -d\"  -f 4)
 
-BRANCH = $(shell git branch | grep '* ' | cut -d  -f 2)
+BRANCH = $(shell git branch --show-current)
 
 OS = $(shell uname)
 
@@ -44,7 +46,16 @@ ifeq ($(OS), Windows)
 	EXT = .exe
 endif
 
-build: version.go $(PROGRAMS) man CITATION.cff about.md installer.sh installer.ps1
+# build compiles the programs and regenerates the help text and man pages. It
+# does not run cmt: version.go, CITATION.cff, about.md and the installers are
+# generated from codemeta.json by `make generate`, so the version and release
+# hash change only when that is asked for (the release target does).
+build: $(PROGRAMS) man
+
+# generate runs cmt over codemeta.json. Run it when the version, the release
+# notes or the metadata change, and before a release; a plain `make` leaves
+# the committed version.go, about.md and friends alone.
+generate: version.go CITATION.cff about.md installer.sh installer.ps1
 
 version.go: .FORCE
 	cmt codemeta.json version.go
@@ -71,11 +82,7 @@ $(PROGRAMS): $(PACKAGE)
 	go build -o "bin/$@$(EXT)" cmd/$@/*.go
 	@./bin/$@ -help >$@.1.md
 
-$(MAN_PAGES): .FORCE
-	mkdir -p man/man1
-	pandoc $@.md --from markdown --to man -s >man/man1/$@
-
-CITATION.cff: codemeta.json
+CITATION.cff: .FORCE
 	cmt codemeta.json CITATION.cff
 
 about.md: codemeta.json $(PROGRAMS)
@@ -88,8 +95,13 @@ installer.ps1: .FORCE
 	cmt codemeta.json installer.ps1
 
 
+# check reports files gofmt would change, and vets; it rewrites nothing.
+check: .FORCE
+	@UNFORMATTED="$$(gofmt -l $(filter-out version.go,$(shell ls -1 *.go)) cmd)"; if [ "$$UNFORMATTED" != "" ]; then echo "gofmt would change:"; echo "$$UNFORMATTED"; fi
+	go vet ./...
+
 test: $(PACKAGE)
-	go test
+	go test ./...
 
 website: clean-website .FORCE
 	make -f website.mak
@@ -200,7 +212,8 @@ distribute_docs:
 	@cp -vR man dist/
 	@for DNAME in $(DOCS); do cp -vR $$DNAME dist/; done
 
-release: build installer.sh save setup_dist distribute_docs dist/Linux-x86_64 dist/Linux-aarch64 dist/macOS-x86_64 dist/macOS-arm64 dist/Windows-x86_64 dist/Windows-arm64 dist/Linux-armv7l
+release: generate build save setup_dist distribute_docs dist/Linux-x86_64 dist/Linux-aarch64 dist/macOS-x86_64 dist/macOS-arm64 dist/Windows-x86_64 dist/Windows-arm64 dist/Linux-armv7l
+	@printf "\nready to run\n\n\trelease.bash\n\n"
 
 
 .FORCE:

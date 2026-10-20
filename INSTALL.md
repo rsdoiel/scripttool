@@ -1,5 +1,5 @@
-Installation for development of **scripttool**
-===========================================
+Installation **scripttool**
+============================
 
 **scripttool** A library and command line program for working with fdx (Final Draft XML), osf, Fade In and Fountain formatted Screen Play files.
 
@@ -22,7 +22,7 @@ irm https://rsdoiel.github.io/scripttool/installer.ps1 | iex
 
 ### If your are running macOS or Windows
 
-You may get security warnings if you are using macOS or Windows. See the notes for the specific operating system you're using to fix issues.
+You may get security warnings if you are using macOS or Windows. See the notes for the specific operating system you’re using to fix issues.
 
 - [INSTALL_NOTES_macOS.md](INSTALL_NOTES_macOS.md)
 - [INSTALL_NOTES_Windows.md](INSTALL_NOTES_Windows.md)
@@ -32,6 +32,7 @@ Installing from source
 
 ### Required software
 
+- Go >= 1.26.4
 
 ### Steps
 
