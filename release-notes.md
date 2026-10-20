@@ -5,6 +5,11 @@ title: scripttool releases
 Releases
 ========
 
+v0.0.11, 2026-10-20, fountain v1.0.3
+------------------------------------
+
+Requires `fountain` v1.0.3, which types a boneyard and reads a scene number written at the end of a scene heading (`INT. KITCHEN - DAY #12A#`). The `go` directive is now 1.26.4. Conversions are unchanged: a boneyard stays a visible paragraph in FDX and OSF, and a scene number stays in the heading text. `fdx` v1.0.4 maps the number to Final Draft's `Number` attribute; `scripttool` still requires `fdx` v1.0.2 and `osf` v0.0.7, so that arrives when `go.mod` is moved to the new `fdx`.
+
 v0.0.7, 2022-08-07, project refresh
 -----------------------------------
 

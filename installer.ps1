@@ -1,12 +1,12 @@
 #!/usr/bin/env pwsh
-# generated with CMTools 0.0.10 b59480b
+# generated with CMTools 0.0.11 9fce60d
 
 #
 # Set the package name and version to install
 #
 param(
   [Parameter()]
-  [String]$VERSION = "0.0.10"
+  [String]$VERSION = "0.0.11"
 )
 [String]$PKG_VERSION = [Environment]::GetEnvironmentVariable("PKG_VERSION")
 if ($PKG_VERSION) {
@@ -34,6 +34,7 @@ Write-Output "${PACKAGE} v${VERSION} will be installed in ${BIN_DIR}"
 # Figure out what the zip file is named
 #
 $ZIPFILE = "${PACKAGE}-v${VERSION}-Windows-${MACHINE}.zip"
+$CHECKSUM_FILE = "${PACKAGE}-v${VERSION}-checksums.txt"
 Write-Output "Fetching Zipfile ${ZIPFILE}"
 
 #
@@ -46,10 +47,34 @@ if (!(Test-Path $BIN_DIR)) {
   New-Item $BIN_DIR -ItemType Directory | Out-Null
 }
 curl.exe -Lo "${ZIPFILE}" "${DOWNLOAD_URL}"
-#if ([System.IO.File]::Exists($ZIPFILE)) {
 if (!(Test-Path $ZIPFILE)) {
     Write-Output "Failed to download ${ZIPFILE} from ${DOWNLOAD_URL}"
 } else {
+    # Verify checksum
+    $CHECKSUM_URL = "https://github.com/${GIT_GROUP}/${PACKAGE}/releases/download/v${VERSION}/${CHECKSUM_FILE}"
+    try {
+        curl.exe -Lo "${CHECKSUM_FILE}" "${CHECKSUM_URL}"
+        if (Test-Path $CHECKSUM_FILE) {
+            $expectedLine = Get-Content $CHECKSUM_FILE | Where-Object { $_ -match [regex]::Escape($ZIPFILE) }
+            if ($expectedLine) {
+                $expectedHash = ($expectedLine -split 's+')[0].ToLower()
+                $actualHash = (Get-FileHash -Path $ZIPFILE -Algorithm SHA256).Hash.ToLower()
+                if ($expectedHash -eq $actualHash) {
+                    Write-Output "Checksum verified: ${ZIPFILE}"
+                } else {
+                    Write-Warning "Checksum mismatch for ${ZIPFILE}"
+                    Write-Warning "  Expected: ${expectedHash}"
+                    Write-Warning "  Actual:   ${actualHash}"
+                    Write-Warning "  Proceeding anyway — verify the download manually if concerned"
+                }
+            } else {
+                Write-Warning "${ZIPFILE} not found in checksum file, skipping verification"
+            }
+            Remove-Item $CHECKSUM_FILE -ErrorAction SilentlyContinue
+        }
+    } catch {
+        Write-Warning "Could not download ${CHECKSUM_FILE}, skipping verification"
+    }
     # Do we have a zip file or tar.gz file?
     $fileInfo = Get-Item "${ZIPFILE}"
 

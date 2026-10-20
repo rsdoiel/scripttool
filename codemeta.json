@@ -1,30 +1,54 @@
 {
-    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
-    "@type": "SoftwareSourceCode",
-    "description": "A library and command line program for working with fdx (Final Draft XML), osf, Fade In and Fountain formatted Screen Play files.",
-    "name": "scripttool",
-    "codeRepository": "https://github.com/rsdoiel/scripttool",
-    "issueTracker": "https://github.com/rsdoiel/scripttool/issues",
-    "license": "https://spdx.org/licenses/AGPL-3.0-or-later",
-	"releaseNotes": "updated license",
-    "version": "0.0.10",
-    "author": [
-        {
-            "@type": "Person",
-            "givenName": "Robert",
-            "familyName": "Doiel",
-            "email": "rsdoiel@gmail.com",
-            "@id": "https://orcid.org/0000-0003-0900-6903"
-        }
-    ],
-    "developmentStatus": "active",
-    "keywords": [
-        "Github",
-        "text markup",
-        "screen play"
-    ],
-    "maintainer": "https://orcid.org/0000-0003-0900-6903",
-    "programmingLanguage": [
-        "Go"
-    ]
+  "@context": "https://w3id.org/codemeta/3.0",
+  "type": "SoftwareSourceCode",
+  "name": "scripttool",
+  "description": "A library and command line program for working with fdx (Final Draft XML), osf, Fade In and Fountain formatted Screen Play files.",
+  "codeRepository": "https://github.com/rsdoiel/scripttool",
+  "issueTracker": "https://github.com/rsdoiel/scripttool/issues",
+  "license": "https://www.gnu.org/licenses/agpl-3.0.txt",
+  "version": "0.0.11",
+  "developmentStatus": "active",
+  "releaseNotes": "Requires fountain v1.0.3; the go directive is now 1.26.4. Fountain scene numbers and boneyards are parsed by that release. fdx and osf are still required at v1.0.2 and v0.0.7, so the FDX scene Number attribute (fdx v1.0.4) arrives when go.mod requires the new fdx.",
+  "dateCreated": "2017-12-18",
+  "dateModified": "2026-10-20",
+  "datePublished": "2026-10-20",
+  "copyrightYear": 2017,
+  "copyrightHolder": "R. S. Doiel",
+  "programmingLanguage": [
+    "Go >= 1.26.4"
+  ],
+  "softwareRequirements": [
+    "Go >= 1.26.4",
+    "github.com/rsdoiel/fountain >= 1.0.3",
+    "github.com/rsdoiel/fdx >= 1.0.2",
+    "github.com/rsdoiel/osf >= 0.0.7"
+  ],
+  "softwareSuggestions": [
+    "CMTools >= 0.0.45b",
+    "Pandoc >= 3.9",
+    "GNU Make >= 3"
+  ],
+  "keywords": [
+    "GitHub",
+    "text markup",
+    "screen play"
+  ],
+  "author": [
+    {
+      "id": "https://orcid.org/0000-0003-0900-6903",
+      "type": "Person",
+      "givenName": "R. S.",
+      "familyName": "Doiel",
+      "email": "rsdoiel@gmail.com"
+    }
+  ],
+  "maintainer": [
+    {
+      "id": "https://orcid.org/0000-0003-0900-6903",
+      "type": "Person",
+      "givenName": "R. S.",
+      "familyName": "Doiel",
+      "email": "rsdoiel@gmail.com"
+    }
+  ]
 }
