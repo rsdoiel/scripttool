@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <title>scripttools</title>
+    <title>scripttool</title>
     <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
+<a href="#main-content" class="visually-hidden">skip to main content</a>
 <nav>
 <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="index.html">README</a></li>
+    <li><a href="index.html">Home</a></li>
     <li><a href="LICENSE">LICENSE</a></li>
     <li><a href="INSTALL.html">INSTALL</a></li>
     <li><a href="user_manual.html">User Manual</a></li>
     <li><a href="about.html">About</a></li>
-    <li><a href="search.html">Search</a></li>
-    <li><a href="https://github.com/rsdoiel/scripttool">GitHub</a></li>
+    <li><a href="https://github.com/rsdoiel/scripttool">Code Repository</a></li>
 </ul>
 </nav>
-<section>
+<section id="main-content">
 <h1 id="releases">Releases</h1>
+<h2 id="v0.0.11-2026-10-20-fountain-v1.0.3">v0.0.11, 2026-10-20,
+fountain v1.0.3</h2>
+<p>Requires <code>fountain</code> v1.0.3, which types a boneyard and
+reads a scene number written at the end of a scene heading
+(<code>INT. KITCHEN - DAY #12A#</code>). The <code>go</code> directive
+is now 1.26.4. Conversions are unchanged: a boneyard stays a visible
+paragraph in FDX and OSF, and a scene number stays in the heading text.
+<code>fdx</code> v1.0.4 maps the number to Final Draft’s
+<code>Number</code> attribute; <code>scripttool</code> still requires
+<code>fdx</code> v1.0.2 and <code>osf</code> v0.0.7, so that arrives
+when <code>go.mod</code> is moved to the new <code>fdx</code>.</p>
 <h2 id="v0.0.7-2022-08-07-project-refresh">v0.0.7, 2022-08-07, project
 refresh</h2>
 <p>This release is mostly a code re-organization due to changes in how
@@ -38,5 +48,8 @@ list the characters found in a fountain formatted screenplay. By default
 it is order of appearance but there is now an option <code>-alpha</code>
 for alphabetical sorts.</p>
 </section>
+<footer>
+<p>scripttool</p>
+</footer>
 </body>
 </html>
