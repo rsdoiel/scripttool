@@ -32,15 +32,6 @@ function Build-HtmlPage {
     }
 }
 
-function Invoke-PageFind {
-    # Run PageFind
-    pagefind --verbose --glob="{*.html,docs/*.html}" --force-language en-US --exclude-selectors="nav,header,footer" --output-path ./pagefind --site .
-    git add pagefind
-}
-
 # Build HTML page
 Build-HtmlPage -htmlPages $htmlPages -mdPages $mdPages
-
-# Invoke PageFind
-# Invoke-PageFind
 
