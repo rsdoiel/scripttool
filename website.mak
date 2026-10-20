@@ -9,7 +9,7 @@ PROJECT = scripttool
 PANDOC = $(shell which pandoc)
 
 # Internal notes, not website pages. Kept out of the build so they stay unpublished.
-NO_PUBLISH = TODO.md
+NO_PUBLISH = TODO.md NOTES.md
 
 MD_PAGES = $(filter-out $(NO_PUBLISH),$(shell ls -1 *.md))
 
