@@ -33,7 +33,7 @@ About this software
 
 ## scripttool 0.0.11
 
-Requires fountain v1.0.3; the go directive is now 1.26.4. Fountain scene numbers and boneyards are parsed by that release. fdx and osf are still required at v1.0.2 and v0.0.7, so the FDX scene Number attribute (fdx v1.0.4) arrives when go.mod requires the new fdx.
+Requires fountain v1.0.3, fdx v1.0.4 and osf v0.0.9; the go directive is now 1.26.4. Fountain v1.0.3 parses scene numbers (INT. KITCHEN - DAY #12A#) and boneyards, and fdx v1.0.4 writes a scene number as Final Draft's Number attribute and reads it back, so a number survives fountain2fdx and fdx2fountain. A boneyard stays a visible paragraph in FDX and OSF, and OSF keeps no per-scene number.
 
 ## Authors
 
@@ -64,8 +64,8 @@ A library and command line program for working with fdx (Final Draft XML), osf, 
 
 - Go >= 1.26.4
 - github.com/rsdoiel/fountain >= 1.0.3
-- github.com/rsdoiel/fdx >= 1.0.2
-- github.com/rsdoiel/osf >= 0.0.7
+- github.com/rsdoiel/fdx >= 1.0.4
+- github.com/rsdoiel/osf >= 0.0.9
 
 
 ## Software Suggestions
