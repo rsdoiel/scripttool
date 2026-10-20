@@ -3,24 +3,27 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
 title: scripttool
-abstract: "A library and command line program for working with fdx (Final Draft XML), osf, Fade In and Fountain formatted Screen Play files."
+abstract: |-
+  A library and command line program for working with fdx (Final Draft XML), osf, Fade In and Fountain formatted Screen Play files.
 authors:
   - family-names: Doiel
-    given-names: Robert
+    given-names: R. S.
     orcid: https://orcid.org/0000-0003-0900-6903
     email: rsdoiel@gmail.com
 
 contacts:
-  - family-names: 
-    given-names: 
+  - family-names: Doiel
+    given-names: R. S.
+    orcid: https://orcid.org/0000-0003-0900-6903
+    email: rsdoiel@gmail.com
 
 repository-code: "https://github.com/rsdoiel/scripttool"
-version: 0.0.10
+version: 0.0.11
+date-released: 2026-10-20
 
-
-license-url: "https://spdx.org/licenses/AGPL-3.0-or-later"
+license-url: "https://www.gnu.org/licenses/agpl-3.0.txt"
 keywords:
-  - Github
+  - GitHub
   - text markup
   - screen play
 

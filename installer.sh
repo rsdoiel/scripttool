@@ -1,11 +1,11 @@
 #!/bin/sh
-# generated with CMTools 0.0.10 b59480b
+# generated with CMTools 0.0.11 d9d197a
 
 #
 # Set the package name and version to install
 #
 PACKAGE="scripttool"
-VERSION="0.0.10"
+VERSION="0.0.11"
 GIT_GROUP="rsdoiel"
 RELEASE="https://github.com/$GIT_GROUP/$PACKAGE/releases/tag/v$VERSION"
 if [ "$PKG_VERSION" != "" ]; then
@@ -38,10 +38,12 @@ if [ "$1" != "" ]; then
 fi
 
 ZIPFILE="$PACKAGE-v$VERSION-$OS_NAME-$MACHINE.zip"
+CHECKSUM_FILE="$PACKAGE-v$VERSION-checksums.txt"
 
 #
 # Check to see if this zip file has been downloaded.
 #
+mkdir -p "$HOME/Downloads"
 DOWNLOAD_URL="https://github.com/$GIT_GROUP/$PACKAGE/releases/download/v$VERSION/$ZIPFILE"
 if ! curl -L -o "$HOME/Downloads/$ZIPFILE" "$DOWNLOAD_URL"; then
 	echo "Curl failed to get $DOWNLOAD_URL"
@@ -53,9 +55,6 @@ cat<<EOT
 
 EOT
 
-if [ ! -d "$HOME/Downloads" ]; then
-	mkdir -p "$HOME/Downloads"
-fi
 if [ ! -f "$HOME/Downloads/$ZIPFILE" ]; then
 	cat<<EOT
 
@@ -74,6 +73,33 @@ EOT
 	exit 1
 fi
 
+#
+# Verify checksum if tools are available
+#
+CHECKSUM_URL="https://github.com/$GIT_GROUP/$PACKAGE/releases/download/v$VERSION/$CHECKSUM_FILE"
+if command -v sha256sum >/dev/null 2>&1 || command -v shasum >/dev/null 2>&1; then
+    if curl -L -s -o "$HOME/Downloads/$CHECKSUM_FILE" "$CHECKSUM_URL"; then
+        EXPECTED=$(grep "$ZIPFILE" "$HOME/Downloads/$CHECKSUM_FILE" | awk '{print $1}')
+        if command -v sha256sum >/dev/null 2>&1; then
+            ACTUAL=$(sha256sum "$HOME/Downloads/$ZIPFILE" | awk '{print $1}')
+        else
+            ACTUAL=$(shasum -a 256 "$HOME/Downloads/$ZIPFILE" | awk '{print $1}')
+        fi
+        if [ -n "$EXPECTED" ] && [ "$EXPECTED" = "$ACTUAL" ]; then
+            echo "Checksum verified: $ZIPFILE"
+        elif [ -z "$EXPECTED" ]; then
+            echo "WARNING: $ZIPFILE not found in checksum file, skipping verification"
+        else
+            echo "WARNING: Checksum mismatch for $ZIPFILE"
+            echo "  Expected: $EXPECTED"
+            echo "  Actual:   $ACTUAL"
+            echo "  Proceeding anyway — verify the download manually if concerned"
+        fi
+    else
+        echo "WARNING: Could not download $CHECKSUM_FILE, skipping verification"
+    fi
+fi
+
 START="$(pwd)"
 mkdir -p "$HOME/.$PACKAGE/installer"
 cd "$HOME/.$PACKAGE/installer" || exit 1
@@ -83,7 +109,7 @@ unzip "$HOME/Downloads/$ZIPFILE" "bin/*" "man/*"
 # Copy the application into place
 #
 mkdir -p "$HOME/bin"
-EXPLAIN_OS_POLICY="yes"
+EXPLAIN_OS_POLICY="no"
 find bin -type f >.binfiles.tmp
 while read -r APP; do
 	V=$("./$APP" --version)
@@ -109,7 +135,7 @@ case :$PATH: in
 esac
 
 # shellcheck disable=SC2031
-if [ "$EXPLAIN_OS_POLICY" = "no" ]; then
+if [ "$EXPLAIN_OS_POLICY" = "yes" ]; then
 	cat <<EOT
 
   You need to take additional steps to complete installation.
