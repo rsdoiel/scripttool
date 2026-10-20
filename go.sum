@@ -1,11 +1,7 @@
-github.com/rsdoiel/fdx v1.0.2 h1:TMBGgYdG7CaPbnM6kMAkRebYyCfWK9dK/qooPhEITU8=
-github.com/rsdoiel/fdx v1.0.2/go.mod h1:hXJBkY2UoujfU1EZ1tiR8aa3AZgcReOydZZ7dAuyg9o=
 github.com/rsdoiel/fdx v1.0.4 h1:RjoMULf/kzq7TGiFOBWVVmIxWYEVaNtLyebQq2t5WI4=
 github.com/rsdoiel/fdx v1.0.4/go.mod h1:xfg5Z8jvzDSy9heWuKp2ngHqLIgt/D0WoVA1zfHBsm8=
 github.com/rsdoiel/fountain v1.0.3 h1:N5oz6MP/J5KAh5Dc7yPsnrT4TEiZz5TK8UXjR5BJnXM=
 github.com/rsdoiel/fountain v1.0.3/go.mod h1:qsWthDn7KviYlng5KTKOnGRHQSWojbxkv7Boq9roPYk=
-github.com/rsdoiel/osf v0.0.7 h1:woMTMPktKWhQJdPGVt1zmVbq9jJFmPiq0lqzWNnmR/s=
-github.com/rsdoiel/osf v0.0.7/go.mod h1:jmOePx0mqICIH+G7GuIFnWGckQB7XWovQhdGMp9dPgE=
 github.com/rsdoiel/osf v0.0.9 h1:/cxGUeDP7gxOY4LV9jxuYGKHYUNjCPOa3r2i7ShabyM=
 github.com/rsdoiel/osf v0.0.9/go.mod h1:1/Qzrj2QTh/5bbJpXqX4KN6oF3z3rzCF8N4AYx5o3A0=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=

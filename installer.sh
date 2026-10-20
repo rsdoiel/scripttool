@@ -1,11 +1,11 @@
 #!/bin/sh
-# generated with CMTools 0.0.11 d9d197a
+# generated with CMTools 0.0.12 2c69460
 
 #
 # Set the package name and version to install
 #
 PACKAGE="scripttool"
-VERSION="0.0.11"
+VERSION="0.0.12"
 GIT_GROUP="rsdoiel"
 RELEASE="https://github.com/$GIT_GROUP/$PACKAGE/releases/tag/v$VERSION"
 if [ "$PKG_VERSION" != "" ]; then

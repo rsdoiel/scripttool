@@ -5,6 +5,11 @@ title: scripttool releases
 Releases
 ========
 
+v0.0.12, 2026-10-20, release text corrected
+-------------------------------------------
+
+Corrects v0.0.11, whose notes said `scripttool` still required `fdx` v1.0.2 and `osf` v0.0.7. It requires `fdx` v1.0.4 and `osf` v0.0.9 (and `fountain` v1.0.3), so a Fountain scene number (`INT. KITCHEN - DAY #12A#`) becomes Final Draft's `Number` attribute in `fountain2fdx` and comes back in `fdx2fountain`. A boneyard stays a visible paragraph in FDX and OSF, and OSF keeps no per-scene number. `version.go`, `about.md`, `CITATION.cff` and the installers are regenerated from `codemeta.json` for this release.
+
 v0.0.11, 2026-10-20, fountain v1.0.3
 ------------------------------------
 
