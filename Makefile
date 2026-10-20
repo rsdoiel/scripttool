@@ -213,7 +213,51 @@ distribute_docs:
 	@cp -vR man dist/
 	@for DNAME in $(DOCS); do cp -vR $$DNAME dist/; done
 
-release: generate build save setup_dist distribute_docs dist/Linux-x86_64 dist/Linux-aarch64 dist/macOS-x86_64 dist/macOS-arm64 dist/Windows-x86_64 dist/Windows-arm64 dist/Linux-armv7l
+# check-release reads the files a release is cut from and fails when they
+# disagree; it writes nothing. Run it before `make release` (the release target
+# runs it too, after generate). It fails when
+#   - version.go, CITATION.cff or an installer carries a version other than codemeta.json's,
+#     or CITATION.cff's date-released is not datePublished (run `make generate`),
+#   - datePublished is not today's date, the release day,
+#   - v$(VERSION) is already tagged here or on origin (codemeta.json was not bumped),
+#   - releaseNotes are the same as the last tag's (not written for this release),
+#   - softwareRequirements names a github.com/rsdoiel module at a version go.mod does not require.
+check-release: .FORCE
+	@FAIL=0; V="$(VERSION)"; TODAY="$$(date +%Y-%m-%d)"; \
+	bad() { echo "check-release: $$1"; FAIL=1; }; \
+	[ -n "$$V" ] || bad "codemeta.json has no version"; \
+	GOV="$$(sed -n 's/^ *Version = "\(.*\)".*/\1/p' version.go | head -1)"; \
+	[ "$$GOV" = "$$V" ] || bad "version.go has '$$GOV', codemeta.json has '$$V' (run make generate)"; \
+	CFF="$$(sed -n 's/^version: *//p' CITATION.cff | head -1)"; \
+	[ "$$CFF" = "$$V" ] || bad "CITATION.cff has '$$CFF', codemeta.json has '$$V' (run make generate)"; \
+	DR="$$(sed -n 's/^date-released: *//p' CITATION.cff | head -1)"; \
+	PUB="$$(jq -r '.datePublished // empty' codemeta.json)"; \
+	[ "$$DR" = "$$PUB" ] || bad "CITATION.cff date-released is '$$DR', datePublished is '$$PUB' (run make generate)"; \
+	[ "$$PUB" = "$$TODAY" ] || bad "datePublished is '$$PUB', today is '$$TODAY': set datePublished and dateModified to the release day"; \
+	for F in installer.sh installer.ps1; do \
+		[ -f "$$F" ] || continue; \
+		IV="$$(grep -m1 'VERSION *= *"' "$$F" | sed 's/.*VERSION *= *"\([^"]*\)".*/\1/')"; \
+		[ "$$IV" = "$$V" ] || bad "$$F has '$$IV', codemeta.json has '$$V' (run make generate)"; \
+	done; \
+	if git rev-parse -q --verify "refs/tags/v$$V" >/dev/null; then bad "v$$V is already tagged here: codemeta.json was not bumped"; fi; \
+	if git ls-remote --exit-code --tags origin "refs/tags/v$$V" >/dev/null 2>&1; then bad "v$$V is already tagged on origin: codemeta.json was not bumped"; fi; \
+	NEW="$$(jq -r '.releaseNotes // empty' codemeta.json)"; \
+	[ -n "$$NEW" ] || bad "codemeta.json has no releaseNotes"; \
+	LAST="$$(git tag --list 'v*' --sort=-v:refname | head -1)"; \
+	if [ -n "$$LAST" ] && [ "$$LAST" != "v$$V" ]; then \
+		OLD="$$(git show "$$LAST:codemeta.json" 2>/dev/null | jq -r '.releaseNotes // empty')"; \
+		[ "$$NEW" != "$$OLD" ] || bad "releaseNotes are the same as $$LAST's: write them for v$$V"; \
+	fi; \
+	for REQ in $$(jq -r '.softwareRequirements[]? | select(startswith("github.com/rsdoiel/")) | gsub(" "; "@")' codemeta.json); do \
+		M="$${REQ%%@*}"; MIN="$${REQ##*@}"; \
+		GM="$$(grep -o "$$M v[^ ]*" go.mod | head -1 | sed 's/.* v//')"; \
+		[ -n "$$GM" ] || { bad "softwareRequirements names $$M, which go.mod does not require"; continue; }; \
+		[ "$$GM" = "$$MIN" ] || bad "softwareRequirements says $$M >= $$MIN, go.mod requires v$$GM"; \
+	done; \
+	if [ $$FAIL -ne 0 ]; then echo "check-release: v$$V is NOT ready to release"; exit 1; fi; \
+	echo "check-release: v$$V is consistent"
+
+release: generate check-release build save setup_dist distribute_docs dist/Linux-x86_64 dist/Linux-aarch64 dist/macOS-x86_64 dist/macOS-arm64 dist/Windows-x86_64 dist/Windows-arm64 dist/Linux-armv7l
 	@printf "\nready to run\n\n\trelease.bash\n\n"
 
 
