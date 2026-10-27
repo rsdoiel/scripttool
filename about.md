@@ -14,26 +14,26 @@ maintainer:
     id: https://orcid.org/0000-0003-0900-6903
 
 repository_code: https://github.com/rsdoiel/scripttool
-version: 0.0.12
+version: 0.0.13
 license_url: https://www.gnu.org/licenses/agpl-3.0.txt
 
 programming_language:
-  - Go >= 1.26.4
+  - Go >= 1.27.3
 
 keywords:
   - GitHub
   - text markup
   - screen play
 
-date_released: 2026-10-20
+date_released: 2026-10-27
 ---
 
 About this software
 ===================
 
-## scripttool 0.0.12
+## scripttool 0.0.13
 
-Corrects the release text of v0.0.11, which said scripttool still required fdx v1.0.2 and osf v0.0.7: it requires fdx v1.0.4 and osf v0.0.9, so a Fountain scene number (INT. KITCHEN - DAY #12A#) becomes Final Draft's Number attribute in fountain2fdx and comes back in fdx2fountain. Requires fountain v1.0.3; the go directive is 1.26.4. A boneyard stays a visible paragraph in FDX and OSF, and OSF keeps no per-scene number. version.go, about.md, CITATION.cff and the installers are regenerated from codemeta.json for this release.
+Adds a help index. scripttool help index lists the help topics (fadein, fdx, osf, fountain, characters, options, examples) and scripttool help TOPIC prints one; before this, help index tried to open a file named index and exited 1. An unknown topic or more than one argument after help exits 2. Each topic also has a section 7 man page, scripttool-TOPIC.7.md, built by make. The manual now documents the fadein2yaml, fdx2yaml, fountain2yaml, osf2yaml, fountain2fountain and fountain2html verbs it had left out. Builds with Go 1.27.3 (the go directive and softwareRequirements). The Makefile gains a check-release target, which the release target runs after generate, and the stale codemeta-*.tmpl templates are removed. Requires fountain v1.0.3, fdx v1.0.4 and osf v0.0.9. version.go, about.md, CITATION.cff and the installers are regenerated from codemeta.json for this release.
 
 ## Authors
 
@@ -55,14 +55,14 @@ A library and command line program for working with fdx (Final Draft XML), osf, 
 
 ## Programming languages
 
-- Go >= 1.26.4
+- Go >= 1.27.3
 
 
 
 
 ## Software Requirements
 
-- Go >= 1.26.4
+- Go >= 1.27.3
 - github.com/rsdoiel/fountain >= 1.0.3
 - github.com/rsdoiel/fdx >= 1.0.4
 - github.com/rsdoiel/osf >= 0.0.9

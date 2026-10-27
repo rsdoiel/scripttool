@@ -32,7 +32,7 @@ Installing from source
 
 ### Required software
 
-- Go >= 1.26.4
+- Go >= 1.27.3
 
 ### Steps
 

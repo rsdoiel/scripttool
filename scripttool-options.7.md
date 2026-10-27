@@ -1,4 +1,4 @@
-% scripttool-options(7) scripttool 0.0.12
+% scripttool-options(7) scripttool 0.0.13
 % R. S. Doiel
 
 # NAME

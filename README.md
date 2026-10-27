@@ -81,6 +81,11 @@ List the characters in *screenplay.fountain*
 ~~~
 
 
+Help
+----
+
+`scripttool help` prints the manual. `scripttool help index` lists the help topics and `scripttool help TOPIC` prints one, for example `scripttool help fdx`. Each topic also has a man page, `scripttool-TOPIC.7.md`.
+
 Install
 -------
 
@@ -89,7 +94,7 @@ Get a release from [GitHub](https://github.com/rsdoiel/scripttool/releases), or 
 Build and test
 --------------
 
-You need Go 1.26.4 or later. Pandoc and GNU Make are only needed for the man page and the website, and `cmt` (CMTools) only to regenerate `version.go`, `about.md` and `CITATION.cff` from `codemeta.json`.
+You need Go 1.27.3 or later. Pandoc and GNU Make are only needed for the man page and the website, and `cmt` (CMTools) only to regenerate `version.go`, `about.md` and `CITATION.cff` from `codemeta.json`.
 
 ~~~shell
 make          # build scripttool into bin/ and the man page into man/

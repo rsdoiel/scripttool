@@ -1,4 +1,4 @@
-% scripttool-fadein(7) scripttool 0.0.12
+% scripttool-fadein(7) scripttool 0.0.13
 % R. S. Doiel
 
 # NAME

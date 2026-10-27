@@ -5,6 +5,15 @@ title: scripttool releases
 Releases
 ========
 
+v0.0.13, 2026-10-27, help index
+-------------------------------
+
+Adds a help index. `scripttool help index` lists the help topics (`fadein`, `fdx`, `osf`, `fountain`, `characters`, `options`, `examples`) and `scripttool help TOPIC` prints one. Before this, `help index` tried to open a file named `index` and exited 1. An unknown topic, or more than one argument after `help`, exits 2. Each topic also has a section 7 man page, `scripttool-TOPIC.7.md`, built by `make`.
+
+The manual now documents the `fadein2yaml`, `fdx2yaml`, `fountain2yaml`, `osf2yaml`, `fountain2fountain` and `fountain2html` verbs it had left out.
+
+Builds with Go 1.27.3 (the `go` directive and `softwareRequirements`). The Makefile gains a `check-release` target, which the `release` target runs after `generate`, and the stale `codemeta-*.tmpl` templates are removed. Requires `fountain` v1.0.3, `fdx` v1.0.4 and `osf` v0.0.9. `version.go`, `about.md`, `CITATION.cff` and the installers are regenerated from `codemeta.json` for this release.
+
 v0.0.12, 2026-10-20, release text corrected
 -------------------------------------------
 
