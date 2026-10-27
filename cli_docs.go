@@ -3,7 +3,7 @@ package scripttool
 const (
 	HelpText = `% scripttool(1) scripttool user manual
 % R. S. Doiel
-% Augest 4, 2022
+% October 27, 2026
 
 # NAME
 
@@ -41,6 +41,9 @@ fadein2json
 fadein2osf
 : Convert a FadeIn file to Open Screenplay Format 2.0
 
+fadein2yaml
+: Convert a FadeIn file to YAML format
+
 ## Convert Final Draft XML
 
 fdx2fadein
@@ -51,6 +54,9 @@ fdx2fountain
 
 fdx2json
 : Convert from Final Draft XML ("*.fdx" files) to JSON
+
+fdx2yaml
+: Convert from Final Draft XML ("*.fdx" files) to YAML
 
 fdx2osf
 : Convert from Final Draft XML ("*.fdx" files) to Open Screenplay Format 2.0
@@ -69,6 +75,9 @@ osf2fountain
 osf2json
 : Convert from Open Screenplay Format 2.0 to JSON
 
+osf2yaml
+: Convert from Open Screenplay Format 2.0 to YAML
+
 ## Convert Fountain fomat
 
 fountain2fadein
@@ -80,8 +89,17 @@ fountain2fdx
 fountain2json
 : Convert a Fountain screenplay formatted file to JSON
 
+fountain2yaml
+: Convert a Fountain screenplay formatted file to YAML
+
 fountain2osf
 : Convert a Fountain screenplay formatted file to Open Screenplay Format 2.0 
+
+fountain2fountain
+: Parse a Fountain screenplay and write it back out as Fountain
+
+fountain2html
+: Render a Fountain screenplay as Fountain scrippets HTML
 
 fountainfmt
 : Pretty print a fountain screenplay format
@@ -90,6 +108,11 @@ characters
 : Provide a character list from a fountain formatted file. Internally the fountain file is parse and resulting JSON structure is analyzed to produce the count of character references in the elements of the file.
 
 
+
+# HELP TOPICS
+
+_scripttool help_ prints this manual. _scripttool help index_ lists the help
+topics and _scripttool help TOPIC_ prints one of them.
 
 # OPTIONS
 

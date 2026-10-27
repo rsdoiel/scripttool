@@ -55,6 +55,10 @@ func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) erro
 	flagSet.Parse(args[2:])
 	args = flagSet.Args()
 
+	if verb == "help" {
+		return RunHelp(out, appName, args)
+	}
+
 	if showHelp {
 		fmt.Fprintln(out, FmtCliHelp(appName, verb))
 		return nil
@@ -169,11 +173,6 @@ func RunScripttool(in *os.File, out *os.File, eout *os.File, args []string) erro
 		//FIXME: add detection of file type, convert to fountain then
 		// run report.
 		return CharacterList(in, out, alphaSort)
-
-	// Help system
-	case "help":
-		fmt.Fprintln(out, FmtCliText(HelpText, appName, verb, Version))
-		return nil
 
 	// If we got this far we have an unknown verb
 	default:

@@ -28,6 +28,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -69,6 +70,9 @@ func main() {
 
 	if err := scripttool.RunScripttool(os.Stdin, os.Stdout, os.Stderr, os.Args); err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", err)
+		if errors.Is(err, scripttool.ErrUsage) {
+			os.Exit(2)
+		}
 		os.Exit(1)
 	}
 }

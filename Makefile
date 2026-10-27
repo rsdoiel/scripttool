@@ -16,10 +16,16 @@ RELEASE_HASH=$(shell git log --pretty=format:'%h' -n 1)
 
 MAN_PAGES_1 = $(shell ls -1 *.1.md | sed -E 's/.1.md/.1/g')
 
-# None of these projects has a section 3 or 7 man page; uncomment to add one.
+# None of these projects has a section 3 man page; uncomment to add one.
 #MAN_PAGES_3 = $(shell ls -1 *.3.md | sed -E 's/.3.md/.3/g')
 
-#MAN_PAGES_7 = $(shell ls -1 *.7.md | sed -E 's/.7.md/.7/g')
+# One section 7 man page per help topic, written by the $(PROGRAMS) rule from
+# "scripttool help TOPIC". The list is explicit, not a glob, so a new topic is
+# not skipped before its page exists; TestMakefileHelpTopicsMatch keeps it equal
+# to HelpTopics in help.go. Add a topic in both places.
+HELP_TOPICS = fadein fdx osf fountain characters options examples
+
+MAN_PAGES_7 = $(foreach T,$(HELP_TOPICS),$(PROJECT)-$(T).7)
 
 HTML_PAGES = $(shell find . -type f -not -path './bin/*' -not -path './.git/*' | grep -E '\.html$$')
 
@@ -64,7 +70,7 @@ version.go: .FORCE
 hash: .FORCE
 	git log --pretty=format:'%h' -n 1
 
-man: $(MAN_PAGES_1) # $(MAN_PAGES_3) $(MAN_PAGES_7)
+man: $(MAN_PAGES_1) $(MAN_PAGES_7) # $(MAN_PAGES_3)
 
 $(MAN_PAGES_1): .FORCE
 	mkdir -p man/man1
@@ -74,14 +80,15 @@ $(MAN_PAGES_1): .FORCE
 #	mkdir -p man/man3
 #	pandoc $@.md --from markdown --to man -s >man/man3/$@
 
-#$(MAN_PAGES_7): .FORCE
-#	mkdir -p man/man7
-#	pandoc $@.md --from markdown --to man -s >man/man7/$@
+$(MAN_PAGES_7): .FORCE
+	mkdir -p man/man7
+	pandoc $@.md --from markdown --to man -s >man/man7/$@
 
 $(PROGRAMS): $(PACKAGE)
 	@mkdir -p bin
 	go build -o "bin/$@$(EXT)" cmd/$@/*.go
 	@./bin/$@ -help >$@.1.md
+	@for T in $(HELP_TOPICS); do ./bin/$@ help $$T >$@-$$T.7.md; done
 
 CITATION.cff: .FORCE
 	cmt codemeta.json CITATION.cff
