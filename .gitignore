@@ -24,3 +24,4 @@ testdata/Brick-&-Steel.fountain
 testdata/The-Last-Birthday-Card.fdx
 testdata/The-Last-Birthday-Card.fountain
 *.bak
+/*.tmp
