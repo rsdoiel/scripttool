@@ -30,12 +30,24 @@ $hashes = Get-ChildItem -Path dist -Filter *.zip | ForEach-Object {
 $hashes | Out-File -FilePath "dist/${checksumFile}" -Encoding utf8
 Write-Output "Checksums written to dist/${checksumFile}"
 
+# A draft that already exists for the tag stops the run, so a second is never created
+gh release view "${releaseTag}" *> $null
+if ($LASTEXITCODE -eq 0) {
+    Write-Error "error: a release for ${releaseTag} already exists on GitHub; delete the draft first"
+    Remove-Item -ErrorAction SilentlyContinue release_notes.tmp
+    exit 1
+}
+
 # Prompt user to push release to GitHub
 $yesNo = Read-Host -Prompt "Push release to GitHub with gh? (y/N)"
 if ($yesNo -eq "y") {
     Write-Output "Saving working state for ${releaseTag}"
-    git commit -am "prep for ${releaseTag}"
+    if (git status --porcelain --untracked-files=no) {
+        git commit -am "prep for ${releaseTag}"
+        if ($LASTEXITCODE -ne 0) { exit 1 }
+    }
     git push
+    if ($LASTEXITCODE -ne 0) { exit 1 }
     Write-Output "Pushing release ${releaseTag} to GitHub"
     gh release create "${releaseTag}" `
         --draft `
