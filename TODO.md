@@ -73,7 +73,7 @@ Reference Links
 
 To match the workspace standard (knowledge and opml are the models; Go 1.27.3 across repositories). Do one repository at a time; run the tests and `make -n release` after each step.
 
-- [ ] Makefile: add `check-go-version` (go.mod, codemeta.json and the Go in use agree); `check-release` calls it.
-- [ ] Drop the armv7l target and 32-bit Pi wording (dropped 2026-10-27).
+- [x] Makefile: add `check-go-version` (go.mod, codemeta.json and the Go in use agree); `check-release` calls it.
+- [x] Drop the armv7l target and 32-bit Pi wording (dropped 2026-10-27).
 - [x] Remove `snap/`; the curl installer is the install route.
 - [ ] release.ps1: take knowledge's (existing-draft check, checksums).
