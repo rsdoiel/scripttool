@@ -68,3 +68,12 @@ Reference Links
 + [Screenbox HTML and CSS](https://johnaugust.com/2004/screenbox) is some CSS for marking up HTML classes hand presenting a script section in an HTML page
 + [scrippets Wordpress Plugin](https://wordpress.org/plugins/wp-scrippets/), scrippets.org website appears gone.
 
+
+## Modernization (2026-11-16)
+
+To match the workspace standard (knowledge and opml are the models; Go 1.27.3 across repositories). Do one repository at a time; run the tests and `make -n release` after each step.
+
+- [ ] Makefile: add `check-go-version` (go.mod, codemeta.json and the Go in use agree); `check-release` calls it.
+- [ ] Drop the armv7l target and 32-bit Pi wording (dropped 2026-10-27).
+- [ ] Remove `snap/`; the curl installer is the install route.
+- [ ] release.ps1: take knowledge's (existing-draft check, checksums).
