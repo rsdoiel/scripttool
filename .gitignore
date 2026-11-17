@@ -25,3 +25,4 @@ testdata/The-Last-Birthday-Card.fdx
 testdata/The-Last-Birthday-Card.fountain
 *.bak
 /*.tmp
+man/

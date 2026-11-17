@@ -28,9 +28,9 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"os"
 	"path"
 
@@ -38,23 +38,23 @@ import (
 	"github.com/rsdoiel/scripttool"
 )
 
-var (
-	// Standard Options
-	showHelp    bool
-	showLicense bool
-	showVersion bool
-)
-
 func main() {
 	appName := path.Base(os.Args[0])
-	if len(os.Args) == 1 {
-		fmt.Fprintln(os.Stderr, scripttool.FmtCliText(scripttool.HelpText, appName, "", scripttool.Version))
-		os.Exit(1)
+	var showHelp, showLicense, showVersion bool
+
+	// Only the options before the verb belong to main; the verb parses its own.
+	fset := flag.NewFlagSet(appName, flag.ContinueOnError)
+	fset.SetOutput(io.Discard)
+	fset.BoolVar(&showHelp, "h", false, "display help")
+	fset.BoolVar(&showHelp, "help", false, "display help")
+	fset.BoolVar(&showLicense, "l", false, "display license")
+	fset.BoolVar(&showLicense, "license", false, "display license")
+	fset.BoolVar(&showVersion, "v", false, "display version")
+	fset.BoolVar(&showVersion, "version", false, "display version")
+	if err := fset.Parse(os.Args[1:]); err != nil {
+		fmt.Fprintf(os.Stderr, "%s: %v, run '%s -help'\n", appName, err, appName)
+		os.Exit(scripttool.ExitUsage)
 	}
-	flag.BoolVar(&showHelp, "help", false, "display help")
-	flag.BoolVar(&showVersion, "version", false, "display version")
-	flag.BoolVar(&showLicense, "license", false, "display license")
-	flag.Parse()
 	if showHelp {
 		fmt.Println(scripttool.FmtCliText(scripttool.HelpText, appName, "", scripttool.Version))
 		os.Exit(0)
@@ -68,11 +68,10 @@ func main() {
 		os.Exit(0)
 	}
 
-	if err := scripttool.RunScripttool(os.Stdin, os.Stdout, os.Stderr, os.Args); err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		if errors.Is(err, scripttool.ErrUsage) {
-			os.Exit(2)
-		}
-		os.Exit(1)
+	// The verb and everything after it, as RunScripttool takes them.
+	args := append([]string{os.Args[0]}, fset.Args()...)
+	if err := scripttool.RunScripttool(os.Stdin, os.Stdout, os.Stderr, args); err != nil {
+		fmt.Fprintf(os.Stderr, "%s: %s\n", appName, err)
+		os.Exit(scripttool.ExitCode(err))
 	}
 }

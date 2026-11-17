@@ -118,13 +118,13 @@ topics and _scripttool help TOPIC_ prints one of them.
 
 Below are a set of options available.
 
--help
+-h, -help
 : display help
 
--license
+-l, -license
 : display license
 
--version
+-v, -version
 : display version number
 
 # VERB OPTIONS
@@ -162,6 +162,31 @@ Below are a set of options available.
 -alpha
 : sort characters alphabetically instead of appearence order
 
+
+# EXIT STATUS
+
+0
+: success
+
+2
+: bad command line: an unknown option or verb, a surplus argument, a missing FadeIn file name
+
+65
+: the input cannot be read as the format the verb expects
+
+66
+: an input file does not exist
+
+73
+: the output file cannot be created
+
+74
+: reading or writing failed part way
+
+77
+: the operating system refused access to a file
+
+The output file is created only after the conversion has succeeded.
 
 # EXAMPLES
 

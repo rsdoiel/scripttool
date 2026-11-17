@@ -77,3 +77,4 @@ To match the workspace standard (knowledge and opml are the models; Go 1.27.3 ac
 - [x] Drop the armv7l target and 32-bit Pi wording (dropped 2026-10-27).
 - [x] Remove `snap/`; the curl installer is the install route.
 - [x] release.ps1: take knowledge's (existing-draft check, checksums).
+- [x] DR-0003 exit codes (2, 65, 66, 73, 74, 77) with `ExitError` and `ExitCode`, the output created only after the conversion succeeds, an unknown verb or a missing FadeIn name is a usage error (`fadein2yaml` with no input no longer succeeds silently), `-h`, `-l` and `-v` spellings, messages led by the program name; tested through the built binary (`cmd/scripttool/main_test.go`). Unreleased.
