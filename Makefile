@@ -239,16 +239,32 @@ check-go-version: .FORCE
 	if [ $$FAIL -ne 0 ]; then exit 1; fi; \
 	echo "check-go-version: Go $$GM is consistent"
 
+# check-committed (workspace DR-0012) makes a release come from one known commit:
+# it fails when tracked files have uncommitted changes, or when HEAD is not the
+# tip of the branch on origin (unpushed, or behind). Untracked files (bin/, dist/,
+# man/) are ignored, as git ignores them. It writes nothing.
+check-committed: .FORCE
+	@FAIL=0; \
+	bad() { echo "check-committed: $$1"; FAIL=1; }; \
+	DIRTY="$$(git status --porcelain --untracked-files=no)"; \
+	[ -z "$$DIRTY" ] || { bad "tracked files have uncommitted changes (commit and push them):"; echo "$$DIRTY"; }; \
+	REMOTE="$$(git ls-remote origin "refs/heads/$(BRANCH)" 2>/dev/null | cut -f1)"; \
+	[ -n "$$REMOTE" ] || bad "cannot find branch $(BRANCH) on origin (push it)"; \
+	[ -z "$$REMOTE" ] || [ "$$REMOTE" = "$$(git rev-parse HEAD)" ] || bad "HEAD is not the tip of origin/$(BRANCH) (push, or pull first)"; \
+	if [ $$FAIL -ne 0 ]; then exit 1; fi; \
+	echo "check-committed: $$(git rev-parse --short HEAD) is committed and pushed"
+
 # check-release reads the files a release is cut from and fails when they
 # disagree; it writes nothing. Run it before `make release` (the release target
-# runs it too, after generate). It fails when
+# runs it too). It fails when
 #   - version.go, CITATION.cff or an installer carries a version other than codemeta.json's,
 #     or CITATION.cff's date-released is not datePublished (run `make generate`),
 #   - datePublished is not today's date, the release day,
 #   - v$(VERSION) is already tagged here or on origin (codemeta.json was not bumped),
 #   - releaseNotes are the same as the last tag's (not written for this release),
 #   - softwareRequirements names a github.com/rsdoiel module at a version go.mod does not require,
-#   - the Go version policy fails (check-go-version).
+#   - the Go version policy fails (check-go-version),
+#   - the tree is not committed and pushed (check-committed, workspace DR-0012).
 check-release: .FORCE
 	@FAIL=0; V="$(VERSION)"; TODAY="$$(date +%Y-%m-%d)"; \
 	bad() { echo "check-release: $$1"; FAIL=1; }; \
@@ -282,10 +298,12 @@ check-release: .FORCE
 		[ "$$GM" = "$$MIN" ] || bad "softwareRequirements says $$M >= $$MIN, go.mod requires v$$GM"; \
 	done; \
 	$(MAKE) -s check-go-version || FAIL=1; \
+	$(MAKE) -s check-committed || FAIL=1; \
 	if [ $$FAIL -ne 0 ]; then echo "check-release: v$$V is NOT ready to release"; exit 1; fi; \
 	echo "check-release: v$$V is consistent"
 
-release: generate check-release build setup_dist distribute_docs dist/Linux-x86_64 dist/Linux-aarch64 dist/macOS-x86_64 dist/macOS-arm64 dist/Windows-x86_64 dist/Windows-arm64
+release: check-release build setup_dist distribute_docs dist/Linux-x86_64 dist/Linux-aarch64 dist/macOS-x86_64 dist/macOS-arm64 dist/Windows-x86_64 dist/Windows-arm64
+	@$(MAKE) -s check-committed
 	@printf "\nready to run\n\n\trelease.bash\n\n"
 
 
